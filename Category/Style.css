@@ -44,12 +44,11 @@ img {
 
 /* Header Styles */
 header {
-    background-color: white;
-    box-shadow: var(--shadow);
+     background: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
     position: sticky;
     top: 0;
     z-index: 100;
-    padding: 1rem 0;
 }
 
 nav {
@@ -58,14 +57,26 @@ nav {
     align-items: center;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 2rem;
+    padding: 1rem 2rem;
+    height: 70px;
 }
 
-.logo {
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: var(--primary-color);
-    font-family: 'Georgia', serif;
+
+nav .logo {
+    font-size: 1.7rem;
+    font-weight: bold;
+    color: #8B4513; 
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    display: flex;
+    alighn-items: center;
+}
+
+.nav-logo {
+    height: 40px; /* Adjust as needed for visibility, this keeps it within typical nav height */
+    width: auto; /* Maintain aspect ratio */
+    margin-right: 8px; /* 4px margin from the name, doubled to account for spacing */
+    vertical-align: middle; /* Align with text baseline */
 }
 
 nav ul {

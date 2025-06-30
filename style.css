@@ -74,7 +74,64 @@ nav ul li a:focus {
     color: #fff;
 }
 
-/* --- Hero Section --- */
+/* --- Responsive Navigation --- */
+.nav-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 44px;
+    height: 44px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 200;
+}
+.nav-toggle .bar {
+    width: 28px;
+    height: 3px;
+    background: #007BFF;
+    margin: 4px 0;
+    border-radius: 2px;
+    transition: all 0.3s;
+}
+@media (max-width: 900px) {
+    .nav-toggle {
+        display: flex;
+    }
+    nav ul {
+        position: absolute;
+        top: 70px;
+        right: 0;
+        background: #fff;
+        flex-direction: column;
+        width: 200px;
+        box-shadow: 0 4px 24px rgba(0,0,0,0.13);
+        padding: 1.5rem 0;
+        gap: 1.2rem;
+        align-items: flex-start;
+        transform: translateX(110%);
+        transition: transform 0.3s;
+        z-index: 150;
+    }
+    nav ul.open {
+        transform: translateX(0);
+    }
+    nav ul li {
+        width: 100%;
+    }
+    nav ul li a {
+        width: 100%;
+        display: block;
+        padding: 12px 24px;
+        font-size: 1.1rem;
+    }
+    nav {
+        position: relative;
+    }
+}
+
+/* --- Enhanced Hero Section --- */
 .hero {
     background: linear-gradient(120deg, #007BFF 0%, #6EC6FF 100%);
     color: #fff;
@@ -91,55 +148,166 @@ nav ul li a:focus {
 .hero-slider {
     position: relative;
     width: 100%;
-    max-width: 900px;
+    max-width: 1200px;
+    height: 600px;
     margin: 0 auto 2rem auto;
     overflow: hidden;
     border-radius: 16px;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.15);
-    background: #222;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
-.hero-slider img {
+.slides-container {
+    position: relative;
     width: 100%;
-    display: none;
-    height: 350px;
-    object-fit: contain;
-    background: #222;
-    transition: opacity 0.5s;
+    height: 100%;
 }
 
-.hero-slider img.active {
-    display: block;
+.slide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+    transform: scale(1.02);
+}
+
+.slide.active {
     opacity: 1;
+    transform: scale(1);
+    z-index: 1;
+}
+
+.slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.slide-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+    color: white;
+    padding: 2rem;
+    padding-top: 5rem;
+    transform: translateY(20px);
+    transition: transform 0.5s ease;
+    text-align: left;
+}
+
+.slide.active .slide-content {
+    transform: translateY(0);
+}
+
+.slide-title {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.slide-description {
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+    max-width: 600px;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.slide-button {
+    display: inline-block;
+    padding: 0.8rem 2rem;
+    background: #007BFF;
+    color: white;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    border: 2px solid #007BFF;
+}
+
+.slide-button:hover {
+    background: transparent;
+    color: white;
+    border-color: white;
 }
 
 .slider-btn {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(0,0,0,0.4);
-    color: #fff;
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
     border: none;
-    font-size: 2rem;
-    padding: 0 14px;
-    cursor: pointer;
-    z-index: 2;
     border-radius: 50%;
-    transition: background 0.2s;
+    font-size: 1.5rem;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
 }
 
 .slider-btn:hover {
-    background: #007BFF;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-50%) scale(1.1);
 }
 
-.slider-btn.prev { left: 10px; }
-.slider-btn.next { right: 10px; }
+.slider-btn.prev {
+    left: 30px;
+}
+
+.slider-btn.next {
+    right: 30px;
+}
+
+.slider-dots {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 10;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.dot.active {
+    background: white;
+    transform: scale(1.2);
+}
+
+.dot:hover {
+    background: white;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
 
 .hero-content h1 {
     font-size: 2.5rem;
     margin-bottom: 0.5rem;
     font-weight: 800;
     letter-spacing: 0.03em;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .hero-content h2 {
@@ -147,11 +315,13 @@ nav ul li a:focus {
     font-weight: 400;
     margin-bottom: 1.5rem;
     color: #e3f2fd;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .hero-content p {
     font-size: 1.1rem;
     margin-bottom: 2rem;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
 }
 
 .cta-button {
@@ -172,11 +342,82 @@ nav ul li a:focus {
     color: #fff;
 }
 
-/* --- Services Section --- */
+/* Responsive adjustments for hero slider */
+@media (max-width: 900px) {
+    .hero-slider {
+        height: 450px;
+    }
+    
+    .slide-title {
+        font-size: 2rem;
+    }
+    
+    .slide-description {
+        font-size: 1rem;
+    }
+    
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+    
+    .hero-content h2 {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .hero-slider {
+        height: 350px;
+        border-radius: 0;
+    }
+    
+    .slide-content {
+        padding: 1.5rem;
+        padding-top: 4rem;
+    }
+    
+    .slide-title {
+        font-size: 1.5rem;
+    }
+    
+    .slider-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
+    
+    .slider-btn.prev {
+        left: 15px;
+    }
+    
+    .slider-btn.next {
+        right: 15px;
+    }
+    
+    .hero-content h1 {
+        font-size: 1.8rem;
+    }
+    
+    .hero-content h2 {
+        font-size: 1rem;
+    }
+    
+    .hero-content p {
+        font-size: 0.98rem;
+    }
+    
+    .cta-button {
+        font-size: 1rem;
+        padding: 10px 18px;
+    }
+}
+
+/* --- Rest of your existing CSS remains unchanged --- */
+/* Services Section */
 .services-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 2rem;
+    gap: 4rem;
     justify-content: center;
     margin-top: 2rem;
 }
@@ -185,7 +426,7 @@ nav ul li a:focus {
     background: #fff;
     border-radius: 16px;
     box-shadow: 0 2px 12px rgba(0,0,0,0.07);
-    padding: 2rem 1.5rem;
+    padding: 2rem 3rem;
     max-width: 340px;
     flex: 1 1 280px;
     text-align: left;
@@ -645,9 +886,6 @@ nav ul li a:focus {
     nav ul {
         gap: 1rem;
     }
-    .hero-content h1 {
-        font-size: 2rem;
-    }
     .categories-grid {
         gap: 1rem;
     }
@@ -670,9 +908,6 @@ nav ul li a:focus {
         flex-direction: column;
         gap: 1rem;
         padding: 1rem;
-    }
-    .hero-slider img {
-        height: 200px;
     }
     section {
         padding: 40px 8px;
@@ -943,29 +1178,9 @@ nav ul li a:focus {
 }
 
 /* --- Product Detail Row: Two Products Side by Side --- */
-.product-detail-row {
-    display: flex;
-    gap: 2.5rem;
-    justify-content: center;
-    align-items: flex-start;
-    margin-bottom: 2.5rem;
-    flex-wrap: wrap;
-}
-.product-detail-row > .product-detail {
-    flex: 1 1 420px;
-    max-width: 540px;
-    min-width: 320px;
-    margin: 0;
-}
-@media (max-width: 900px) {
-    .product-detail-row {
-        flex-direction: column;
-        gap: 1.5rem;
-    }
-    .product-detail-row > .product-detail {
-        max-width: 100%;
-    }
-}
+
+
+
 
 /* --- Footer Modern Style --- */
 footer {
@@ -1049,5 +1264,64 @@ footer p {
     }
     #services {
         margin-top: 0.7rem !important;
+    }
+}
+
+/* --- Fluid Images & Cards --- */
+img, video {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+.category-card img,
+.featured-card img,
+.product-card img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+}
+@media (max-width: 600px) {
+    .category-card img,
+    .featured-card img,
+    .product-card img {
+        width: 48px;
+        height: 48px;
+    }
+}
+
+/* --- Section Padding & Layout --- */
+section {
+    padding: 32px 8px;
+    max-width: 100vw;
+}
+@media (max-width: 900px) {
+    section {
+        padding: 24px 4vw;
+    }
+}
+@media (max-width: 600px) {
+    section {
+        padding: 14px 2vw;
+    }
+    .categories-title,
+    .testimonials-title,
+    .featured-title {
+        font-size: 1.2rem;
+    }
+}
+
+/* --- Make Grids Stack on Mobile --- */
+@media (max-width: 900px) {
+    .categories-grid,
+    .testimonials-grid,
+    .featured-grid {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    .category-card,
+    .testimonial-card,
+    .featured-card {
+        max-width: 100%;
+        width: 100%;
     }
 }

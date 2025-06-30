@@ -126,22 +126,39 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // --- Responsive Hamburger Navigation ---
-    const navToggle = document.querySelector('.nav-toggle');
-    const navMenu = document.querySelector('nav ul');
-    if (navToggle && navMenu) {
-        navToggle.addEventListener('click', function() {
-            navMenu.classList.toggle('open');
-            const expanded = navToggle.getAttribute('aria-expanded') === 'true';
-            navToggle.setAttribute('aria-expanded', !expanded);
+   // --- Responsive Hamburger Navigation ---
+const navToggle = document.querySelector('.nav-toggle');
+const navMenu = document.querySelector('nav ul');
+if (navToggle && navMenu) {
+    navToggle.addEventListener('click', function() {
+        const isOpen = navMenu.classList.toggle('open');
+        navToggle.setAttribute('aria-expanded', isOpen);
+        
+        // Close when clicking outside the menu
+        if (isOpen) {
+            document.addEventListener('click', closeMenuOnClickOutside);
+        } else {
+            document.removeEventListener('click', closeMenuOnClickOutside);
+        }
+    });
+    
+    // Close menu on link click (mobile)
+    navMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            navMenu.classList.remove('open');
+            navToggle.setAttribute('aria-expanded', 'false');
+            document.removeEventListener('click', closeMenuOnClickOutside);
         });
-        // Close menu on link click (mobile)
-        navMenu.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                navMenu.classList.remove('open');
-                navToggle.setAttribute('aria-expanded', 'false');
-            });
-        });
+    });
+    
+    function closeMenuOnClickOutside(e) {
+        if (!navMenu.contains(e.target) && e.target !== navToggle) {
+            navMenu.classList.remove('open');
+            navToggle.setAttribute('aria-expanded', 'false');
+            document.removeEventListener('click', closeMenuOnClickOutside);
+        }
     }
+}
 
     // --- General Slide Show Functionality (for other sliders on the site) ---
     const slides = document.querySelectorAll('.slide:not(.hero-slider .slide):not(.product-slider .slide)');

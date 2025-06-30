@@ -11,7 +11,9 @@
     --light-gray: #eee;
     --transition: all 0.3s ease;
     --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    --border-radius: 8px;
+    --shadow-hover: 0 8px 25px rgba(0, 0, 0, 0.15);
+    --border-radius: 12px;
+    --section-spacing: 4rem;
 }
 
 * {
@@ -20,16 +22,22 @@
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
     color: var(--dark-color);
     background-color: var(--light-color);
+    overflow-x: hidden;
 }
 
 a {
     text-decoration: none;
     color: inherit;
+    transition: var(--transition);
 }
 
 ul {
@@ -44,44 +52,49 @@ img {
 
 /* Header Styles */
 header {
-     background: #fff;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    background: rgba(255, 255, 255, 0.98);
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
     position: sticky;
     top: 0;
-    z-index: 100;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
 }
 
 nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 1200px;
+    max-width: 1280px;
     margin: 0 auto;
     padding: 1rem 2rem;
-    height: 70px;
+    height: 80px;
 }
 
-
 nav .logo {
-    font-size: 1.7rem;
-    font-weight: bold;
-    color: #8B4513; 
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--secondary-color);
     letter-spacing: 0.05em;
-    text-decoration: none;
     display: flex;
-    alighn-items: center;
+    align-items: center;
+    gap: 0.75rem;
+    transition: var(--transition);
+}
+
+nav .logo:hover {
+    color: var(--primary-color);
+    transform: translateY(-2px);
 }
 
 .nav-logo {
-    height: 40px; /* Adjust as needed for visibility, this keeps it within typical nav height */
-    width: auto; /* Maintain aspect ratio */
-    margin-right: 8px; /* 4px margin from the name, doubled to account for spacing */
-    vertical-align: middle; /* Align with text baseline */
+    height: 42px;
+    width: auto;
+    transition: var(--transition);
 }
 
 nav ul {
     display: flex;
-    gap: 2rem;
+    gap: 2.5rem;
 }
 
 nav ul li a {
@@ -89,6 +102,7 @@ nav ul li a {
     transition: var(--transition);
     position: relative;
     padding: 0.5rem 0;
+    font-size: 1.05rem;
 }
 
 nav ul li a::after {
@@ -106,46 +120,100 @@ nav ul li a:hover::after {
     width: 100%;
 }
 
+nav ul li a:hover {
+    color: var(--primary-color);
+}
+
 /* Main Content Styles */
 main {
-    max-width: 1200px;
-    margin: 2rem auto;
+    max-width: 1280px;
+    margin: 3rem auto;
     padding: 0 2rem;
+}
+
+.page-title {
+    text-align: center;
+    margin-bottom: 3rem;
+    position: relative;
+    padding-bottom: 1rem;
+}
+
+.page-title h1 {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+}
+
+.page-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+    border-radius: 2px;
 }
 
 .product-detail-row {
     display: flex;
     flex-direction: column;
-    gap: 3rem;
-    margin-bottom: 3rem;
+    gap: 4rem;
+    margin-bottom: var(--section-spacing);
 }
 
 .product-detail {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 2rem;
+    gap: 3rem;
     background: white;
     border-radius: var(--border-radius);
     box-shadow: var(--shadow);
     overflow: hidden;
     transition: var(--transition);
+    position: relative;
 }
 
 .product-detail:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-hover);
+}
+
+.product-detail::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(74, 111, 40, 0.05) 0%, rgba(139, 90, 43, 0.05) 100%);
+    z-index: 0;
+    opacity: 0;
+    transition: var(--transition);
+}
+
+.product-detail:hover::before {
+    opacity: 1;
 }
 
 /* Product Gallery Styles */
-/* Replace gallery styles with: */
 .product-gallery {
     position: relative;
-    padding: 1rem;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    z-index: 1;
 }
 
 .fade-gallery {
     position: relative;
-    height: 400px;
+    height: 450px;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .fade-gallery img {
@@ -153,99 +221,159 @@ main {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: var(--border-radius);
     opacity: 0;
-    transition: opacity 0.5s ease;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    transform: scale(0.98);
 }
 
 .fade-gallery img.active {
     opacity: 1;
+    transform: scale(1);
 }
 
 .thumbnail-container {
     display: flex;
     justify-content: center;
-    gap: 0.5rem;
-    margin-top: 1rem;
+    gap: 1rem;
+    flex-wrap: wrap;
 }
 
 .thumbnail {
-    width: 60px;
-    height: 60px;
+    width: 80px;
+    height: 80px;
     object-fit: cover;
-    border-radius: 4px;
+    border-radius: 8px;
     cursor: pointer;
     opacity: 0.7;
-    transition: all 0.3s ease;
+    transition: var(--transition);
     border: 2px solid transparent;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.thumbnail:hover, .thumbnail.active {
+.thumbnail:hover {
+    opacity: 1;
+    border-color: var(--primary-color);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+.thumbnail.active {
     opacity: 1;
     border-color: var(--primary-color);
     transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
 }
+
 /* Product Info Styles */
 .product-info {
-    padding: 2rem;
+    padding: 2.5rem 2.5rem 2.5rem 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    z-index: 1;
 }
 
 .product-info h2 {
-    font-size: 2rem;
-    margin-bottom: 0.5rem;
+    font-size: 2.2rem;
+    margin-bottom: 0.75rem;
     color: var(--primary-color);
-    font-family: 'Georgia', serif;
+    font-weight: 700;
+    line-height: 1.2;
+    position: relative;
+    display: inline-block;
+}
+
+.product-info h2::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 50px;
+    height: 3px;
+    background-color: var(--accent-color);
+    border-radius: 2px;
 }
 
 .product-price {
     display: block;
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     font-weight: 700;
     color: var(--secondary-color);
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
 }
 
 .product-info p {
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
     color: var(--gray-color);
+    font-size: 1.05rem;
+    line-height: 1.7;
 }
 
 .product-features {
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
 }
 
 .product-features li {
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.75rem;
+    font-size: 1.05rem;
 }
 
 .product-features i {
     color: var(--primary-color);
+    font-size: 1.1rem;
 }
 
 /* CTA Button */
 .cta-button {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
     background-color: var(--primary-color);
     color: white;
-    padding: 0.8rem 1.5rem;
+    padding: 1rem 2rem;
     border-radius: var(--border-radius);
     font-weight: 600;
     text-align: center;
     transition: var(--transition);
     align-self: flex-start;
     border: 2px solid var(--primary-color);
+    font-size: 1.05rem;
+    box-shadow: 0 4px 10px rgba(74, 111, 40, 0.3);
 }
 
 .cta-button:hover {
     background-color: transparent;
     color: var(--primary-color);
-    transform: translateY(-2px);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(74, 111, 40, 0.4);
+}
+
+.cta-button i {
+    transition: var(--transition);
+}
+
+.cta-button:hover i {
+    transform: translateX(3px);
+}
+
+/* Badge for Featured Products */
+.featured-badge {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: linear-gradient(135deg, var(--accent-color), #f1c40f);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    z-index: 2;
+    box-shadow: 0 3px 10px rgba(212, 175, 55, 0.3);
+    animation: pulse 2s infinite;
 }
 
 /* Footer Styles */
@@ -253,75 +381,178 @@ footer {
     background-color: var(--dark-color);
     color: white;
     text-align: center;
-    padding: 2rem;
-    margin-top: 3rem;
+    padding: 3rem 2rem;
+    margin-top: var(--section-spacing);
 }
 
 footer p {
-    font-size: 0.9rem;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.social-links a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.1);
+    transition: var(--transition);
+}
+
+.social-links a:hover {
+    background-color: var(--accent-color);
+    transform: translateY(-3px);
+}
+
+.social-links i {
+    font-size: 1.2rem;
+}
+
+/* Back to Top Button */
+.back-to-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 50px;
+    height: 50px;
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--transition);
+    z-index: 999;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.back-to-top:hover {
+    background-color: var(--accent-color);
+    transform: translateY(-3px);
+}
+
+/* Animations */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
 }
 
 /* Responsive Styles */
+@media (max-width: 1200px) {
+    .fade-gallery {
+        height: 400px;
+    }
+}
+
 @media (max-width: 992px) {
     .product-detail {
         grid-template-columns: 1fr;
     }
     
-    .slide {
-        height: 350px;
+    .product-info {
+        padding: 2rem;
+    }
+    
+    .fade-gallery {
+        height: 450px;
+    }
+    
+    nav ul {
+        gap: 1.5rem;
     }
 }
 
 @media (max-width: 768px) {
     nav {
         flex-direction: column;
-        gap: 1rem;
+        height: auto;
+        padding: 1.5rem;
     }
     
     nav ul {
-        gap: 1.5rem;
+        margin-top: 1rem;
+        gap: 1rem;
     }
     
-    .product-thumbnails {
-        flex-wrap: wrap;
+    .fade-gallery {
+        height: 350px;
     }
     
-    .slide {
-        height: 300px;
+    .thumbnail {
+        width: 70px;
+        height: 70px;
+    }
+    
+    .product-info h2 {
+        font-size: 2rem;
     }
 }
 
 @media (max-width: 576px) {
-    nav ul {
-        flex-direction: column;
-        gap: 0.5rem;
-        align-items: center;
+    main {
+        padding: 0 1.5rem;
+    }
+    
+    .page-title h1 {
+        font-size: 2rem;
+    }
+    
+    .fade-gallery {
+        height: 300px;
+    }
+    
+    .thumbnail {
+        width: 60px;
+        height: 60px;
     }
     
     .product-info {
         padding: 1.5rem;
     }
     
-    .slide {
-        height: 250px;
+    .product-info h2 {
+        font-size: 1.8rem;
     }
     
-    .thumb {
-        width: 60px;
-        height: 60px;
+    .product-price {
+        font-size: 1.5rem;
     }
-}
-
-/* Animation for better interactivity */
-@keyframes float {
-    0%, 100% {
-        transform: translateY(0);
+    
+    .cta-button {
+        width: 100%;
+        padding: 1rem;
     }
-    50% {
-        transform: translateY(-5px);
-    }
-}
-
-.cta-button:hover {
-    animation: float 1s ease infinite;
 }

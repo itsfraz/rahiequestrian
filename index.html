@@ -3,31 +3,23 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Rahi Equestrian</title>
-    <!-- Link to our CSS stylesheet -->
+    <title>Rahi Equestrian | Premium Equestrian Supplies</title>
+    <meta name="description" content="Premium Raw Materials & Equipment for Equestrian Excellence. Handcrafted saddles, leather goods, and riding gear.">
     <link rel="stylesheet" href="style.css" />
-    <!-- Font Awesome for icons -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
-    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
   </head>
   <body>
     <!-- Header & Navigation Bar -->
     <header>
       <nav>
         <a href="#home" class="logo">
-          <img
-            src="images/img04.png"
-            alt="Rahi Equestrian Logo"
-            class="nav-logo"
-          />Rahi Equestrian</a
-        >
-        <button
-          class="nav-toggle"
-          aria-label="Open navigation"
-          aria-expanded="false"
-        >
+          <img src="images/img04.png" alt="Rahi Equestrian Logo" class="nav-logo" />
+          <span>Rahi Equestrian</span>
+        </a>
+        <button class="nav-toggle" aria-label="Open navigation" aria-expanded="false">
           <span class="bar"></span>
           <span class="bar"></span>
           <span class="bar"></span>
@@ -36,24 +28,27 @@
           <li><a href="#home">Home</a></li>
           <li><a href="#about">About</a></li>
           <li><a href="#services">Services</a></li>
+          <li><a href="#products">Products</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
       </nav>
+      <div class="nav-overlay"></div>
     </header>
 
     <main>
       <!-- Home Section -->
       <section id="home" class="hero">
         <div class="hero-slider">
-          <img src="images/img01.jpg" class="slide active" alt="Saddle" />
-          <img src="images/img02.jpg" class="slide" alt="Leather Workshop" />
-          <img src="images/img03.jpg" class="slide" alt="Equestrian Gear" />
+          <img src="images/img01.jpg" class="slide active" alt="Saddle" loading="lazy" />
+          <img src="images/img02.jpg" class="slide" alt="Leather Workshop" loading="lazy" />
+          <img src="images/img03.jpg" class="slide" alt="Equestrian Gear" loading="lazy" />
           <button class="slider-btn prev" aria-label="Previous Slide">
-            &#10094;
+            <i class="fas fa-chevron-left"></i>
           </button>
           <button class="slider-btn next" aria-label="Next Slide">
-            &#10095;
+            <i class="fas fa-chevron-right"></i>
           </button>
+          <div class="slider-dots"></div>
         </div>
         <div class="hero-content">
           <h1>
@@ -68,196 +63,389 @@
             passion, tradition, and innovation in India.
           </p>
           <div class="hero-buttons">
-            <a href="#categoryTabs" class="cta-button primary"
-              >Explore Categories</a
-            >
+            <a href="#products" class="cta-button primary">Explore Products</a>
             <a href="#contact" class="cta-button secondary">Get in Touch</a>
           </div>
         </div>
       </section>
 
       <!-- Services Section -->
-      <section id="services">
-        <h2>Our Products & Services</h2>
-        <div class="services-container">
-          <div class="service-card">
-            <h3>Equestrian Equipment</h3>
-            <p>
-              Supplying saddles, bridles, riding apparel, horse care products,
-              and stable accessories for all your equestrian needs.
-            </p>
-          </div>
-          <div class="service-card">
-            <h3>Raw Materials</h3>
-            <p>
-              Providing high-quality leather, textiles, metals, and other raw
-              materials for manufacturers and workshops in the equestrian
-              industry.
-            </p>
-          </div>
-          <div class="service-card">
-            <h3>Custom Orders & Consultation</h3>
-            <p>
-              Offering tailored solutions and expert advice to help you find the
-              right products or materials for your specific requirements.
-            </p>
+      <section id="services" class="section-dark">
+        <div class="section-container">
+          <h2 class="section-title">Our Products & Services</h2>
+          <p class="section-subtitle">Quality craftsmanship for equestrian enthusiasts</p>
+          
+          <div class="services-container">
+            <div class="service-card">
+              <div class="service-icon">
+                <i class="fas fa-horse"></i>
+              </div>
+              <h3>Equestrian Equipment</h3>
+              <p>
+                Supplying saddles, bridles, riding apparel, horse care products,
+                and stable accessories for all your equestrian needs.
+              </p>
+              <a href="#products" class="service-link">View Products <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="service-card">
+              <div class="service-icon">
+                <i class="fas fa-cut"></i>
+              </div>
+              <h3>Raw Materials</h3>
+              <p>
+                Providing high-quality leather, textiles, metals, and other raw
+                materials for manufacturers and workshops in the equestrian
+                industry.
+              </p>
+              <a href="#products" class="service-link">View Materials <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="service-card">
+              <div class="service-icon">
+                <i class="fas fa-pen-fancy"></i>
+              </div>
+              <h3>Custom Orders</h3>
+              <p>
+                Offering tailored solutions and expert advice to help you find the
+                right products or materials for your specific requirements.
+              </p>
+              <a href="#contact" class="service-link">Get Quote <i class="fas fa-arrow-right"></i></a>
+            </div>
           </div>
         </div>
       </section>
 
-      <!-- Quick Links to Product Categories -->
-      <section class="product-categories">
-        <h2 class="categories-title">Explore Our Categories</h2>
-        <div class="categories-grid" id="categoryTabs">
-          <a class="category-card" href="Category/equipment.html">
-            <img src="images/img01.jpg" alt="Equipment" />
-            <span>Equipment</span>
-          </a>
-          <a class="category-card" href="Category/raw-materials.html">
-            <img src="images/img02.jpg" alt="Raw Materials" />
-            <span>Raw Materials</span>
-          </a>
-          <a class="category-card" href="Category/apparel.html">
-            <img src="images/img03.jpg" alt="Apparel" />
-            <span>Apparel</span>
-          </a>
-          <a class="category-card" href="Category/table-supplies.html">
-            <img src="images/img01.jpg" alt="Stable Supplies" />
-            <span>Stable Supplies</span>
-          </a>
+      <!-- Product Categories -->
+      <section id="products" class="section-light">
+        <div class="section-container">
+          <h2 class="section-title">Explore Our Categories</h2>
+          <p class="section-subtitle">Premium products for riders and horses</p>
+          
+          <div class="categories-grid">
+            <a class="category-card" href="Category/equipment.html">
+              <div class="category-image">
+                <img src="images/img01.jpg" alt="Equipment" loading="lazy" />
+              </div>
+              <span>Equipment</span>
+              <div class="category-overlay">
+                <p>Saddles, bridles, and riding gear</p>
+              </div>
+            </a>
+            <a class="category-card" href="Category/raw-materials.html">
+              <div class="category-image">
+                <img src="images/img02.jpg" alt="Raw Materials" loading="lazy" />
+              </div>
+              <span>Raw Materials</span>
+              <div class="category-overlay">
+                <p>Premium leather and textiles</p>
+              </div>
+            </a>
+            <a class="category-card" href="Category/apparel.html">
+              <div class="category-image">
+                <img src="images/img03.jpg" alt="Apparel" loading="lazy" />
+              </div>
+              <span>Apparel</span>
+              <div class="category-overlay">
+                <p>Riding clothes and accessories</p>
+              </div>
+            </a>
+            <a class="category-card" href="Category/table-supplies.html">
+              <div class="category-image">
+                <img src="images/img01.jpg" alt="Stable Supplies" loading="lazy" />
+              </div>
+              <span>Stable Supplies</span>
+              <div class="category-overlay">
+                <p>Everything for your stable</p>
+              </div>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Featured Products -->
+      <section class="featured-products section-dark">
+        <div class="section-container">
+          <h2 class="section-title">Featured Products</h2>
+          <p class="section-subtitle">Our best selling items</p>
+          
+          <div class="featured-grid">
+            <div class="featured-card">
+              <div class="product-badge">Bestseller</div>
+              <div class="featured-image">
+                <img src="images/img01.jpg" alt="Premium Saddle" loading="lazy" />
+                <div class="product-actions">
+                  <button class="quick-view"><i class="far fa-eye"></i> Quick View</button>
+                </div>
+              </div>
+              <div class="featured-content">
+                <h3>Premium Saddle</h3>
+                <div class="product-rating">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star-half-alt"></i>
+                  <span>(24)</span>
+                </div>
+                <p class="product-price">₹24,999</p>
+              </div>
+            </div>
+            <div class="featured-card">
+              <div class="product-badge">New</div>
+              <div class="featured-image">
+                <img src="images/img02.jpg" alt="Leather Reins" loading="lazy" />
+                <div class="product-actions">
+                  <button class="quick-view"><i class="far fa-eye"></i> Quick View</button>
+                </div>
+              </div>
+              <div class="featured-content">
+                <h3>Leather Reins</h3>
+                <div class="product-rating">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="far fa-star"></i>
+                  <span>(18)</span>
+                </div>
+                <p class="product-price">₹3,499</p>
+              </div>
+            </div>
+            <div class="featured-card">
+              <div class="featured-image">
+                <img src="images/img03.jpg" alt="Stable Blanket" loading="lazy" />
+                <div class="product-actions">
+                  <button class="quick-view"><i class="far fa-eye"></i> Quick View</button>
+                </div>
+              </div>
+              <div class="featured-content">
+                <h3>Stable Blanket</h3>
+                <div class="product-rating">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <span>(32)</span>
+                </div>
+                <p class="product-price">₹5,999</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="section-footer">
+            <a href="#products" class="cta-button outline">View All Products</a>
+          </div>
         </div>
       </section>
 
       <!-- About Us Section -->
-      <section id="about" class="about-section">
-        <div class="about-content">
-          <div class="about-text">
-            <h2>About Rahi Equestrian</h2>
-            <p class="about-story">
-              <strong>Our Story:</strong>
-              Founded by passionate equestrian enthusiasts, Rahi Equestrian is
-              driven by a love for horses and the timeless art of leather
-              craftsmanship. We believe in blending tradition with innovation to
-              deliver products that truly stand out in quality and design.
-            </p>
-            <p class="about-history">
-              <strong>Our Heritage:</strong>
-              With roots in India’s rich tradition of leatherwork, our team
-              combines generations of expertise with a commitment to
-              sustainability. Every item is crafted with care, using
-              eco-friendly processes and responsibly sourced materials.
-            </p>
-            <ul class="about-usp">
-              <li><span>✔</span> 100% Handmade Excellence</li>
-              <li><span>✔</span> Premium Indian Leather</li>
-              <li><span>✔</span> Eco-Friendly & Sustainable</li>
-              <li><span>✔</span> Custom Designs for Every Rider</li>
-            </ul>
-          </div>
-          <div class="about-image">
-            <img src="images/img02.jpg" alt="Our Workshop - Rahi Equestrian" />
+      <section id="about" class="about-section section-light">
+        <div class="section-container">
+          <div class="about-content">
+            <div class="about-text">
+              <h2 class="section-title">About Rahi Equestrian</h2>
+              <p class="about-story">
+                <strong>Our Story:</strong>
+                Founded by passionate equestrian enthusiasts, Rahi Equestrian is
+                driven by a love for horses and the timeless art of leather
+                craftsmanship. We believe in blending tradition with innovation to
+                deliver products that truly stand out in quality and design.
+              </p>
+              <p class="about-history">
+                <strong>Our Heritage:</strong>
+                With roots in India's rich tradition of leatherwork, our team
+                combines generations of expertise with a commitment to
+                sustainability. Every item is crafted with care, using
+                eco-friendly processes and responsibly sourced materials.
+              </p>
+              <ul class="about-usp">
+                <li><i class="fas fa-check-circle"></i> 100% Handmade Excellence</li>
+                <li><i class="fas fa-check-circle"></i> Premium Indian Leather</li>
+                <li><i class="fas fa-check-circle"></i> Eco-Friendly & Sustainable</li>
+                <li><i class="fas fa-check-circle"></i> Custom Designs for Every Rider</li>
+              </ul>
+              <div class="about-stats">
+                <div class="stat-item">
+                  <span class="stat-number">15+</span>
+                  <span class="stat-label">Years Experience</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-number">500+</span>
+                  <span class="stat-label">Happy Clients</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-number">100%</span>
+                  <span class="stat-label">Satisfaction</span>
+                </div>
+              </div>
+            </div>
+            <div class="about-image">
+              <img src="images/img02.jpg" alt="Our Workshop - Rahi Equestrian" loading="lazy" />
+              <div class="experience-badge">
+                <span>Since 2008</span>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      <!-- Testimonials / Trust Badges Section -->
-      <section class="testimonials">
-        <h2 class="testimonials-title">What Our Clients Say</h2>
-        <div class="testimonials-grid">
-          <div class="testimonial-card">
-            <p>
-              "Excellent quality and fast delivery. Highly recommended for all
-              equestrian needs!"
-            </p>
-            <span class="testimonial-author">— Sarah K., Stable Owner</span>
+      <!-- Testimonials Section -->
+      <section class="testimonials section-dark">
+        <div class="section-container">
+          <h2 class="section-title">What Our Clients Say</h2>
+          <p class="section-subtitle">Trusted by equestrian professionals</p>
+          
+          <div class="testimonials-grid">
+            <div class="testimonial-card">
+              <div class="testimonial-rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+              </div>
+              <p>
+                "Excellent quality and fast delivery. Highly recommended for all
+                equestrian needs! The saddles are incredibly comfortable."
+              </p>
+              <div class="testimonial-author">
+                <img src="https://randomuser.me/api/portraits/women/45.jpg" alt="Sarah K.">
+                <div>
+                  <span class="author-name">Sarah K.</span>
+                  <span class="author-title">Stable Owner</span>
+                </div>
+              </div>
+            </div>
+            <div class="testimonial-card">
+              <div class="testimonial-rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+              </div>
+              <p>
+                "The raw materials are top-notch. Our workshop relies on Rahi
+                Equestrian for all our leather supplies."
+              </p>
+              <div class="testimonial-author">
+                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Ahmed M.">
+                <div>
+                  <span class="author-name">Ahmed M.</span>
+                  <span class="author-title">Manufacturer</span>
+                </div>
+              </div>
+            </div>
+            <div class="testimonial-card">
+              <div class="testimonial-rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+              </div>
+              <p>
+                "Professional service and great advice for custom orders. My custom saddle fits perfectly and looks stunning."
+              </p>
+              <div class="testimonial-author">
+                <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Emily R.">
+                <div>
+                  <span class="author-name">Emily R.</span>
+                  <span class="author-title">Professional Rider</span>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="testimonial-card">
-            <p>
-              "The raw materials are top-notch. Our workshop relies on Rahi
-              Equestrian."
-            </p>
-            <span class="testimonial-author">— Ahmed M., Manufacturer</span>
-          </div>
-          <div class="testimonial-card">
-            <p>"Professional service and great advice for custom orders."</p>
-            <span class="testimonial-author">— Emily R., Rider</span>
+          
+          <div class="trust-badges">
+            <div class="trust-badge">
+              <i class="fa-solid fa-handshake"></i>
+              <span>Trusted Supplier</span>
+            </div>
+            <div class="trust-badge">
+              <i class="fa-solid fa-certificate"></i>
+              <span>Quality Guarantee</span>
+            </div>
+            <div class="trust-badge">
+              <i class="fa-solid fa-lock"></i>
+              <span>Secure Payment</span>
+            </div>
+            <div class="trust-badge">
+              <i class="fa-solid fa-truck"></i>
+              <span>Fast Delivery</span>
+            </div>
           </div>
         </div>
-        <div class="trust-badges">
-          <div class="trust-badge">
-            <i class="fa-solid fa-handshake"></i>
-            <span>Trusted Supplier</span>
-          </div>
-          <div class="trust-badge">
-            <i class="fa-solid fa-certificate"></i>
-            <span>Quality Guarantee</span>
-          </div>
-          <div class="trust-badge">
-            <i class="fa-solid fa-lock"></i>
-            <span>Secure Payment</span>
+      </section>
+
+      <!-- Newsletter Section -->
+      <section class="newsletter section-light">
+        <div class="section-container">
+          <div class="newsletter-content">
+            <div class="newsletter-text">
+              <h2>Join Our Equestrian Community</h2>
+              <p>Subscribe to get exclusive offers, product updates, and equestrian tips.</p>
+            </div>
+            <form class="newsletter-form">
+              <input type="email" placeholder="Your email address" required>
+              <button type="submit" class="cta-button primary">Subscribe</button>
+            </form>
           </div>
         </div>
       </section>
 
       <!-- Contact Section -->
-      <section id="contact">
-        <h2>Contact Us</h2>
-        <p>
-          Looking for equestrian supplies or raw materials? reach us
-          directly—we’re here to help!
-        </p>
-        <div class="contact-wrapper">
-          <div class="contact-info">
-            <div class="contact-info-item">
-              <i class="fa-solid fa-envelope"></i>
-              <a href="mailto:info@rahiequestrian.com"
-                >info@rahiequestrian.com</a
-              >
+      <section id="contact" class="section-dark">
+        <div class="section-container">
+          <h2 class="section-title">Contact Us</h2>
+          <p class="section-subtitle">We'd love to hear from you</p>
+          
+          <div class="contact-wrapper">
+            <div class="contact-info">
+              <div class="contact-info-item">
+                <i class="fa-solid fa-envelope"></i>
+                <a href="mailto:info@rahiequestrian.com">info@rahiequestrian.com</a>
+              </div>
+              <div class="contact-info-item">
+                <i class="fa-brands fa-whatsapp"></i>
+                <a href="https://wa.me/911234567890" target="_blank">+91 12345 67890</a>
+              </div>
+              <div class="contact-info-item">
+                <i class="fa-brands fa-linkedin"></i>
+                <a href="#" target="_blank">LinkedIn</a>
+              </div>
+              <div class="contact-info-item">
+                <i class="fa-brands fa-instagram"></i>
+                <a href="#" target="_blank">Instagram</a>
+              </div>
+              <div class="contact-info-item">
+                <i class="fa-solid fa-location-dot"></i>
+                <span>123 Leather Lane, Kanpur, Uttar Pradesh, India</span>
+              </div>
+              
+              <div class="social-links">
+                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+              </div>
             </div>
-            <div class="contact-info-item">
-              <i class="fa-brands fa-whatsapp"></i>
-              <a href="https://wa.me/911234567890" target="_blank"
-                >+91 12345 67890</a
-              >
-            </div>
-            <div class="contact-info-item">
-              <i class="fa-brands fa-linkedin"></i>
-              <a href="YOUR_LINKEDIN_PROFILE_URL" target="_blank">LinkedIn</a>
-            </div>
-            <div class="contact-info-item">
-              <i class="fa-brands fa-instagram"></i>
-              <a href="YOUR_INSTAGRAM_PROFILE_URL" target="_blank">Instagram</a>
-            </div>
-            <div class="contact-info-item">
-              <i class="fa-solid fa-location-dot"></i>
-              <span>123 Leather Lane, Kanpur, Uttar Pradesh, India</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Featured Products / Bestsellers Section -->
-      <section class="featured-products">
-        <h2 class="featured-title">Featured Products</h2>
-        <div class="featured-grid">
-          <div class="featured-card">
-            <img src="images/img01.jpg" alt="Premium Saddle" />
-            <h3>Premium Saddle</h3>
-            <p>
-              Handcrafted leather saddle for maximum comfort and durability.
-            </p>
-          </div>
-          <div class="featured-card">
-            <img src="images/img02.jpg" alt="Leather Reins" />
-            <h3>Leather Reins</h3>
-            <p>
-              High-quality reins made from genuine leather for superior grip.
-            </p>
-          </div>
-          <div class="featured-card">
-            <img src="images/img03.jpg" alt="Stable Blanket" />
-            <h3>Stable Blanket</h3>
-            <p>Warm, breathable, and durable blanket for all seasons.</p>
+            
+            <form class="contact-form">
+              <div class="form-group">
+                <input type="text" placeholder="Your Name" required>
+              </div>
+              <div class="form-group">
+                <input type="email" placeholder="Your Email" required>
+              </div>
+              <div class="form-group">
+                <input type="tel" placeholder="Phone Number">
+              </div>
+              <div class="form-group">
+                <textarea placeholder="Your Message" rows="5" required></textarea>
+              </div>
+              <button type="submit" class="cta-button primary">Send Message</button>
+            </form>
           </div>
         </div>
       </section>
@@ -265,10 +453,59 @@
 
     <!-- Footer -->
     <footer>
-      <p>© 2023 Rahi Equestrian. All rights reserved.</p>
+      <div class="footer-container">
+        <div class="footer-content">
+          <div class="footer-about">
+            <a href="#" class="footer-logo">
+              <img src="images/img04.png" alt="Rahi Equestrian Logo">
+              <span>Rahi Equestrian</span>
+            </a>
+            <p>Premium Raw Materials & Equipment for Equestrian Excellence. Handcrafted with passion in India.</p>
+          </div>
+          <div class="footer-links">
+            <h3>Quick Links</h3>
+            <ul>
+              <li><a href="#home">Home</a></li>
+              <li><a href="#about">About Us</a></li>
+              <li><a href="#services">Services</a></li>
+              <li><a href="#products">Products</a></li>
+              <li><a href="#contact">Contact</a></li>
+            </ul>
+          </div>
+          <div class="footer-links">
+            <h3>Products</h3>
+            <ul>
+              <li><a href="#">Saddles</a></li>
+              <li><a href="#">Bridles</a></li>
+              <li><a href="#">Riding Apparel</a></li>
+              <li><a href="#">Stable Equipment</a></li>
+              <li><a href="#">Raw Materials</a></li>
+            </ul>
+          </div>
+          <div class="footer-contact">
+            <h3>Contact Info</h3>
+            <address>
+              <p><i class="fas fa-map-marker-alt"></i> 123 Leather Lane, Kanpur, India</p>
+              <p><i class="fas fa-phone-alt"></i> +91 12345 67890</p>
+              <p><i class="fas fa-envelope"></i> info@rahiequestrian.com</p>
+            </address>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2023 Rahi Equestrian. All rights reserved.</p>
+          <div class="footer-legal">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+          </div>
+        </div>
+      </div>
     </footer>
 
-    <!-- Link to our JavaScript file -->
+    <!-- Back to Top Button -->
+    <a href="#home" class="back-to-top" aria-label="Back to top">
+      <i class="fas fa-chevron-up"></i>
+    </a>
+
     <script src="script.js"></script>
   </body>
 </html>

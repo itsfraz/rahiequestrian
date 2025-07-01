@@ -17,6 +17,8 @@ document.addEventListener("DOMContentLoaded", function () {
   updateFooterYear();
   //Mobile menu functionality
   setupMobileMenu();
+  //  Add this new function to handle popups
+  setupDescriptionPopups();
 });
 
 // Initialize all image galleries on the page
@@ -52,41 +54,109 @@ function initImageGalleries() {
     }
   });
 }
+// Add this near the top with other initialization
+document.addEventListener("DOMContentLoaded", function () {
+  // ... existing code ...
+  setupDescriptionPopups();
+});
+
+// Add this new function to handle popups
+function setupDescriptionPopups() {
+  // Create popup elements
+  const popupOverlay = document.createElement("div");
+  popupOverlay.className = "popup-overlay";
+
+  const popupContent = document.createElement("div");
+  popupContent.className = "popup-content";
+
+  const closeBtn = document.createElement("span");
+  closeBtn.className = "close-popup";
+  closeBtn.innerHTML = "&times;";
+  closeBtn.setAttribute("aria-label", "Close popup");
+
+  const popupTitle = document.createElement("h3");
+  popupTitle.className = "popup-title";
+
+  const popupDescription = document.createElement("div");
+  popupDescription.className = "popup-description";
+
+  popupContent.appendChild(closeBtn);
+  popupContent.appendChild(popupTitle);
+  popupContent.appendChild(popupDescription);
+  popupOverlay.appendChild(popupContent);
+  document.body.appendChild(popupOverlay);
+
+  // Close popup when clicking close button or overlay
+  closeBtn.addEventListener("click", closePopup);
+  popupOverlay.addEventListener("click", function (e) {
+    if (e.target === popupOverlay) {
+      closePopup();
+    }
+  });
+
+  // Close with Escape key
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && popupOverlay.classList.contains("active")) {
+      closePopup();
+    }
+  });
+
+  // Set up click handlers for all description links
+  document.querySelectorAll(".type-link, .read-more").forEach((link) => {
+    link.addEventListener("click", function (e) {
+      e.preventDefault();
+      const title = this.classList.contains("type-link")
+        ? `${this.closest(".product-info").querySelector("h2").textContent} - ${
+            this.dataset.type
+          }`
+        : this.closest(".product-info").querySelector("h2").textContent;
+
+      popupTitle.textContent = title;
+      popupDescription.textContent = this.dataset.description;
+      popupOverlay.classList.add("active");
+      document.body.style.overflow = "hidden";
+    });
+  });
+
+  function closePopup() {
+    popupOverlay.classList.remove("active");
+    document.body.style.overflow = "";
+  }
+}
 
 // Mobile menu functionality
 function setupMobileMenu() {
-  const menuToggle = document.querySelector('.menu-toggle');
-  const navMenu = document.querySelector('.nav-menu');
-  const navOverlay = document.querySelector('.nav-overlay');
-  
+  const menuToggle = document.querySelector(".menu-toggle");
+  const navMenu = document.querySelector(".nav-menu");
+  const navOverlay = document.querySelector(".nav-overlay");
+
   // Toggle menu function
   const toggleMenu = () => {
-    menuToggle.classList.toggle('active');
-    navMenu.classList.toggle('active');
-    navOverlay.classList.toggle('active');
-    document.body.classList.toggle('menu-open');
-    
+    menuToggle.classList.toggle("active");
+    navMenu.classList.toggle("active");
+    navOverlay.classList.toggle("active");
+    document.body.classList.toggle("menu-open");
+
     // Update aria-expanded attribute
-    const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
-    menuToggle.setAttribute('aria-expanded', !isExpanded);
+    const isExpanded = menuToggle.getAttribute("aria-expanded") === "true";
+    menuToggle.setAttribute("aria-expanded", !isExpanded);
   };
-  
+
   // Toggle menu when clicking hamburger
-  menuToggle.addEventListener('click', toggleMenu);
-  
+  menuToggle.addEventListener("click", toggleMenu);
+
   // Close menu when clicking overlay
-  navOverlay.addEventListener('click', toggleMenu);
-  
+  navOverlay.addEventListener("click", toggleMenu);
+
   // Close menu when clicking a nav link
-  navMenu.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
-      if (navMenu.classList.contains('active')) {
+  navMenu.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => {
+      if (navMenu.classList.contains("active")) {
         toggleMenu();
       }
     });
   });
 }
-
 
 // Auto-rotate images in a gallery
 function startImageRotation(gallery, images, thumbnails) {

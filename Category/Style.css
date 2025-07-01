@@ -676,3 +676,106 @@ footer p {
         padding: 1rem;
     }
 }
+/* Popup Styles */
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.popup-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.popup-content {
+    background-color: white;
+    padding: 2.5rem;
+    border-radius: var(--border-radius);
+    max-width: 600px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+}
+
+.popup-overlay.active .popup-content {
+    transform: translateY(0);
+}
+
+.popup-title {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    font-size: 1.8rem;
+}
+
+.popup-description {
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+}
+
+.close-popup {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--gray-color);
+    transition: var(--transition);
+}
+
+.close-popup:hover {
+    color: var(--primary-color);
+    transform: rotate(90deg);
+}
+
+/* Product Types */
+.product-types {
+    margin-bottom: 1.5rem;
+}
+
+.product-types h4 {
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+    color: var(--secondary-color);
+}
+
+.product-types ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-left: 0;
+}
+
+.product-types li {
+    list-style: none;
+    margin: 0;
+}
+
+.type-link, .read-more {
+    color: var(--primary-color);
+    font-weight: 500;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    transition: var(--transition);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-color: rgba(74, 111, 40, 0.3);
+}
+
+.type-link:hover, .read-more:hover {
+    background-color: rgba(74, 111, 40, 0.1);
+    text-decoration-color: var(--primary-color);
+}

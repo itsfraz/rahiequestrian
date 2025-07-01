@@ -90,45 +90,80 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Form submission
-    form.addEventListener('submit', function(e) {
-      e.preventDefault();
-      
-      // Different handling for different forms
-      if (form.classList.contains('contact-form')) {
-        const formData = new FormData(this);
-        const name = formData.get('name') || 'there';
-        
-        const successMsg = document.createElement('div');
-        successMsg.className = 'form-success';
-        successMsg.innerHTML = `
-          <i class="fas fa-check-circle"></i>
-          <p>Thank you, ${name}! Your message has been sent. We'll get back to you soon.</p>
-        `;
-        form.parentNode.insertBefore(successMsg, form);
-        form.style.display = 'none';
-        
-        setTimeout(() => {
-          form.reset();
-          form.style.display = 'block';
-          successMsg.remove();
-        }, 5000);
-      } 
-      else if (form.classList.contains('newsletter-form')) {
-        const email = this.querySelector('input').value;
-        const successMsg = document.createElement('div');
-        successMsg.className = 'form-success';
-        successMsg.innerHTML = `
-          <i class="fas fa-check-circle"></i>
-          <p>Thank you for subscribing with ${email}! You'll receive our next newsletter.</p>
-        `;
-        this.parentNode.replaceChild(successMsg, this);
-        
-        setTimeout(() => {
-          this.reset();
-          successMsg.replaceWith(this);
-        }, 5000);
+  form.addEventListener('submit', function(e) {
+  e.preventDefault();
+  
+  // Only proceed if it's the contact form
+  if (form.classList.contains('contact-form')) {
+    const formData = {
+      name: this.querySelector('input[type="text"]').value,
+      email: this.querySelector('input[type="email"]').value,
+      phone: this.querySelector('input[type="tel"]').value,
+      message: this.querySelector('textarea').value
+    };
+
+    // Show loading state
+    const submitButton = this.querySelector('button[type="submit"]');
+    const originalText = submitButton.innerHTML;
+    submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+    submitButton.disabled = true;
+
+    // REPLACE THIS WITH YOUR ACTUAL GOOGLE SCRIPT URL
+    const scriptUrl = 'https://script.google.com/macros/s/AKfycbx7b0EeNM6YEt93NjrKa6nhXGYT7cmq2LSevWDM6VjFAfGn77obrSmehb-fK0pHv5JE/exec';
+    
+    fetch(scriptUrl, {
+      method: 'POST',
+      body: JSON.stringify(formData),
+      headers: {
+        'Content-Type': 'application/json'
       }
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+      if (!data.success) {
+        throw new Error(data.error || 'Unknown error occurred');
+      }
+      
+      // Success handling
+      const name = formData.name || 'there';
+      const successMsg = document.createElement('div');
+      successMsg.className = 'form-success';
+      successMsg.innerHTML = `
+        <i class="fas fa-check-circle"></i>
+        <p>Thank you, ${name}! Your message has been sent.</p>
+      `;
+      form.parentNode.insertBefore(successMsg, form);
+      form.style.display = 'none';
+      
+      setTimeout(() => {
+        form.reset();
+        form.style.display = 'block';
+        successMsg.remove();
+        submitButton.innerHTML = originalText;
+        submitButton.disabled = false;
+      }, 5000);
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      const errorMsg = document.createElement('div');
+      errorMsg.className = 'form-error';
+      errorMsg.innerHTML = `
+        <i class="fas fa-exclamation-circle"></i>
+        <p>Error: ${error.message}</p>
+      `;
+      form.insertBefore(errorMsg, form.firstChild);
+      submitButton.innerHTML = originalText;
+      submitButton.disabled = false;
+      
+      setTimeout(() => errorMsg.remove(), 5000);
     });
+  }
+});
   });
 
   // --- Enhanced Hero Image Slider ---

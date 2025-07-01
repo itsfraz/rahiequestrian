@@ -1439,3 +1439,40 @@ footer {
     right: 20px;
   }
 }
+/* Add to your style.css */
+.fade-in { animation: fadeIn 0.6s forwards; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+.ripple-effect {
+  position: absolute;
+  background: rgba(255,255,255,0.4);
+  transform: scale(0);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: ripple 0.6s linear;
+}
+
+@keyframes ripple {
+  to { transform: scale(4); opacity: 0; }
+}
+
+.enquiry-notification {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: var(--primary);
+  color: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: var(--shadow-lg);
+  z-index: 1000;
+  animation: slideIn 0.3s forwards;
+}
+
+@keyframes slideIn {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+input.valid { border-color: #4CAF50 !important; }
+input.invalid { border-color: #F44336 !important; }

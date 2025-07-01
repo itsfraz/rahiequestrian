@@ -1,198 +1,272 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // --- Smooth Scrolling for Navigation Links ---
-    document.querySelectorAll('nav a').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            // Prevent the default jumpy behavior for internal links
-            const targetId = this.getAttribute('href');
-            if (targetId && targetId.startsWith('#')) {
-                e.preventDefault();
-                const targetSection = document.querySelector(targetId);
-                if (targetSection) {
-                    targetSection.scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                }
-            }
-        });
+  // --- Smooth Scrolling for Navigation Links ---
+  document.querySelectorAll('nav a').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      const targetId = this.getAttribute('href');
+      if (targetId && targetId.startsWith('#')) {
+        e.preventDefault();
+        const targetSection = document.querySelector(targetId);
+        if (targetSection) {
+          targetSection.scrollIntoView({
+            behavior: 'smooth'
+          });
+          
+          // Close mobile menu if open
+          const navMenu = document.querySelector('nav ul');
+          if (navMenu.classList.contains('open')) {
+            navMenu.classList.remove('open');
+            document.querySelector('.nav-toggle').setAttribute('aria-expanded', 'false');
+            document.querySelector('.nav-overlay').classList.remove('active');
+          }
+        }
+      }
     });
+  });
 
-    // --- Simple Form Submission Alert ---
-    const contactForm = document.querySelector('#contact form');
-    if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const nameInput = document.querySelector('input[name="name"]');
-            const userName = nameInput ? nameInput.value : '';
-            alert(`Thank you, ${userName}! Your message has been sent.`);
-            contactForm.reset();
-        });
-    }
+  // --- Form Submission ---
+  const contactForm = document.querySelector('#contact .contact-form');
+  if (contactForm) {
+    contactForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const formData = new FormData(this);
+      const name = formData.get('name') || 'there';
+      
+      // Show success message
+      const successMsg = document.createElement('div');
+      successMsg.className = 'form-success';
+      successMsg.innerHTML = `
+        <i class="fas fa-check-circle"></i>
+        <p>Thank you, ${name}! Your message has been sent. We'll get back to you soon.</p>
+      `;
+      contactForm.parentNode.insertBefore(successMsg, contactForm);
+      contactForm.style.display = 'none';
+      
+      // Reset form after showing message
+      setTimeout(() => {
+        contactForm.reset();
+        contactForm.style.display = 'block';
+        successMsg.remove();
+      }, 5000);
+    });
+  }
+  
+  // Newsletter form
+  const newsletterForm = document.querySelector('.newsletter-form');
+  if (newsletterForm) {
+    newsletterForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const email = this.querySelector('input').value;
+      
+      // Show success message
+      const successMsg = document.createElement('div');
+      successMsg.className = 'form-success';
+      successMsg.innerHTML = `
+        <i class="fas fa-check-circle"></i>
+        <p>Thank you for subscribing with ${email}! You'll receive our next newsletter.</p>
+      `;
+      this.parentNode.replaceChild(successMsg, this);
+      
+      // Reset after showing message
+      setTimeout(() => {
+        this.reset();
+        successMsg.replaceWith(this);
+      }, 5000);
+    });
+  }
 
-    // --- Hero Image Slider ---
-    const heroSlides = document.querySelectorAll('.hero-slider .slide, .hero-slider img');
-    const heroPrevBtn = document.querySelector('.hero-slider .slider-btn.prev');
-    const heroNextBtn = document.querySelector('.hero-slider .slider-btn.next');
-    let heroCurrentSlide = 0;
+  // --- Hero Image Slider ---
+  const heroSlides = document.querySelectorAll('.hero-slider .slide');
+  const heroPrevBtn = document.querySelector('.hero-slider .slider-btn.prev');
+  const heroNextBtn = document.querySelector('.hero-slider .slider-btn.next');
+  const sliderDots = document.querySelector('.slider-dots');
+  let heroCurrentSlide = 0;
+  let heroSlideInterval;
 
-    function showHeroSlide(index) {
-        heroSlides.forEach((slide, i) => {
-            slide.classList.toggle('active', i === index);
-        });
-    }
-
-    if (heroSlides.length > 0 && heroPrevBtn && heroNextBtn) {
-        heroPrevBtn.addEventListener('click', () => {
-            heroCurrentSlide = (heroCurrentSlide === 0) ? heroSlides.length - 1 : heroCurrentSlide - 1;
-            showHeroSlide(heroCurrentSlide);
-        });
-
-        heroNextBtn.addEventListener('click', () => {
-            heroCurrentSlide = (heroCurrentSlide === heroSlides.length - 1) ? 0 : heroCurrentSlide + 1;
-            showHeroSlide(heroCurrentSlide);
-        });
-
-        setInterval(() => {
-            heroCurrentSlide = (heroCurrentSlide === heroSlides.length - 1) ? 0 : heroCurrentSlide + 1;
-            showHeroSlide(heroCurrentSlide);
-        }, 5000);
-
+  // Create dots
+  if (heroSlides.length > 0 && sliderDots) {
+    heroSlides.forEach((_, index) => {
+      const dot = document.createElement('div');
+      dot.classList.add('dot');
+      if (index === 0) dot.classList.add('active');
+      dot.addEventListener('click', () => {
+        heroCurrentSlide = index;
         showHeroSlide(heroCurrentSlide);
-    }
-
-    // --- Product Image Gallery with Fade Effect ---
-    const productGalleries = document.querySelectorAll('.product-gallery');
-    
-    productGalleries.forEach(gallery => {
-        // Check if it's a fade gallery
-        const fadeGallery = gallery.querySelector('.fade-gallery');
-        if (fadeGallery) {
-            const images = fadeGallery.querySelectorAll('img');
-            const thumbnails = gallery.querySelectorAll('.thumbnail');
-            
-            if (thumbnails.length > 0) {
-                thumbnails.forEach((thumb, index) => {
-                    thumb.addEventListener('click', () => {
-                        // Remove active class from all images and thumbnails
-                        images.forEach(img => img.classList.remove('active'));
-                        thumbnails.forEach(t => t.classList.remove('active'));
-                        
-                        // Add active class to clicked thumbnail and corresponding image
-                        images[index].classList.add('active');
-                        thumb.classList.add('active');
-                    });
-                });
-                
-                // Initialize first image as active
-                images[0].classList.add('active');
-                thumbnails[0].classList.add('active');
-            }
-        }
-        // Legacy slider support (if you still have any)
-        else {
-            const productSlider = gallery.querySelector('.product-slider');
-            const productSlides = productSlider ? productSlider.querySelectorAll('.slide') : [];
-            const productThumbs = gallery.querySelectorAll('.product-thumbnails .thumb');
-            const productPrevBtn = productSlider ? productSlider.querySelector('.slider-btn.prev') : null;
-            const productNextBtn = productSlider ? productSlider.querySelector('.slider-btn.next') : null;
-            let productCurrentSlide = 0;
-
-            function showProductSlide(index) {
-                if (!productSlides.length) return;
-                productSlides.forEach((slide, i) => {
-                    slide.classList.toggle('active', i === index);
-                    if (productThumbs[i]) productThumbs[i].classList.toggle('active', i === index);
-                });
-                productCurrentSlide = index;
-            }
-
-            if (productSlides.length && productPrevBtn && productNextBtn) {
-                productPrevBtn.addEventListener('click', () => {
-                    let idx = (productCurrentSlide === 0) ? productSlides.length - 1 : productCurrentSlide - 1;
-                    showProductSlide(idx);
-                });
-
-                productNextBtn.addEventListener('click', () => {
-                    let idx = (productCurrentSlide === productSlides.length - 1) ? 0 : productCurrentSlide + 1;
-                    showProductSlide(idx);
-                });
-
-                productThumbs.forEach((thumb, i) => {
-                    thumb.addEventListener('click', () => showProductSlide(i));
-                });
-
-                showProductSlide(0);
-            }
-        }
+        resetHeroInterval();
+      });
+      sliderDots.appendChild(dot);
     });
+  }
 
-    // --- Responsive Hamburger Navigation ---
-   // --- Responsive Hamburger Navigation ---
-const navToggle = document.querySelector('.nav-toggle');
-const navMenu = document.querySelector('nav ul');
-if (navToggle && navMenu) {
+  function showHeroSlide(index) {
+    heroSlides.forEach((slide, i) => {
+      slide.classList.toggle('active', i === index);
+    });
+    
+    // Update dots
+    const dots = document.querySelectorAll('.slider-dots .dot');
+    dots.forEach((dot, i) => {
+      dot.classList.toggle('active', i === index);
+    });
+  }
+
+  function nextHeroSlide() {
+    heroCurrentSlide = (heroCurrentSlide === heroSlides.length - 1) ? 0 : heroCurrentSlide + 1;
+    showHeroSlide(heroCurrentSlide);
+  }
+
+  function prevHeroSlide() {
+    heroCurrentSlide = (heroCurrentSlide === 0) ? heroSlides.length - 1 : heroCurrentSlide - 1;
+    showHeroSlide(heroCurrentSlide);
+  }
+
+  function startHeroInterval() {
+    heroSlideInterval = setInterval(nextHeroSlide, 5000);
+  }
+
+  function resetHeroInterval() {
+    clearInterval(heroSlideInterval);
+    startHeroInterval();
+  }
+
+  if (heroSlides.length > 0) {
+    if (heroPrevBtn && heroNextBtn) {
+      heroPrevBtn.addEventListener('click', () => {
+        prevHeroSlide();
+        resetHeroInterval();
+      });
+
+      heroNextBtn.addEventListener('click', () => {
+        nextHeroSlide();
+        resetHeroInterval();
+      });
+    }
+    
+    startHeroInterval();
+    showHeroSlide(heroCurrentSlide);
+  }
+
+  // --- Responsive Hamburger Navigation ---
+  const navToggle = document.querySelector('.nav-toggle');
+  const navMenu = document.querySelector('nav ul');
+  const navOverlay = document.querySelector('.nav-overlay');
+  
+  if (navToggle && navMenu) {
     navToggle.addEventListener('click', function() {
-        const isOpen = navMenu.classList.toggle('open');
-        navToggle.setAttribute('aria-expanded', isOpen);
-        
-        // Close when clicking outside the menu
-        if (isOpen) {
-            document.addEventListener('click', closeMenuOnClickOutside);
-        } else {
-            document.removeEventListener('click', closeMenuOnClickOutside);
-        }
+      const isOpen = navMenu.classList.toggle('open');
+      this.setAttribute('aria-expanded', isOpen);
+      navOverlay.classList.toggle('active', isOpen);
+      
+      // Toggle body scroll
+      document.body.style.overflow = isOpen ? 'hidden' : '';
     });
     
     // Close menu on link click (mobile)
     navMenu.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-            navMenu.classList.remove('open');
-            navToggle.setAttribute('aria-expanded', 'false');
-            document.removeEventListener('click', closeMenuOnClickOutside);
-        });
+      link.addEventListener('click', () => {
+        navMenu.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
+        navOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+      });
     });
     
-    function closeMenuOnClickOutside(e) {
-        if (!navMenu.contains(e.target) && e.target !== navToggle) {
-            navMenu.classList.remove('open');
-            navToggle.setAttribute('aria-expanded', 'false');
-            document.removeEventListener('click', closeMenuOnClickOutside);
-        }
-    }
-}
-
-    // --- General Slide Show Functionality (for other sliders on the site) ---
-    const slides = document.querySelectorAll('.slide:not(.hero-slider .slide):not(.product-slider .slide)');
-    const dots = document.querySelectorAll('.dot');
-    let current = 0;
-    const interval = 2000; // 3 seconds
-
-    function showSlide(index) {
-        slides.forEach((slide, i) => {
-            slide.classList.toggle('active', i === index);
-            if (dots[i]) dots[i].classList.toggle('active', i === index);
-        });
-    }
-
-    function nextSlide() {
-        current = (current + 1) % slides.length;
-        showSlide(current);
-    }
-
-    // Only start auto-slide if there are slides and they're not part of other galleries
-    if (slides.length > 0) {
-        setInterval(nextSlide, interval);
-    }
-
-    // Optional: If you want to allow manual dot navigation, keep this:
-    dots.forEach((dot, idx) => {
-        dot.addEventListener('click', () => {
-            current = idx;
-            showSlide(current);
-        });
+    // Close on overlay click
+    navOverlay.addEventListener('click', () => {
+      navMenu.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+      navOverlay.classList.remove('active');
+      document.body.style.overflow = '';
     });
+  }
 
-    // Initialize
-    if (slides.length > 0) {
-        showSlide(current);
-    }
+  // --- Back to Top Button ---
+  const backToTopBtn = document.querySelector('.back-to-top');
+  
+  if (backToTopBtn) {
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        backToTopBtn.classList.add('visible');
+      } else {
+        backToTopBtn.classList.remove('visible');
+      }
+    });
+    
+    backToTopBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  }
+
+  // --- Product Quick View ---
+  document.querySelectorAll('.quick-view').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      const productCard = this.closest('.featured-card');
+      const productName = productCard.querySelector('h3').textContent;
+      const productDesc = productCard.querySelector('p').textContent;
+      const productImg = productCard.querySelector('img').src;
+      
+      // Create modal
+      const modal = document.createElement('div');
+      modal.className = 'product-modal';
+      modal.innerHTML = `
+        <div class="modal-content">
+          <button class="modal-close">&times;</button>
+          <div class="modal-image">
+            <img src="${productImg}" alt="${productName}">
+          </div>
+          <div class="modal-info">
+            <h3>${productName}</h3>
+            <p>${productDesc}</p>
+            <button class="cta-button primary">View Full Details</button>
+          </div>
+        </div>
+      `;
+      
+      document.body.appendChild(modal);
+      document.body.style.overflow = 'hidden';
+      
+      // Close modal
+      modal.querySelector('.modal-close').addEventListener('click', () => {
+        modal.remove();
+        document.body.style.overflow = '';
+      });
+      
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+          modal.remove();
+          document.body.style.overflow = '';
+        }
+      });
+    });
+  });
+
+  // --- Animate elements on scroll ---
+  const animateOnScroll = () => {
+    const elements = document.querySelectorAll('.service-card, .category-card, .featured-card, .testimonial-card');
+    
+    elements.forEach(element => {
+      const elementPosition = element.getBoundingClientRect().top;
+      const screenPosition = window.innerHeight / 1.2;
+      
+      if (elementPosition < screenPosition) {
+        element.style.opacity = '1';
+        element.style.transform = 'translateY(0)';
+      }
+    });
+  };
+  
+  // Set initial state
+  document.querySelectorAll('.service-card, .category-card, .featured-card, .testimonial-card').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+  });
+  
+  // Run on load and scroll
+  window.addEventListener('load', animateOnScroll);
+  window.addEventListener('scroll', animateOnScroll);
 });

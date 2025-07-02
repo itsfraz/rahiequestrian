@@ -102,17 +102,25 @@ function setupDescriptionPopups() {
   });
 
   // Set up click handlers for all description links
-  document.querySelectorAll(".type-link, .read-more").forEach((link) => {
+  document.querySelectorAll(".type-link, .read-more, .spec-link").forEach((link) => {
     link.addEventListener("click", function (e) {
       e.preventDefault();
-      const title = this.classList.contains("type-link")
-        ? `${this.closest(".product-info").querySelector("h2").textContent} - ${
-            this.dataset.type
-          }`
-        : this.closest(".product-info").querySelector("h2").textContent;
+      let title = "";
+      let description = "";
+
+      if (this.classList.contains("type-link")) {
+        title = `${this.closest(".product-info").querySelector("h2").textContent} - ${this.dataset.type}`;
+        description = this.dataset.description;
+      } else if (this.classList.contains("read-more")) {
+        title = this.closest(".product-info").querySelector("h2").textContent;
+        description = this.dataset.description;
+      } else if (this.classList.contains("spec-link")) {
+        title = `${this.closest(".product-info").querySelector("h2").textContent} - ${this.textContent.trim()}`;
+        description = this.dataset.description;
+      }
 
       popupTitle.textContent = title;
-      popupDescription.textContent = this.dataset.description;
+      popupDescription.textContent = description;
       popupOverlay.classList.add("active");
       document.body.style.overflow = "hidden";
     });

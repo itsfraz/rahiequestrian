@@ -779,3 +779,70 @@ footer p {
     background-color: rgba(74, 111, 40, 0.1);
     text-decoration-color: var(--primary-color);
 }
+/* Add this to your Style.css file */
+
+/* Product Specification Links */
+.product-spec-links {
+    display: flex;
+    gap: 1rem;
+    margin: 1.5rem 0;
+    flex-wrap: wrap;
+}
+
+.spec-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.25rem;
+    background-color: rgba(74, 111, 40, 0.08);
+    color: var(--primary-color);
+    border-radius: var(--border-radius);
+    font-weight: 500;
+    transition: var(--transition);
+    border: 1px solid rgba(74, 111, 40, 0.15);
+    font-size: 0.95rem;
+}
+
+.spec-link i {
+    font-size: 1rem;
+    color: var(--secondary-color);
+    transition: var(--transition);
+}
+
+.spec-link:hover {
+    background-color: rgba(74, 111, 40, 0.15);
+    transform: translateY(-2px);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+    border-color: rgba(74, 111, 40, 0.3);
+}
+
+.spec-link:hover i {
+    color: var(--primary-color);
+      transform: scale(1.2) rotate(-5deg);
+
+}
+
+.spec-link.active {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+.spec-link.active i {
+    color: white;
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+    .product-spec-links {
+        gap: 0.75rem;
+    }
+    
+    .spec-link {
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
+         background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+    }
+}

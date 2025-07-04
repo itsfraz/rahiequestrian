@@ -27,28 +27,43 @@ function initializePage() {
   updateFooterYear();
 }
 
+// Add this to your existing Scripts.js
 function setupMobileMenu() {
-  const navToggle = document.querySelector(".nav-toggle");
-  const navList = document.querySelector("nav ul");
-  const navOverlay = document.querySelector(".nav-overlay");
-
-  if (navToggle && navList && navOverlay) {
-    navToggle.addEventListener("click", () => {
-      const isExpanded = navToggle.getAttribute("aria-expanded") === "true";
-      navToggle.setAttribute("aria-expanded", !isExpanded);
-      navList.classList.toggle("open");
-      navOverlay.classList.toggle("active");
-      document.body.classList.toggle("no-scroll");
+    const navToggle = document.querySelector('.nav-toggle');
+    const mobileOverlay = document.querySelector('.mobile-menu-overlay');
+    const closeBtn = document.createElement('div');
+    
+    // Create close button
+    closeBtn.className = 'close-menu';
+    closeBtn.innerHTML = '&times;';
+    mobileOverlay.appendChild(closeBtn);
+    
+    // Toggle menu function
+    const toggleMenu = () => {
+        navToggle.classList.toggle('active');
+        mobileOverlay.classList.toggle('active');
+        document.body.style.overflow = mobileOverlay.classList.contains('active') ? 'hidden' : '';
+    };
+    
+    // Event listeners
+    navToggle.addEventListener('click', toggleMenu);
+    closeBtn.addEventListener('click', toggleMenu);
+    
+    // Close menu when clicking on links
+    document.querySelectorAll('.mobile-menu-overlay a').forEach(link => {
+        link.addEventListener('click', toggleMenu);
     });
-
-    navOverlay.addEventListener("click", () => {
-      navToggle.setAttribute("aria-expanded", "false");
-      navList.classList.remove("open");
-      navOverlay.classList.remove("active");
-      document.body.classList.remove("no-scroll");
+    
+    // Close menu when resizing to desktop
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 768) {
+            navToggle.classList.remove('active');
+            mobileOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
     });
-  }
 }
+
 
 function initImageGalleries() {
   const galleries = document.querySelectorAll(".product-gallery");

@@ -1,4 +1,3 @@
-
 document.addEventListener("DOMContentLoaded", function () {
   // Initialize all interactive components after the DOM is fully loaded
   initializePage();
@@ -27,7 +26,6 @@ function initializePage() {
   updateFooterYear();
 }
 
-// Add this to your existing Scripts.js
 function setupMobileMenu() {
     const navToggle = document.querySelector('.nav-toggle');
     const mobileOverlay = document.querySelector('.mobile-menu-overlay');
@@ -64,7 +62,6 @@ function setupMobileMenu() {
     });
 }
 
-
 function initImageGalleries() {
   const galleries = document.querySelectorAll(".product-gallery");
 
@@ -94,28 +91,62 @@ function initImageGalleries() {
 function setupProductPopups() {
   const popupOverlay = createPopup();
   const popupContent = popupOverlay.querySelector(".popup-content");
-  const popupTitle = popupOverlay.querySelector(".popup-title");
-  const popupDescription = popupOverlay.querySelector(".popup-description");
   const closeBtn = popupOverlay.querySelector(".close-popup");
 
-  document.querySelectorAll(".spec-link, .type-link, .read-more").forEach((link) => {
+  // Handle read-more links (enhanced description)
+  document.querySelectorAll(".read-more").forEach((link) => {
     link.addEventListener("click", function (e) {
       e.preventDefault();
-      const type = this.dataset.spec || this.dataset.type || "description";
+      const description = this.dataset.description;
+      const title = this.closest(".product-info").querySelector("h2").textContent;
+
+      // Create enhanced description content
+      popupContent.innerHTML = `
+        <div class="description-content">
+          <div class="description-header">
+            <h3>${title}</h3>
+            <p>Detailed Product Information</p>
+          </div>
+          ${formatDescription(description)}
+          <div class="description-footer">
+            <a href="../index.html#contact" class="cta-button-popup">Enquire Now</a>
+          </div>
+        </div>
+        <span class="close-popup">&times;</span>
+      `;
+
+      popupOverlay.classList.add("active", "description-popup");
+      document.body.classList.add("no-scroll");
+    });
+  });
+
+  // Handle spec-links and type-links (existing functionality)
+  document.querySelectorAll(".spec-link, .type-link").forEach((link) => {
+    link.addEventListener("click", function (e) {
+      e.preventDefault();
+      const type = this.dataset.spec || this.dataset.type;
       const title = this.closest(".product-info").querySelector("h2").textContent;
       const description = this.dataset.description;
 
-      popupTitle.textContent = `${title} - ${this.textContent.trim()}`;
-      popupDescription.innerHTML = ""; // Clear previous content
+      popupContent.innerHTML = `
+        <div class="popup-content-inner">
+          <span class="close-popup">&times;</span>
+          <h3 class="popup-title">${title} - ${this.textContent.trim()}</h3>
+          <div class="popup-description"></div>
+        </div>
+      `;
+
+      const descriptionContainer = popupContent.querySelector(".popup-description");
 
       if (type === "colors") {
-        createColorOptions(popupDescription, description);
+        createColorOptions(descriptionContainer, description);
       } else if (type === "sizes") {
-        createSizeOptions(popupDescription, description);
+        createSizeOptions(descriptionContainer, description);
       } else if (type === "specification") {
-        createSpecificationList(popupDescription, description);
+        createSpecificationList(descriptionContainer, description);
       } else {
-        popupDescription.innerHTML = `<p>${description}</p>`;
+        // For type-links that aren't colors/sizes/specification
+        descriptionContainer.innerHTML = `<p>${description}</p>`;
       }
 
       popupOverlay.classList.add("active");
@@ -131,14 +162,48 @@ function setupProductPopups() {
   });
 }
 
+// Helper function to format the description with HTML structure
+function formatDescription(text) {
+  // Split into sections if there are double line breaks
+  const sections = text.split("\n\n");
+  
+  return sections.map(section => {
+    // Check if section is a heading (ends with colon)
+    if (section.trim().endsWith(":")) {
+      return `<div class="description-section">
+                <h4>${section.replace(":", "")}</h4>
+              </div>`;
+    }
+    // Check if section is a feature list (starts with hyphen)
+    else if (section.trim().startsWith("-")) {
+      const items = section.split("\n-").filter(item => item.trim() !== "");
+      return `<div class="description-section">
+                <ul class="feature-list">
+                  ${items.map(item => `<li>${item.trim()}</li>`).join("")}
+                </ul>
+              </div>`;
+    }
+    // Regular paragraph
+    else {
+      // Check for special formatting like asterisks for highlights
+      if (section.includes("*")) {
+        return `<div class="highlight-box">
+                  <p>${section.replace(/\*/g, "")}</p>
+                </div>`;
+      }
+      return `<div class="description-section">
+                <p>${section}</p>
+              </div>`;
+    }
+  }).join("");
+}
+
 function createPopup() {
   const overlay = document.createElement("div");
   overlay.className = "popup-overlay";
   overlay.innerHTML = `
     <div class="popup-content">
       <span class="close-popup">&times;</span>
-      <h3 class="popup-title"></h3>
-      <div class="popup-description"></div>
     </div>
   `;
   document.body.appendChild(overlay);
@@ -146,7 +211,7 @@ function createPopup() {
 }
 
 function closePopup(popupOverlay) {
-  popupOverlay.classList.remove("active");
+  popupOverlay.classList.remove("active", "description-popup");
   document.body.classList.remove("no-scroll");
 }
 

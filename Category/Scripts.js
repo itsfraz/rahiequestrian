@@ -154,12 +154,11 @@ function setupProductPopups() {
     });
   });
 
-  closeBtn.addEventListener("click", () => closePopup(popupOverlay));
-  popupOverlay.addEventListener("click", (e) => {
-    if (e.target === popupOverlay) {
-      closePopup(popupOverlay);
-    }
-  });
+popupOverlay.addEventListener("click", (e) => {
+  if (e.target.classList.contains("close-popup") || e.target === popupOverlay) {
+    closePopup(popupOverlay);
+  }
+});
 }
 
 // Helper function to format the description with HTML structure

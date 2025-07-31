@@ -49,113 +49,156 @@
       </div>
       <div class="product-detail-row">
         <section class="product-detail">
-          <!-- Product 1: Vegetable Tanned Leather -->
+          <!-- Enhanced Product Gallery -->
           <div class="product-gallery">
-            <div class="fade-gallery">
-              <img
-                src="../images/img02.jpg"
-                alt="Vegetable Tanned Leather hide"
-              />
-              <img
-                src="../images/img01.jpg"
-                alt="Vegetable Tanned Leather close-up"
-              />
-              <img
-                src="../images/img03.jpg"
-                alt="Vegetable Tanned Leather products"
-              />
+            <div class="gallery-main">
+              <div class="fade-gallery">
+                <img src="../images/W1.png" alt="Jumping Saddle image 1" />
+                <img src="../images/W2.png" alt="Jumping Saddle image 2" />
+                <img src="../images/W3.png" alt="Jumping Saddle image 3" />
+                <img src="../images/W4.png" alt="Jumping Saddle image 4" />
+              </div>
+              <!-- Added zoom indicator -->
+              <div class="zoom-hint">
+                <i class="fas fa-search-plus"></i>
+                <span>Hover to zoom</span>
+              </div>
+              <!-- Added gallery navigation -->
+              <div class="gallery-nav">
+                <button class="prev-slide" aria-label="Previous image">
+                  <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="next-slide" aria-label="Next image">
+                  <i class="fas fa-chevron-right"></i>
+                </button>
+              </div>
             </div>
             <div class="thumbnail-container">
+              <!-- Enhanced thumbnails with active state -->
               <img
-                src="../images/img02.jpg"
-                class="thumbnail"
-                alt="Vegetable Tanned Leather thumbnail 1"
+                src="../images/W1.png"
+                class="thumbnail active"
+                alt="Jumping Saddle thumbnail 1"
               />
               <img
-                src="../images/img01.jpg"
+                src="../images/W2.png"
                 class="thumbnail"
-                alt="Vegetable Tanned Leather thumbnail 2"
+                alt="Jumping Saddle thumbnail 2"
               />
               <img
-                src="../images/img03.jpg"
+                src="../images/W3.png"
                 class="thumbnail"
-                alt="Vegetable Tanned Leather thumbnail 3"
+                alt="Jumping Saddle thumbnail 3"
+              />
+              <img
+                src="../images/W4.png"
+                class="thumbnail"
+                alt="Jumping Saddle thumbnail 4"
               />
             </div>
           </div>
+
+          <!-- Enhanced Product Info -->
           <div class="product-info">
-            <h2>Vegetable Tanned Leather</h2>
-            <span class="product-price">₹800 / hide</span>
-            <p>
-              Our eco-friendly vegetable tanned leather is perfect for saddlery.
-              <a
-                href="#"
-                class="read-more"
-                data-description="Our eco-friendly vegetable tanned leather is carefully crafted using traditional methods that have been perfected over generations. Each hide undergoes a 30-day tanning process using natural tannins from tree bark, resulting in a material that develops a beautiful patina over time. The leather is free from harmful chemicals, making it safe for both craftsmen and horses. We source only the finest Indian hides, ensuring consistent quality and texture throughout."
-              >
-                Read more
-              </a>
-            </p>
-            <div class="product-spec-links">
-              <a href="#" class="spec-link" data-spec="colors" data-description="Available Colors: Black, Brown, Tan">
-                <i class="fas fa-palette"></i> Colors
-              </a>
-              <a href="#" class="spec-link" data-spec="sizes" data-description="Available Sizes: 16.5, 17, 17.5, 18 inches">
-                <i class="fas fa-ruler-combined"></i> Sizes
-              </a>
-              <a href="#" class="spec-link" data-spec="specification" data-description="Material: Premium Indian Leather; Tree: Lightweight Carbon Fiber; Seat: Deep, Padded; Billets: Reinforced Nylon">
-                <i class="fas fa-list-ul"></i> Specification
-              </a>
+            <div class="product-header">
+              <h2>Equus Performance Saddle</h2>
+              <div class="product-badges">
+                <span class="badge premium">Premium</span>
+                <!-- <span class="badge bestseller">Bestseller</span> -->
+              </div>
             </div>
-            <div class="product-types">
-              <h4>Available Grades:</h4>
-              <ul>
+
+            <!-- Quick Overview Section -->
+            <div class="quick-overview">
+              <div class="overview-item">
+                <i class="fas fa-star"></i>
+                <span>Premium Quality</span>
+              </div>
+              <div class="overview-item">
+                <i class="fas fa-certificate"></i>
+                <span>Certified Leather</span>
+              </div>
+              <div class="overview-item">
+                <i class="fas fa-truck"></i>
+                <span>Free Shipping</span>
+              </div>
+            </div>
+
+            <!-- Enhanced Product Description -->
+            <div class="product-description">
+              <p class="main-description">
+                Experience unmatched comfort and performance with our handcrafted
+                Jumping Saddle.
+                <span class="hidden-description" style="display: none;">
+                  Our premium saddles are crafted from the finest leather, featuring ergonomic design and superior padding for both rider and horse comfort. Each piece is meticulously assembled by master craftsmen with decades of experience in traditional saddlery.
+                </span>
+                <button class="read-more-btn">Read more</button>
+              </p>
+            </div>
+
+            <!-- Key Features Section -->
+            <div class="key-features">
+              <h3>Key Features</h3>
+              <ul class="feature-grid">
                 <li>
-                  <a
-                    href="#"
-                    class="type-link"
-                    data-type="Premium Grade"
-                    data-description="Top-quality full-grain leather with minimal blemishes. Thickness: 3-4mm. Ideal for high-end saddles and bridles. Features tight grain structure and excellent tensile strength. Naturally water-resistant and ages beautifully with proper care."
-                  >
-                    Premium Grade
-                  </a>
+                  <i class="fas fa-check-circle"></i>
+                  <span>Premium Full-grain Leather</span>
                 </li>
                 <li>
-                  <a
-                    href="#"
-                    class="type-link"
-                    data-type="Standard Grade"
-                    data-description="Versatile medium-grade leather suitable for most applications. Thickness: 2.5-3.5mm. Slightly more porous than premium grade but offers excellent workability. Perfect for belts, straps, and general leather goods."
-                  >
-                    Standard Grade
-                  </a>
+                  <i class="fas fa-check-circle"></i>
+                  <span>Ergonomic Design</span>
                 </li>
                 <li>
-                  <a
-                    href="#"
-                    class="type-link"
-                    data-type="Economy Grade"
-                    data-description="Cost-effective option for practice equipment and non-critical components. Thickness: 2-3mm. May have natural markings that add character. Still maintains good durability and flexibility."
-                  >
-                    Economy Grade
-                  </a>
+                  <i class="fas fa-check-circle"></i>
+                  <span>Custom Sizing Available</span>
+                </li>
+                <li>
+                  <i class="fas fa-check-circle"></i>
+                  <span>Eco-friendly Process</span>
                 </li>
               </ul>
             </div>
-            <ul class="product-features">
-              <li>
-                <i class="fa-solid fa-check"></i> Eco-friendly tanning process
-              </li>
-              <li><i class="fa-solid fa-check"></i> Premium Indian hides</li>
-              <li>
-                <i class="fa-solid fa-check"></i> Ideal for saddlery &
-                accessories
-              </li>
-              <li>
-                <i class="fa-solid fa-check"></i> Custom thickness available
-              </li>
-            </ul>
-            <a href="../index.html#contact" class="cta-button">Enquire Now</a>
+
+            <!-- Enhanced Specification Links -->
+            <div class="product-spec-links">
+              <a href="#" class="spec-link" data-spec="colors" data-description="Brown, Black, Tan">
+                <i class="fas fa-palette"></i>
+                <span>Colors</span>
+                <small>3 options</small>
+              </a>
+              <a href="#" class="spec-link" data-spec="sizes" data-description="Small, Medium, Large, XLarge">
+                <i class="fas fa-ruler-combined"></i>
+                <span>Sizes</span>
+                <small>4 options</small>
+              </a>
+              <a href="#" class="spec-link" data-spec="specification" data-description="Material: Premium Leather; Weight: 2.5kg; Warranty: 1 Year">
+                <i class="fas fa-list-ul"></i>
+                <span>Specifications</span>
+                <small>View details</small>
+              </a>
+            </div>
+
+            <!-- Added Care Instructions -->
+            <div class="care-instructions">
+              <h3>Care Instructions</h3>
+              <ul>
+                <li><i class="fas fa-info-circle"></i> Clean with leather soap</li>
+                <li><i class="fas fa-info-circle"></i> Store in dry conditions</li>
+                <li><i class="fas fa-info-circle"></i> Apply leather conditioner monthly</li>
+              </ul>
+            </div>
+
+            <!-- Enhanced CTA Section -->
+            <div class="product-cta">
+              <a href="../index.html#contact" class="cta-button primary">
+                <i class="fas fa-shopping-cart"></i>
+                Enquire Now
+              </a>
+              <button class="cta-button secondary wishlist-btn">
+                <i class="far fa-heart"></i>
+                Add to Wishlist
+              </button>
+            </div>
           </div>
         </section>
         <section class="product-detail">

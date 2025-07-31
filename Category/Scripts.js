@@ -24,6 +24,9 @@ function initializePage() {
 
   // Update footer year
   updateFooterYear();
+
+  // Setup read more buttons
+  setupReadMoreButtons();
 }
 
 function setupMobileMenu() {
@@ -89,112 +92,63 @@ function initImageGalleries() {
 }
 
 function setupProductPopups() {
-  const popupOverlay = createPopup();
-  const popupContent = popupOverlay.querySelector(".popup-content");
-  const closeBtn = popupOverlay.querySelector(".close-popup");
+    // Create popup overlay if it doesn't exist
+    let popupOverlay = document.querySelector('.popup-overlay');
+    if (!popupOverlay) {
+        popupOverlay = createPopup();
+    }
 
-  // Handle read-more links (enhanced description)
-  document.querySelectorAll(".read-more").forEach((link) => {
-    link.addEventListener("click", function (e) {
-      e.preventDefault();
-      const description = this.dataset.description;
-      const title = this.closest(".product-info").querySelector("h2").textContent;
+    // Get all spec links and attach event listeners
+    document.querySelectorAll(".spec-link").forEach((link) => {
+        link.addEventListener("click", function (e) {
+            e.preventDefault();
+            
+            const type = this.getAttribute('data-spec');
+            const description = this.getAttribute('data-description');
+            const title = this.closest('.product-info').querySelector('h2').textContent;
+            
+            // Update popup content based on type
+            const popupContent = popupOverlay.querySelector('.popup-content');
+            popupContent.innerHTML = `
+                <span class="close-popup">&times;</span>
+                <h3 class="popup-title">${title} - ${this.textContent.trim()}</h3>
+                <div class="popup-body"></div>
+            `;
 
-      // Create enhanced description content
-      popupContent.innerHTML = `
-        <div class="description-content">
-          <div class="description-header">
-            <h3>${title}</h3>
-            <p>Detailed Product Information</p>
-          </div>
-          ${formatDescription(description)}
-          <div class="description-footer">
-            <a href="../index.html#contact" class="cta-button-popup">Enquire Now</a>
-          </div>
-        </div>
-        <span class="close-popup">&times;</span>
-      `;
+            const popupBody = popupContent.querySelector('.popup-body');
+            
+            switch (type) {
+                case 'colors':
+                    createColorOptions(popupBody, description);
+                    break;
+                case 'sizes':
+                    createSizeOptions(popupBody, description);
+                    break;
+                case 'specification':
+                    createSpecificationList(popupBody, description);
+                    break;
+            }
 
-      popupOverlay.classList.add("active", "description-popup");
-      document.body.classList.add("no-scroll");
+            // Show popup
+            popupOverlay.classList.add('active');
+            document.body.classList.add('no-scroll');
+        });
     });
-  });
 
-  // Handle spec-links and type-links (existing functionality)
-  document.querySelectorAll(".spec-link, .type-link").forEach((link) => {
-    link.addEventListener("click", function (e) {
-      e.preventDefault();
-      const type = this.dataset.spec || this.dataset.type;
-      const title = this.closest(".product-info").querySelector("h2").textContent;
-      const description = this.dataset.description;
-
-      popupContent.innerHTML = `
-        <div class="popup-content-inner">
-          <span class="close-popup">&times;</span>
-          <h3 class="popup-title">${title} - ${this.textContent.trim()}</h3>
-          <div class="popup-description"></div>
-        </div>
-      `;
-
-      const descriptionContainer = popupContent.querySelector(".popup-description");
-
-      if (type === "colors") {
-        createColorOptions(descriptionContainer, description);
-      } else if (type === "sizes") {
-        createSizeOptions(descriptionContainer, description);
-      } else if (type === "specification") {
-        createSpecificationList(descriptionContainer, description);
-      } else {
-        // For type-links that aren't colors/sizes/specification
-        descriptionContainer.innerHTML = `<p>${description}</p>`;
-      }
-
-      popupOverlay.classList.add("active");
-      document.body.classList.add("no-scroll");
+    // Close popup on overlay click or close button click
+    popupOverlay.addEventListener('click', (e) => {
+        if (e.target.classList.contains('popup-overlay') || 
+            e.target.classList.contains('close-popup')) {
+            closePopup(popupOverlay);
+        }
     });
-  });
 
-popupOverlay.addEventListener("click", (e) => {
-  if (e.target.classList.contains("close-popup") || e.target === popupOverlay) {
-    closePopup(popupOverlay);
-  }
-});
-}
-
-// Helper function to format the description with HTML structure
-function formatDescription(text) {
-  // Split into sections if there are double line breaks
-  const sections = text.split("\n\n");
-  
-  return sections.map(section => {
-    // Check if section is a heading (ends with colon)
-    if (section.trim().endsWith(":")) {
-      return `<div class="description-section">
-                <h4>${section.replace(":", "")}</h4>
-              </div>`;
-    }
-    // Check if section is a feature list (starts with hyphen)
-    else if (section.trim().startsWith("-")) {
-      const items = section.split("\n-").filter(item => item.trim() !== "");
-      return `<div class="description-section">
-                <ul class="feature-list">
-                  ${items.map(item => `<li>${item.trim()}</li>`).join("")}
-                </ul>
-              </div>`;
-    }
-    // Regular paragraph
-    else {
-      // Check for special formatting like asterisks for highlights
-      if (section.includes("*")) {
-        return `<div class="highlight-box">
-                  <p>${section.replace(/\*/g, "")}</p>
-                </div>`;
-      }
-      return `<div class="description-section">
-                <p>${section}</p>
-              </div>`;
-    }
-  }).join("");
+    // Close popup on ESC key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && popupOverlay.classList.contains('active')) {
+            closePopup(popupOverlay);
+        }
+    });
 }
 
 function createPopup() {
@@ -215,36 +169,47 @@ function closePopup(popupOverlay) {
 }
 
 function createColorOptions(container, description) {
-  const colors = description.replace("Available Colors:", "").trim().split(", ");
-  const optionsContainer = document.createElement("div");
-  optionsContainer.className = "color-options";
-  optionsContainer.innerHTML = colors.map(color => `
-    <div class="color-option">
-      <div class="color-swatch" style="background-color: ${color.toLowerCase()};"></div>
-      <span>${color}</span>
+  const colors = description.split(", ");
+  container.innerHTML = `
+    <div class="color-options">
+      ${colors.map(color => `
+        <div class="color-option">
+          <div class="color-swatch" style="background-color: ${color.toLowerCase()}"></div>
+          <span class="color-name">${color}</span>
+        </div>
+      `).join('')}
     </div>
-  `).join("");
-  container.appendChild(optionsContainer);
+  `;
 }
 
 function createSizeOptions(container, description) {
-  const sizes = description.replace("Available Sizes:", "").replace("inches", "").trim().split(", ");
-  const optionsContainer = document.createElement("div");
-  optionsContainer.className = "size-options";
-  optionsContainer.innerHTML = sizes.map(size => `
-    <div class="size-option">${size}</div>
-  `).join("");
-  container.appendChild(optionsContainer);
+  const sizes = description.split(", ");
+  container.innerHTML = `
+    <div class="size-options">
+      ${sizes.map(size => `
+        <div class="size-option">
+          <span>${size}</span>
+        </div>
+      `).join('')}
+    </div>
+  `;
 }
 
 function createSpecificationList(container, description) {
-  const specs = description.split("; ").map(spec => spec.split(": "));
-  const list = document.createElement("ul");
-  list.className = "spec-list";
-  list.innerHTML = specs.map(([key, value]) => `
-    <li><strong>${key}:</strong> ${value}</li>
-  `).join("");
-  container.appendChild(list);
+  const specs = description.split("; ");
+  container.innerHTML = `
+    <div class="spec-list">
+      ${specs.map(spec => {
+        const [name, value] = spec.split(": ");
+        return `
+          <div class="spec-item">
+            <span class="spec-name">${name}</span>
+            <span class="spec-value">${value}</span>
+          </div>
+        `;
+      }).join('')}
+    </div>
+  `;
 }
 
 function setupBackToTop() {
@@ -299,4 +264,95 @@ function updateFooterYear() {
   if (yearElement) {
     yearElement.textContent = `© ${new Date().getFullYear()} Rahi Equestrian. All rights reserved.`;
   }
+}
+
+function initProductGallery() {
+  const galleries = document.querySelectorAll('.product-gallery');
+  
+  galleries.forEach(gallery => {
+    const mainImages = gallery.querySelectorAll('.fade-gallery img');
+    const thumbnails = gallery.querySelectorAll('.thumbnail');
+    const prevBtn = gallery.querySelector('.prev-slide');
+    const nextBtn = gallery.querySelector('.next-slide');
+    let currentIndex = 0;
+
+    // Initialize zoom functionality
+    mainImages.forEach(img => {
+      img.addEventListener('mousemove', function(e) {
+        const bounds = this.getBoundingClientRect();
+        const x = (e.clientX - bounds.left) / bounds.width * 100;
+        const y = (e.clientY - bounds.top) / bounds.height * 100;
+        this.style.transform = `scale(1.5)`;
+        this.style.transformOrigin = `${x}% ${y}%`;
+      });
+
+      img.addEventListener('mouseleave', function() {
+        this.style.transform = '';
+      });
+    });
+
+    // Navigation buttons
+    if (prevBtn && nextBtn) {
+      prevBtn.addEventListener('click', () => {
+        currentIndex = (currentIndex - 1 + mainImages.length) % mainImages.length;
+        updateGallery();
+      });
+
+      nextBtn.addEventListener('click', () => {
+        currentIndex = (currentIndex + 1) % mainImages.length;
+        updateGallery();
+      });
+    }
+
+    // Thumbnail clicks
+    thumbnails.forEach((thumb, index) => {
+      thumb.addEventListener('click', () => {
+        currentIndex = index;
+        updateGallery();
+      });
+    });
+
+    function updateGallery() {
+      mainImages.forEach((img, index) => {
+        img.style.display = index === currentIndex ? 'block' : 'none';
+      });
+
+      thumbnails.forEach((thumb, index) => {
+        thumb.classList.toggle('active', index === currentIndex);
+      });
+    }
+
+    // Initial setup
+    updateGallery();
+  });
+}
+
+// Initialize new features
+document.addEventListener('DOMContentLoaded', () => {
+  initProductGallery();
+  
+  // Wishlist functionality
+  document.querySelectorAll('.wishlist-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      this.classList.toggle('active');
+      const icon = this.querySelector('i');
+      icon.classList.toggle('far');
+      icon.classList.toggle('fas');
+    });
+  });
+});
+
+function setupReadMoreButtons() {
+    document.querySelectorAll('.read-more-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const description = this.previousElementSibling; // hidden-description span
+            const isExpanded = description.style.display !== 'none';
+            
+            // Toggle description visibility
+            description.style.display = isExpanded ? 'none' : 'inline';
+            
+            // Update button text
+            this.textContent = isExpanded ? 'Read more' : 'Read less';
+        });
+    });
 }

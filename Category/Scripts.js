@@ -330,14 +330,34 @@ function initProductGallery() {
 // Initialize new features
 document.addEventListener('DOMContentLoaded', () => {
   initProductGallery();
-  
-  // Wishlist functionality
-  document.querySelectorAll('.wishlist-btn').forEach(btn => {
+
+  // Persistent Wishlist functionality
+  const WISHLIST_KEY = 'wishlistItems';
+  // Use product name as unique identifier
+  const wishlistBtns = document.querySelectorAll('.wishlist-btn');
+  const wishlist = JSON.parse(localStorage.getItem(WISHLIST_KEY) || '{}');
+
+  // Restore wishlist state
+  wishlistBtns.forEach(btn => {
+    const productName = btn.closest('.product-info').querySelector('h2').textContent.trim();
+    if (wishlist[productName]) {
+      btn.classList.add('active');
+      const icon = btn.querySelector('i');
+      icon.classList.remove('far');
+      icon.classList.add('fas');
+    }
     btn.addEventListener('click', function() {
-      this.classList.toggle('active');
       const icon = this.querySelector('i');
+      this.classList.toggle('active');
       icon.classList.toggle('far');
       icon.classList.toggle('fas');
+      const productName = this.closest('.product-info').querySelector('h2').textContent.trim();
+      if (this.classList.contains('active')) {
+        wishlist[productName] = true;
+      } else {
+        delete wishlist[productName];
+      }
+      localStorage.setItem(WISHLIST_KEY, JSON.stringify(wishlist));
     });
   });
 });

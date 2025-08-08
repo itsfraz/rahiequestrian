@@ -321,7 +321,7 @@ nav ul li a:focus {
   align-items: center;
   justify-content: center;
   transition: var(--transition);
-  backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);  
 }
 
 .slider-btn:hover {
@@ -1508,3 +1508,192 @@ footer {
 
 input.valid { border-color: #4CAF50 !important; }
 input.invalid { border-color: #F44336 !important; }
+
+/* Update Hero Section Responsive Styles */
+@media (max-width: 768px) {
+  .hero-slider {
+    height: 100vh; /* Full viewport height on mobile */
+    min-height: 400px;
+  }
+
+  .slide img {
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .hero-content {
+    padding: 0 20px;
+    width: 90%;
+  }
+
+  .hero-content h1 {
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+  }
+
+  .hero-subtitle {
+    font-size: clamp(1rem, 2.5vw, 1.5rem);
+  }
+
+  .hero-desc {
+    font-size: clamp(0.9rem, 2vw, 1.1rem);
+  }
+
+  /* Adjust slider navigation for better mobile experience */
+  .slider-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+
+  .slider-btn.prev {
+    left: 10px;
+  }
+
+  .slider-btn.next {
+    right: 10px;
+  }
+
+  .slider-dots {
+    bottom: 20px;
+  }
+}
+
+/* Improve section spacing and alignment */
+.section-container {
+  padding: 4rem 20px;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1200px;
+}
+
+@media (max-width: 576px) {
+  .section-container {
+    padding: 3rem 15px;
+  }
+
+  .section-title {
+    font-size: 2rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .section-subtitle {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  /* Improve grid layouts for mobile */
+  .services-container,
+  .categories-grid,
+  .featured-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 0 10px;
+  }
+
+  /* Adjust cards for better mobile display */
+  .service-card,
+  .category-card,
+  .featured-card {
+    margin: 0 auto;
+    max-width: 100%;
+  }
+
+  /* Improve About section layout */
+  .about-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .about-stats {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+  }
+
+  .stat-item {
+    flex: 0 0 calc(50% - 1rem);
+  }
+}
+
+/* Add smooth transitions for responsive changes */
+.hero-content,
+.section-container,
+.service-card,
+.category-card,
+.featured-card {
+  transition: all 0.3s ease-in-out;
+}
+
+/* Improve navigation responsiveness */
+@media (max-width: 768px) {
+  nav {
+    padding: 0.8rem 15px;
+  }
+
+  .nav-logo {
+    height: 35px;
+  }
+
+  nav .logo span {
+    font-size: 1.2rem;
+  }
+
+  /* Enhance mobile menu */
+  nav ul {
+    width: 100%;
+    max-width: 300px;
+    background: var(--white);
+    box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+  }
+
+  nav ul li a {
+    padding: 12px 20px;
+  }
+}
+
+/* Improve testimonials section responsiveness */
+@media (max-width: 768px) {
+  .testimonials-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .testimonial-card {
+    padding: 1.5rem;
+  }
+
+  .trust-badges {
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .trust-badge {
+    flex: 0 0 calc(50% - 1rem);
+    min-width: 140px;
+    padding: 1rem;
+  }
+}
+
+/* Improve contact section responsiveness */
+@media (max-width: 768px) {
+  .contact-wrapper {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .contact-info,
+  .contact-map {
+    width: 100%;
+  }
+
+  .contact-map iframe {
+    height: 300px;
+  }
+
+  .social-links {
+    justify-content: center;
+  }
+}

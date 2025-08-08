@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
- <head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Equipment | Rahi Equestrian</title>
     <link rel="stylesheet" href="Style.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
   </head>
   <body>
     <header>
@@ -57,231 +60,494 @@
       </div>
       <div class="product-detail-row">
         <section class="product-detail">
+          <!-- Enhanced Product Gallery -->
           <div class="product-gallery">
-            <div class="fade-gallery">
-              <img src="../images/img02.jpg" alt="Product image 1" />
-              <img src="../images/img01.jpg" alt="Product image 2" />
-              <img src="../images/img03.jpg" alt="Product image 3" />
+            <div class="gallery-main">
+              <div class="fade-gallery">
+                <img
+                  src="../images/Apperal_BT_01.jpeg"
+                  alt="Jumping Saddle image 1"
+                />
+                <img
+                  src="../images/Apperal_BT_02.jpeg"
+                  alt="Jumping Saddle image 2"
+                />
+                <img
+                  src="../images/Apperal_BT_B01.jpeg"
+                  alt="Jumping Saddle image 3"
+                />
+                <img
+                  src="../images/Apperal_BT_B02.jpeg"
+                  alt="Jumping Saddle image 4"
+                />
+                <img
+                  src="../images/Apperal_BT_N01.jpeg"
+                  alt="Jumping Saddle image 4"
+                />
+                <img
+                  src="../images/Apperal_BT_N02.jpeg"
+                  alt="Jumping Saddle image 4"
+                />
+              </div>
+              <!-- Added zoom indicator -->
+              <div class="zoom-hint">
+                <i class="fas fa-search-plus"></i>
+                <span>Hover to zoom</span>
+              </div>
+              <!-- Added gallery navigation -->
+              <div class="gallery-nav">
+                <button class="prev-slide" aria-label="Previous image">
+                  <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="next-slide" aria-label="Next image">
+                  <i class="fas fa-chevron-right"></i>
+                </button>
+              </div>
             </div>
             <div class="thumbnail-container">
+              <!-- Enhanced thumbnails with active state -->
               <img
-                src="../images/img02.jpg"
-                class="thumbnail"
-                alt="Thumbnail 1"
+                src="../images/Apperal_BT_01.jpeg"
+                class="thumbnail active"
+                alt="Jumping Saddle thumbnail 1"
               />
               <img
-                src="../images/img01.jpg"
+                src="../images/Apperal_BT_02.jpeg"
                 class="thumbnail"
-                alt="Thumbnail 2"
+                alt="Jumping Saddle thumbnail 2"
               />
               <img
-                src="../images/img03.jpg"
+                src="../images/Apperal_BT_B01.jpeg"
                 class="thumbnail"
-                alt="Thumbnail 3"
+                alt="Jumping Saddle thumbnail 3"
+              />
+              <img
+                src="../images/Apperal_BT_B02.jpeg"
+                class="thumbnail"
+                alt="Jumping Saddle thumbnail 4"
+              />
+              <img
+                src="../images/Apperal_BT_N01.jpeg"
+                class="thumbnail"
+                alt="Jumping Saddle thumbnail 4"
+              />
+              <img
+                src="../images/Apperal_BT_N02.jpeg"
+                class="thumbnail"
+                alt="Jumping Saddle thumbnail 4"
               />
             </div>
           </div>
-          <!-- Example for Riding Gloves in apparel.html -->
+
+          <!-- Enhanced Product Info -->
           <div class="product-info">
-            <h2>Riding Gloves</h2>
-            <span class="product-price">₹2050</span>
-            <p>
-              Breathable, grippy, and stylish riding gloves for all seasons.
-              <a
-                href="#"
-                class="read-more"
-                data-description="Breathable, grippy, and stylish riding gloves for all seasons. Designed for comfort and control, these gloves are a must-have for every rider. Made with premium materials that ensure durability and flexibility."
-                >Read more</a
-              >
-            </p>
+            <div class="product-header">
+              <h2>The Midnight Rider Leather Boots</h2>
+              <div class="product-badges">
+                <span class="badge premium">Premium</span>
+                <!-- <span class="badge bestseller">Bestseller</span> -->
+              </div>
+            </div>
+
+            <!-- Quick Overview Section -->
+            <div class="quick-overview">
+              <div class="overview-item">
+                <i class="fas fa-star"></i>
+                <span>Premium Quality</span>
+              </div>
+              <div class="overview-item">
+                <i class="fas fa-certificate"></i>
+                <span>Certified Leather</span>
+              </div>
+              <!-- <div class="overview-item">
+                <i class="fas fa-truck"></i>
+                <span>Free Shipping</span>
+              </div> -->
+            </div>
+
+            <!-- Enhanced Product Description -->
+            <div class="product-description">
+              <p class="main-description">
+                Step into sophistication with the Midnight Rider Leather Boots.
+                Crafted from high-gloss, deep navy leather, these boots exude a
+                classic yet contemporary elegance.
+                <span class="hidden-description" style="display: none">
+                  The knee-high design features a sleek silhouette, complemented
+                  by gold-tone hardware on the adjustable ankle and top straps.
+                  A low, stacked heel provides comfortable lift, making them
+                  perfect for both casual outings and more formal occasions.
+                  These boots are a timeless addition to any wardrobe, promising
+                  both style and durability.
+                </span>
+                <button class="read-more-btn">Read more</button>
+              </p>
+            </div>
+
+            <!-- Key Features Section -->
+            <div class="key-features">
+              <h3>Key Features</h3>
+              <ul class="feature-grid">
+                <li>
+                  <i class="fas fa-check-circle"></i>
+                  <span>Premium Full-grain Leather</span>
+                </li>
+                <li>
+                  <i class="fas fa-check-circle"></i>
+                  <span>Ergonomic Design</span>
+                </li>
+                <li>
+                  <i class="fas fa-check-circle"></i>
+                  <span>Custom Sizing Available</span>
+                </li>
+                <li>
+                  <i class="fas fa-check-circle"></i>
+                  <span>Eco-friendly Process</span>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Enhanced Specification Links -->
             <div class="product-spec-links">
               <a
                 href="#"
                 class="spec-link"
                 data-spec="colors"
-                data-description="Available Colors: Black, Brown, Tan"
+                data-description="Brown, Black, Navy"
               >
-                <i class="fas fa-palette"></i> Colors
+                <i class="fas fa-palette"></i>
+                <span>Colors</span>
+                <small>3 options</small>
               </a>
               <a
                 href="#"
                 class="spec-link"
                 data-spec="sizes"
-                data-description="Available Sizes: 16.5, 17, 17.5, 18 inches"
+                data-description="10, 11, 11.5, 12"
               >
-                <i class="fas fa-ruler-combined"></i> Sizes
+                <i class="fas fa-ruler-combined"></i>
+                <span>Sizes</span>
+                <small>4 options</small>
               </a>
               <a
                 href="#"
                 class="spec-link"
                 data-spec="specification"
-                data-description="Material: Premium Indian Leather; Tree: Lightweight Carbon Fiber; Seat: Deep, Padded; Billets: Reinforced Nylon"
+                data-description="Material: High-Gloss Leather; Color: Deep Navy / Midnight Blue/Black; Warranty: 1 Year; Hardware: Gold-Tone Buckles and Accents; Style: Knee-High Boot; Closure: Side Zipper (implied) and Adjustable Buckle Straps; Heel Height: Approx. 1.5 inches (Stacked Heel); Toe Shape: Almond Toe; Sole: Durable Rubber Sole"
               >
-                <i class="fas fa-list-ul"></i> Specification
+                <i class="fas fa-list-ul"></i>
+                <span>Specifications</span>
+                <small>View details</small>
               </a>
             </div>
-            <div class="product-types">
-              <h4>Available Types:</h4>
+
+            <!-- Added Care Instructions -->
+            <div class="care-instructions">
+              <h3>Care Instructions</h3>
               <ul>
                 <li>
-                  <a
-                    href="#"
-                    class="type-link"
-                    data-type="Summer Gloves"
-                    data-description="Lightweight mesh fabric with enhanced breathability for hot weather riding. Features UV protection and moisture-wicking technology."
-                    >Summer Gloves</a
-                  >
+                  <i class="fas fa-info-circle"></i> Clean with leather soap
                 </li>
                 <li>
-                  <a
-                    href="#"
-                    class="type-link"
-                    data-type="Winter Gloves"
-                    data-description="Insulated with thermal lining while maintaining dexterity. Water-resistant outer layer with reinforced grip patches."
-                    >Winter Gloves</a
-                  >
+                  <i class="fas fa-info-circle"></i> Store in dry conditions
                 </li>
                 <li>
-                  <a
-                    href="#"
-                    class="type-link"
-                    data-type="Competition Gloves"
-                    data-description="Premium leather with advanced grip technology. Elegant design meeting competition standards with maximum flexibility."
-                    >Competition Gloves</a
-                  >
+                  <i class="fas fa-info-circle"></i> Apply leather conditioner
+                  monthly
                 </li>
               </ul>
             </div>
-            <ul class="product-features">
-              <li><i class="fa-solid fa-check"></i> Breathable fabric</li>
-              <li><i class="fa-solid fa-check"></i> Superior grip</li>
-              <li><i class="fa-solid fa-check"></i> Available in all sizes</li>
-              <li><i class="fa-solid fa-check"></i> Machine washable</li>
-            </ul>
-            <a href="../index.html#contact" class="cta-button">Enquire Now</a>
+
+            <!-- Enhanced CTA Section -->
+            <div class="product-cta">
+              <a href="../index.html#contact" class="cta-button primary">
+                <i class="fas fa-shopping-cart"></i>
+                Enquire Now
+              </a>
+              <button class="cta-button secondary wishlist-btn">
+                <i class="far fa-heart"></i>
+                Add to Wishlist
+              </button>
+            </div>
           </div>
         </section>
         <section class="product-detail">
+          <!-- Enhanced Product Gallery -->
           <div class="product-gallery">
-            <div class="fade-gallery">
-              <img src="../images/img03.jpg" alt="Show Jacket image 1" />
-              <img src="../images/img01.jpg" alt="Show Jacket image 2" />
-              <img src="../images/img02.jpg" alt="Show Jacket image 3" />
+            <div class="gallery-main">
+              <div class="fade-gallery">
+                <img
+                  src="../images/Apperal_Helmet_01.jpeg"
+                  alt="Jumping Saddle image 1"
+                />
+                <img
+                  src="../images/Apperal_Helmet_02.jpeg"
+                  alt="Jumping Saddle image 2"
+                />
+                <img
+                  src="../images/Apperal_Helmet_03.jpeg"
+                  alt="Jumping Saddle image 3"
+                />
+                <img
+                  src="../images/Apperal_Helmet_04.jpeg"
+                  alt="Jumping Saddle image 4"
+                />
+                <img
+                  src="../images/Apperal_Helmet_05.jpeg"
+                  alt="Jumping Saddle image 5"
+                />
+              </div>
+              <!-- Added zoom indicator -->
+              <div class="zoom-hint">
+                <i class="fas fa-search-plus"></i>
+                <span>Hover to zoom</span>
+              </div>
+              <!-- Added gallery navigation -->
+              <div class="gallery-nav">
+                <button class="prev-slide" aria-label="Previous image">
+                  <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="next-slide" aria-label="Next image">
+                  <i class="fas fa-chevron-right"></i>
+                </button>
+              </div>
             </div>
             <div class="thumbnail-container">
+              <!-- Enhanced thumbnails with active state -->
               <img
-                src="../images/img03.jpg"
-                class="thumbnail"
-                alt="Show Jacket thumbnail 1"
+                src="../images/Apperal_Helmet_01.jpeg"
+                class="thumbnail active"
+                alt="Jumping Saddle thumbnail 1"
               />
               <img
-                src="../images/img01.jpg"
+                src="../images/Apperal_Helmet_02.jpeg"
                 class="thumbnail"
-                alt="Show Jacket thumbnail 2"
+                alt="Jumping Saddle thumbnail 2"
               />
               <img
-                src="../images/img02.jpg"
+                src="../images/Apperal_Helmet_03.jpeg"
                 class="thumbnail"
-                alt="Show Jacket thumbnail 3"
+                alt="Jumping Saddle thumbnail 3"
+              />
+              <img
+                src="../images/Apperal_Helmet_04.jpeg"
+                class="thumbnail"
+                alt="Jumping Saddle thumbnail 4"
+              />
+              <img
+                src="../images/Apperal_Helmet_05.jpeg"
+                class="thumbnail"
+                alt="Jumping Saddle thumbnail 5"
               />
             </div>
           </div>
+
+          <!-- Enhanced Product Info -->
           <div class="product-info">
-            <h2>Show Jacket</h2>
-            <span class="product-price">₹1100</span>
-            <p>
-              Elegant, tailored show jacket for competitions and events.
-              <a
-                href="#"
-                class="read-more"
-                data-description="Elegant, tailored show jacket for competitions and events. Combines style, comfort, and performance for every rider. Features premium wool blend fabric with stretch panels for optimal movement, reinforced shoulders for durability, and a flattering silhouette that meets competition standards."
-              >
-                Read more
-              </a>
-            </p>
+            <div class="product-header">
+              <h2>Apex Pro Equestrian Helmet</h2>
+              <div class="product-badges">
+                <span class="badge premium">Premium</span>
+                <!-- <span class="badge bestseller">Bestseller</span> -->
+              </div>
+            </div>
+
+            <!-- Quick Overview Section -->
+            <div class="quick-overview">
+              <div class="overview-item">
+                <i class="fas fa-star"></i>
+                <span>Premium Quality</span>
+              </div>
+              <div class="overview-item">
+                <i class="fas fa-certificate"></i>
+                <span>Certified Leather</span>
+              </div>
+              <!-- <div class="overview-item">
+                <i class="fas fa-truck"></i>
+                <span>Free Shipping</span>
+              </div> -->
+            </div>
+
+            <!-- Enhanced Product Description -->
+            <div class="product-description">
+              <p class="main-description">
+                Experience the pinnacle of equestrian safety and style with the
+                 Apex Pro helmet. This helmet combines cutting-edge
+                protection with a sophisticated design, making it the ideal
+                choice for riders who demand both performance and elegance.
+                <span class="hidden-description" style="display: none">
+                  The matte tan finish and sleek, aerodynamic profile offer a
+                  modern look, while the integrated ventilation system ensures
+                  maximum comfort during long rides. The adjustable chin strap
+                  and padded interior provide a secure, personalized fit,
+                  allowing you to focus on your ride with confidence. Whether
+                  you're training, competing, or enjoying a leisurely hack, the
+                   Rahi Pro is your trusted partner for a safe and stylish
+                  journey.
+                </span>
+                <button class="read-more-btn">Read more</button>
+              </p>
+            </div>
+
+            <!-- Key Features Section -->
+            <div class="key-features">
+              <h3>Key Features</h3>
+              <ul class="feature-grid">
+                <li>
+                  <i class="fas fa-check-circle"></i>
+                  <span>Premium Full-grain Leather</span>
+                </li>
+                <li>
+                  <i class="fas fa-check-circle"></i>
+                  <span>Ergonomic Design</span>
+                </li>
+                <li>
+                  <i class="fas fa-check-circle"></i>
+                  <span>Custom Sizing Available</span>
+                </li>
+                <li>
+                  <i class="fas fa-check-circle"></i>
+                  <span>Eco-friendly Process</span>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Enhanced Specification Links -->
             <div class="product-spec-links">
               <a
                 href="#"
                 class="spec-link"
                 data-spec="colors"
-                data-description="Available Colors: Black, Brown, Tan"
+                data-description="Brown, Black, White, Navy"
               >
-                <i class="fas fa-palette"></i> Colors
+                <i class="fas fa-palette"></i>
+                <span>Colors</span>
+                <small>3 options</small>
               </a>
               <a
                 href="#"
                 class="spec-link"
                 data-spec="sizes"
-                data-description="Available Sizes: 16.5, 17, 17.5, 18 inches"
+                data-description="Small, Medium, Large, XLarge"
               >
-                <i class="fas fa-ruler-combined"></i> Sizes
+                <i class="fas fa-ruler-combined"></i>
+                <span>Sizes</span>
+                <small>4 options</small>
               </a>
               <a
                 href="#"
                 class="spec-link"
                 data-spec="specification"
-                data-description="Material: Premium Indian Leather; Tree: Lightweight Carbon Fiber; Seat: Deep, Padded; Billets: Reinforced Nylon"
+                data-description="Color: Matte Tan; Shell Material: High-Impact Polycarbonate; Warranty: 1 Year; Lining: Removable, washable, moisture-wicking padding; Ventilation: Integrated airflow system with front and top vents; Retention System: Fully adjustable, padded harness with a quick-release buckle; Visor: Flexible, fixed visor for sun protection; Sizes: Small, Medium, Large; Weight: Approximately 500g (size medium)"
               >
-                <i class="fas fa-list-ul"></i> Specification
+                <i class="fas fa-list-ul"></i>
+                <span>Specifications</span>
+                <small>View details</small>
               </a>
             </div>
-            <div class="product-types">
-              <h4>Available Styles:</h4>
+
+            <!-- Added Care Instructions -->
+            <div class="care-instructions">
+              <h3>Care Instructions</h3>
               <ul>
                 <li>
-                  <a
-                    href="#"
-                    class="type-link"
-                    data-type="Classic Black"
-                    data-description="Timeless black show jacket with subtle satin detailing. Made from premium wool blend with moisture-wicking lining. Features discreet ventilation panels and reinforced elbow patches for durability."
-                  >
-                    Classic Black
-                  </a>
+                  <i class="fas fa-info-circle"></i> Clean with leather soap
                 </li>
                 <li>
-                  <a
-                    href="#"
-                    class="type-link"
-                    data-type="Navy Blue"
-                    data-description="Rich navy blue jacket with contrast piping. Constructed with lightweight, breathable fabric that maintains structure while allowing freedom of movement. Includes hidden inner pockets for small essentials."
-                  >
-                    Navy Blue
-                  </a>
+                  <i class="fas fa-info-circle"></i> Store in dry conditions
                 </li>
                 <li>
-                  <a
-                    href="#"
-                    class="type-link"
-                    data-type="Competition Cut"
-                    data-description="Slim-fit competition jacket with advanced stretch technology. Designed specifically for show jumping with extra shoulder mobility and a slightly shorter back hem. Available in FIA-approved colors for official events."
-                  >
-                    Competition Cut
-                  </a>
+                  <i class="fas fa-info-circle"></i> Apply leather conditioner
+                  monthly
                 </li>
               </ul>
             </div>
-            <ul class="product-features">
-              <li><i class="fa-solid fa-check"></i> Tailored fit</li>
-              <li><i class="fa-solid fa-check"></i> Breathable material</li>
-              <li><i class="fa-solid fa-check"></i> Competition ready</li>
-              <li><i class="fa-solid fa-check"></i> Easy care fabric</li>
-            </ul>
-            <a href="../index.html#contact" class="cta-button">Enquire Now</a>
+
+            <!-- Enhanced CTA Section -->
+            <div class="product-cta">
+              <a href="../index.html#contact" class="cta-button primary">
+                <i class="fas fa-shopping-cart"></i>
+                Enquire Now
+              </a>
+              <button class="cta-button secondary wishlist-btn">
+                <i class="far fa-heart"></i>
+                Add to Wishlist
+              </button>
+            </div>
           </div>
         </section>
       </div>
     </main>
 
-    <footer>
-      <div class="social-links">
-        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-        <a href="https://www.instagram.com/rahiequestrian/" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-        <a href="https://www.linkedin.com/company/rahi-equestrian/services/" aria-label="Linkedin"><i class="fab fa-linkedin"></i></a>
-        <a href="#" aria-label="Pinterest"
-          ><i class="fab fa-pinterest-p"></i
-        ></a>
+     <footer class="enhanced-footer">
+      <div class="footer-content">
+        <!-- Company Info Section -->
+        <div class="footer-section">
+          <div class="footer-logo">
+            <img
+              src="../images/Logo.png"
+              alt="Rahi Equestrian Logo"
+              class="footer-logo-img"
+            />
+            <h3>Rahi Equestrian</h3>
+          </div>
+          <p class="company-description">
+            Premium equestrian supplies and handcrafted leather goods for riders
+            and horses.
+          </p>
+        </div>
+
+        <!-- Quick Links Section -->
+        <div class="footer-section">
+          <h4>Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="apparel.html">Apparel</a></li>
+            <li><a href="../#about">About Us</a></li>
+            <li><a href="../#contact">Contact</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact Info Section -->
+        <div class="footer-section">
+          <h4>Contact Us</h4>
+          <ul class="contact-info">
+            <li>
+              <i class="fas fa-map-marker-alt"></i>
+              <span>Juhi Safed Colony, Kanpur</span>
+            </li>
+            <li>
+              <i class="fas fa-phone"></i>
+              <span>+91 7007786334</span>
+            </li>
+            <li>
+              <i class="fas fa-envelope"></i>
+              <span>rahiequestrian@gmail.com</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Social Media Section -->
+        <div class="footer-section">
+          <h4>Follow Us</h4>
+          <div class="social-links">
+            <a
+              href="https://www.instagram.com/rahiequestrian/"
+              aria-label="Instagram"
+            >
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://www.facebook.com/" aria-label="Facebook">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a
+              href="https://www.linkedin.com/company/rahi-equestrian/services/"
+              aria-label="LinkedIn"
+            >
+              <i class="fab fa-linkedin"></i>
+            </a>
+          </div>
+        </div>
       </div>
-      <p>© 2025 Rahi Equestrian. All rights reserved.</p>
     </footer>
     <script src="Scripts.js"></script>
   </body>

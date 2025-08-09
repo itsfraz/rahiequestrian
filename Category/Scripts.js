@@ -66,29 +66,90 @@ function setupMobileMenu() {
 }
 
 function initImageGalleries() {
-  const galleries = document.querySelectorAll(".product-gallery");
+    const galleries = document.querySelectorAll('.product-gallery');
 
-  galleries.forEach((gallery) => {
-    const mainImages = gallery.querySelectorAll(".fade-gallery img");
-    const thumbnails = gallery.querySelectorAll(".thumbnail");
+    galleries.forEach(gallery => {
+        const mainImages = gallery.querySelectorAll('.fade-gallery img');
+        const thumbnails = gallery.querySelectorAll('.thumbnail');
+        const prevBtn = gallery.querySelector('.prev-slide');
+        const nextBtn = gallery.querySelector('.next-slide');
+        let currentIndex = 0;
 
-    if (mainImages.length > 0) {
-      mainImages[0].classList.add("active");
-      if (thumbnails.length > 0) {
-        thumbnails[0].classList.add("active");
-      }
-    }
+        // Initialize navigation buttons
+        if (prevBtn && nextBtn) {
+            prevBtn.addEventListener('click', () => {
+                currentIndex = (currentIndex - 1 + mainImages.length) % mainImages.length;
+                updateGallery();
+            });
 
-    thumbnails.forEach((thumb, index) => {
-      thumb.addEventListener("click", () => {
-        mainImages.forEach((img) => img.classList.remove("active"));
-        mainImages[index].classList.add("active");
+            nextBtn.addEventListener('click', () => {
+                currentIndex = (currentIndex + 1) % mainImages.length;
+                updateGallery();
+            });
+        }
 
-        thumbnails.forEach((t) => t.classList.remove("active"));
-        thumb.classList.add("active");
-      });
+        // Update gallery function
+        function updateGallery() {
+            mainImages.forEach((img, index) => {
+                img.classList.toggle('active', index === currentIndex);
+            });
+
+            thumbnails.forEach((thumb, index) => {
+                thumb.classList.toggle('active', index === currentIndex);
+            });
+        }
+
+        // Add loading handling
+        mainImages.forEach(img => {
+            img.classList.add('image-loading');
+            
+            img.onload = () => {
+                img.classList.remove('image-loading');
+            };
+
+            // Error handling
+            img.onerror = () => {
+                img.src = '../images/placeholder.jpg'; // Add a placeholder image
+                img.classList.remove('image-loading');
+            };
+        });
+
+        // Show first image
+        if (mainImages.length > 0) {
+            mainImages[0].classList.add('active');
+            thumbnails[0]?.classList.add('active');
+        }
+
+        // Handle thumbnail clicks
+        thumbnails.forEach((thumb, index) => {
+            thumb.addEventListener('click', () => {
+                currentIndex = index;
+                updateGallery();
+            });
+        });
+
+        // Touch swipe support
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        gallery.addEventListener('touchstart', e => {
+            touchStartX = e.touches[0].clientX;
+        }, { passive: true });
+
+        gallery.addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].clientX;
+            const swipeDistance = touchEndX - touchStartX;
+            
+            if (Math.abs(swipeDistance) > 50) {
+                if (swipeDistance > 0) {
+                    currentIndex = (currentIndex - 1 + mainImages.length) % mainImages.length;
+                } else {
+                    currentIndex = (currentIndex + 1) % mainImages.length;
+                }
+                updateGallery();
+            }
+        }, { passive: true });
     });
-  });
 }
 
 function setupProductPopups() {

@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // --- Resource Preloading ---
   const preloadResources = () => {
     const resources = [
-      'images/img07.webp', // Preload hero image
+      'images/hero.png', // Preload hero image
       'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css'
     ];
     

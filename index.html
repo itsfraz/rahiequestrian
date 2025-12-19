@@ -1,407 +1,537 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rahi Equestrian | Premium Saddles, Tack & Raw Materials</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Handcrafted premium saddles, leather goods, and riding gear. Manufacturer & exporter of high-quality equestrian equipment and raw materials. Crafted with passion in India." />
+    <meta name="keywords" content="equestrian equipment, horse saddles, dressage saddle, leather tack, riding gear, horse bridles, raw materials, wholesale equestrian, India leather exporter" />
+    <meta name="author" content="Rahi Equestrian" />
+    <meta name="robots" content="index, follow" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://rahiequestrian.com/" />
+    <meta property="og:title" content="Rahi Equestrian | Premium Saddles & Tack" />
+    <meta property="og:description" content="Discover the finest saddles, leather, and riding gear crafted with tradition and innovation." />
+    <meta property="og:image" content="https://rahiequestrian.com/images/Logo.png" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://rahiequestrian.com/" />
+    <meta property="twitter:title" content="Rahi Equestrian | Premium Saddles & Tack" />
+    <meta property="twitter:description" content="Discover the finest saddles, leather, and riding gear crafted with tradition and innovation." />
+    <meta property="twitter:image" content="https://rahiequestrian.com/images/Logo.png" />
+
+    <!-- Icons -->
     <link rel="shortcut icon" href="images/Logo.png" type="image/x-icon" />
     <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="shortcut icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
-    <title>Rahi Equestrian - Horse Saddles Manufacturer & Exporter</title>
-    <meta
-      name="description"
-      content="Premium Raw Materials & Equipment for Equestrian Excellence. Handcrafted saddles, leather goods, and riding gear."
-    />
-    <meta
-      name="description"
-      content="Shop premium equestrian equipment, horse saddles, riding helmets, bridles, boots, and more. High-quality horse riding gear for beginners and professionals."
-    />
-    <meta
-      name="keywords"
-      content="equestrian equipment, horse riding gear, horseback riding equipment, horse tack shop, leather horse saddle, dressage saddle, riding helmets, horse riding accessories, equestrian products, horse riding boots"
-    />
-    <meta
-      name="description"
-      content="Shop premium equestrian equipment, horse riding gear, saddles, helmets, and accessories. Quality gear for English and Western riding styles."
-    />
-    <meta
-      name="keywords"
-      content="equestrian equipment, horse riding gear, horseback riding equipment, equestrian products, horse tack shop, English riding equipment, western riding gear, horse riding accessories, horse riding helmets, horse saddles"
-    />
-    <meta
-      name="description"
-      content="Find top-quality equestrian equipment, saddles, bridles, riding boots, and accessories. From beginners to professionals, shop the best horse riding gear online."
-    />
-    <meta
-      name="keywords"
-      content="leather horse saddle, dressage saddle, jumping saddle, horse bridle and reins, horse riding boots, stirrups for horse riding, equestrian apparel, horse grooming kit, horse blanket, horse rug, riding gloves for equestrians, best leather saddles for horses, affordable horse riding gear online, custom-made horse tack, lightweight horse riding helmet, premium equestrian equipment for sale, where to buy horse tack near me, horse riding gear for beginners, eco-friendly equestrian products, handmade leather horse saddle, professional horse riding accessories"
-    />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
     <meta name="theme-color" content="#8B4513" />
-    <link rel="stylesheet" href="style.css" />
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
     />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap"
-      rel="stylesheet"
-    />
-    <meta
-      name="google-site-verification"
-      content="4T4ZiPQhZI8bNNLDrVDJLIVrnP2-YHesmC5KUq95qjY"
-    />
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      // Immediately Check for Saved Theme to Prevent Flicker
+      (function() {
+        const savedTheme = localStorage.getItem('theme');
+        const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        if (savedTheme === 'dark' || (!savedTheme && systemTheme)) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      })();
+
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              background: 'var(--color-background)',
+              surface: 'var(--color-surface)',
+              text: {
+                DEFAULT: 'var(--color-text)',
+                muted: 'var(--color-text-muted)',
+              },
+              primary: {
+                DEFAULT: '#8b4513', // Saddle Brown
+                dark: '#5d2906',
+                light: '#a5672f',
+              },
+              secondary: '#556b2f', // Olive Green
+              accent: '#d2b48c', // Tan
+              gold: '#c5a059',
+            },
+            fontFamily: {
+              sans: ['Montserrat', 'sans-serif'],
+              serif: ['Playfair Display', 'serif'],
+            },
+            boxShadow: {
+              'premium-sm': 'var(--shadow-sm)',
+              'premium-md': 'var(--shadow-md)',
+              'premium-lg': 'var(--shadow-lg)',
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      /* CSS Variables for Theming */
+      :root {
+        /* Light Mode (Default) */
+        --color-background: #fdfbf7;
+        --color-surface: #ffffff;
+        --color-text: #2c241b;
+        --color-text-muted: #5a4a3a;
+        --shadow-sm: 0 2px 8px rgba(44, 36, 27, 0.05);
+        --shadow-md: 0 8px 24px rgba(44, 36, 27, 0.08);
+        --shadow-lg: 0 16px 48px rgba(44, 36, 27, 0.12);
+      }
+
+      .dark {
+        /* Dark Mode */
+        --color-background: #121212;
+        --color-surface: #1e1e1e;
+        --color-text: #e0e0e0;
+        --color-text-muted: #a0a0a0;
+        /* Adjusted Shadows for Dark Mode (more subtle, maybe slight glow or just darker drop shadow) */
+        --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+        --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.4);
+        --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.6);
+      }
+
+      /* Transitions for smooth theme switching */
+      body, .bg-white, .bg-background, .bg-surface, .text-text, .text-text-muted {
+        transition-property: background-color, color, border-color, box-shadow;
+        transition-duration: 300ms;
+        transition-timing-function: ease-in-out;
+      }
+
+      /* Custom Animations */
+      @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      .animate-fadeInUp {
+        animation: fadeInUp 1s ease forwards;
+      }
+      /* Ensure ripple effect works */
+      .ripple-effect {
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.4);
+        transform: scale(0);
+        animation: ripple 0.6s linear;
+        pointer-events: none;
+      }
+      @keyframes ripple {
+        to { transform: scale(4); opacity: 0; }
+      }
+    </style>
   </head>
-  <body>
+  <!-- Updated Body specific for theming -->
+  <body class="font-sans bg-background text-text antialiased overflow-x-hidden w-full">
+    
     <!-- Header & Navigation Bar -->
-    <header>
-      <nav>
-        <a href="#home" class="logo">
+    <header class="fixed top-0 w-full z-50 bg-surface/95 dark:bg-surface/95 backdrop-blur-md shadow-premium-sm border-b border-primary/10 transition-all duration-300">
+      <nav class="max-w-7xl mx-auto px-6 py-3 flex justify-between items-center">
+        <a href="#home" class="logo flex items-center gap-3 text-2xl font-bold text-primary no-underline">
           <img
             src="images/Logo.png"
             alt="Rahi Equestrian Logo"
-            class="nav-logo"
+            class="nav-logo h-10 w-auto"
           />
           <span>Rahi Equestrian</span>
         </a>
-        <button
-          class="nav-toggle"
-          aria-label="Open navigation"
-          aria-expanded="false"
-        >
-          <span class="bar"></span>
-          <span class="bar"></span>
-          <span class="bar"></span>
-        </button>
-        <ul>
-          <li><a href="#home">Home</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#services">Services</a></li>
-          <li><a href="#products">Products</a></li>
-          <li><a href="#contact">Contact</a></li>
+
+        <!-- Desktop Navigation & Actions -->
+        <div class="hidden md:flex items-center gap-8">
+            <ul class="flex items-center gap-6">
+            <li><a href="#home" class="text-text font-medium hover:text-primary transition-colors">Home</a></li>
+            <li><a href="#about" class="text-text font-medium hover:text-primary transition-colors">About</a></li>
+            <li><a href="#services" class="text-text font-medium hover:text-primary transition-colors">Services</a></li>
+            <li><a href="#products" class="text-text font-medium hover:text-primary transition-colors">Products</a></li>
+            <li><a href="#contact" class="text-text font-medium hover:text-primary transition-colors">Contact</a></li>
+            </ul>
+            
+            <!-- Theme Toggle Button (Desktop) -->
+            <button id="theme-toggle" class="w-10 h-10 rounded-full border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-yellow-400 flex items-center justify-center transition-all hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none" aria-label="Toggle Dark Mode">
+                <i class="fas fa-moon dark:hidden"></i>
+                <i class="fas fa-sun hidden dark:block"></i>
+            </button>
+        </div>
+
+        <div class="flex items-center gap-4 md:hidden">
+             <!-- Theme Toggle Button (Mobile) -->
+            <button id="theme-toggle-mobile" class="w-9 h-9 rounded-full border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-yellow-400 flex items-center justify-center transition-all focus:outline-none" aria-label="Toggle Dark Mode">
+                <i class="fas fa-moon dark:hidden"></i>
+                <i class="fas fa-sun hidden dark:block"></i>
+            </button>
+
+            <!-- Hamburger -->
+            <button
+            class="nav-toggle flex flex-col justify-center items-center w-8 h-8 cursor-pointer relative z-[1001] gap-1.5 focus:outline-none"
+            aria-label="Open navigation"
+            aria-expanded="false"
+            >
+            <span class="bar block w-7 h-[3px] bg-primary rounded-sm transition-all duration-300 origin-center"></span>
+            <span class="bar block w-7 h-[3px] bg-primary rounded-sm transition-all duration-300 origin-center"></span>
+            <span class="bar block w-7 h-[3px] bg-primary rounded-sm transition-all duration-300 origin-center"></span>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <ul id="mobile-menu" class="fixed inset-0 bg-surface flex flex-col justify-center items-center gap-8 transform translate-x-full transition-transform duration-300 ease-in-out z-[1000] h-screen w-full top-0 left-0 md:hidden [&.open]:translate-x-0">
+          <li><a href="#home" class="text-text text-xl font-medium px-4 py-2 hover:text-primary transition-colors">Home</a></li>
+          <li><a href="#about" class="text-text text-xl font-medium px-4 py-2 hover:text-primary transition-colors">About</a></li>
+          <li><a href="#services" class="text-text text-xl font-medium px-4 py-2 hover:text-primary transition-colors">Services</a></li>
+          <li><a href="#products" class="text-text text-xl font-medium px-4 py-2 hover:text-primary transition-colors">Products</a></li>
+          <li><a href="#contact" class="text-text text-xl font-medium px-4 py-2 hover:text-primary transition-colors">Contact</a></li>
         </ul>
       </nav>
-      <div class="nav-overlay"></div>
+      <div class="nav-overlay fixed inset-0 bg-black/50 z-[999] opacity-0 pointer-events-none transition-opacity duration-300 [&.active]:opacity-100 [&.active]:pointer-events-auto md:hidden"></div>
     </header>
 
     <main>
       <!-- Home Section -->
-      <section id="home" class="hero">
-        <div class="hero-slider">
+      <section id="home" class="hero relative -mt-[70px] pt-0 overflow-hidden h-[80vh] min-h-[600px] max-h-[800px]">
+        <div class="hero-slider relative w-full h-full">
           <img
             src="images/img07.webp"
-            class="slide active"
+            class="slide absolute w-full h-full object-cover object-center opacity-0 transition-opacity duration-1000 ease-in-out [&.active]:opacity-100 [&.active]:z-10"
             alt="Saddle"
             loading="lazy"
           />
           <img
             src="images/Slide1.webp"
-            class="slide"
+            class="slide absolute w-full h-full object-cover object-center opacity-0 transition-opacity duration-1000 ease-in-out [&.active]:opacity-100 [&.active]:z-10"
             alt="Leather Workshop"
             loading="lazy"
           />
           <img
             src="images/img03.jpg"
-            class="slide"
+            class="slide absolute w-full h-full object-cover object-center opacity-0 transition-opacity duration-1000 ease-in-out [&.active]:opacity-100 [&.active]:z-10"
             alt="Equestrian Gear"
             loading="lazy"
           />
-          <button class="slider-btn prev" aria-label="Previous Slide">
-            <i class="fas fa-chevron-left"></i>
+          <!-- Overlay gradient for better text readability -->
+          <div class="absolute inset-0 bg-black/30 z-10 pointer-events-none"></div>
+
+          <button class="slider-btn prev absolute top-1/2 left-4 md:left-8 -translate-y-1/2 w-12 h-12 bg-white/20 hover:bg-white/30 text-white rounded-full flex items-center justify-center backdrop-blur-sm z-20 transition-all duration-300 hover:scale-110" aria-label="Previous Slide">
+            <i class="fas fa-chevron-left text-xl"></i>
           </button>
-          <button class="slider-btn next" aria-label="Next Slide">
-            <i class="fas fa-chevron-right"></i>
+          <button class="slider-btn next absolute top-1/2 right-4 md:right-8 -translate-y-1/2 w-12 h-12 bg-white/20 hover:bg-white/30 text-white rounded-full flex items-center justify-center backdrop-blur-sm z-20 transition-all duration-300 hover:scale-110" aria-label="Next Slide">
+            <i class="fas fa-chevron-right text-xl"></i>
           </button>
-          <div class="slider-dots"></div>
+          <div class="slider-dots absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-3 z-20"></div>
         </div>
-        <div class="hero-content">
-          <h1>
-            <span class="hero-highlight">Welcome to</span><br />
-            <span class="hero-brand">Rahi Equestrian</span>
+        <div class="hero-content absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 text-center w-full max-w-4xl px-4 text-white drop-shadow-md">
+          <h1 class="font-bold tracking-wide animate-fadeInUp">
+            <span class="hero-highlight block text-2xl md:text-3xl font-normal mb-2 text-accent">Welcome to</span>
+            <span class="hero-brand block text-4xl md:text-6xl lg:text-7xl font-serif">Rahi Equestrian</span>
           </h1>
-          <h2 class="hero-subtitle">
+          <h2 class="hero-subtitle text-lg md:text-2xl font-normal mb-6 opacity-0 text-gray-100 animate-fadeInUp [animation-delay:200ms]">
             Premium Raw Materials & Equipment for Equestrian Excellence
           </h2>
-          <p class="hero-desc">
+          <p class="hero-desc text-base md:text-lg max-w-2xl mx-auto mb-8 opacity-0 animate-fadeInUp [animation-delay:400ms]">
             Discover the finest saddles, leather, and riding gear—crafted with
             passion, tradition, and innovation in India.
           </p>
-          <div class="hero-buttons">
-            <a href="#products" class="cta-button primary">Explore Products</a>
-            <a href="#contact" class="cta-button secondary">Get in Touch</a>
+          <div class="hero-buttons flex flex-wrap justify-center gap-4 opacity-0 animate-fadeInUp [animation-delay:600ms]">
+            <a href="#products" class="cta-button primary inline-flex items-center justify-center px-8 py-3 rounded-lg font-semibold uppercase tracking-wider bg-primary text-white hover:bg-primary-dark hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300">
+              Explore Products
+            </a>
+            <a href="#contact" class="cta-button secondary inline-flex items-center justify-center px-8 py-3 rounded-lg font-semibold uppercase tracking-wider bg-transparent border-2 border-white text-white hover:bg-white hover:text-primary hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300">
+              Get in Touch
+            </a>
           </div>
         </div>
       </section>
 
-      <!-- Services Section -->
-      <section id="services" class="section-dark">
-        <div class="section-container">
-          <h2 class="section-title">Our Products & Services</h2>
-          <p class="section-subtitle">
+      <!-- Services Section (Updated Background Class) -->
+      <section id="services" class="section-dark py-20 bg-background text-text">
+        <div class="section-container max-w-7xl mx-auto px-6">
+          <h2 class="section-title text-3xl md:text-5xl lg:text-5xl font-serif font-bold text-center mb-6 relative pb-4 after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-20 after:h-1 after:bg-accent text-primary">
+            Our Products & Services
+          </h2>
+          <p class="section-subtitle text-lg text-center mb-12 text-text-muted">
             Quality craftsmanship for equestrian enthusiasts
           </p>
 
-          <div class="services-container">
-            <div class="service-card">
-              <div class="service-icon">
+          <div class="services-container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
+            <div class="service-card bg-surface rounded-2xl p-8 text-center shadow-premium-sm relative overflow-hidden group transition-all duration-300 hover:-translate-y-3 hover:shadow-premium-lg border border-transparent dark:border-gray-700">
+              <div class="absolute top-0 left-0 w-full h-1 bg-primary scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300"></div>
+              <div class="service-icon w-20 h-20 mx-auto mb-6 bg-primary/10 rounded-full flex items-center justify-center text-3xl text-primary transition-colors duration-300 group-hover:bg-primary group-hover:text-white">
                 <i class="fas fa-horse"></i>
               </div>
-              <h3>Equestrian Equipment</h3>
-              <p>
+              <h3 class="text-2xl font-serif font-semibold mb-4 text-primary">Equestrian Equipment</h3>
+              <p class="mb-6 text-text-muted leading-relaxed">
                 Supplying saddles, bridles, riding apparel, horse care products,
                 and stable accessories for all your equestrian needs.
               </p>
-              <a href="#products" class="service-link"
-                >View Products <i class="fas fa-arrow-right"></i
-              ></a>
+              <a href="#products" class="service-link inline-flex items-center text-primary font-semibold hover:text-primary-dark transition-colors group-hover:gap-2">
+                View Products <i class="fas fa-arrow-right ml-2 transition-transform group-hover:translate-x-1"></i>
+              </a>
             </div>
-            <div class="service-card">
-              <div class="service-icon">
+            <div class="service-card bg-surface rounded-2xl p-8 text-center shadow-premium-sm relative overflow-hidden group transition-all duration-300 hover:-translate-y-3 hover:shadow-premium-lg border border-transparent dark:border-gray-700">
+              <div class="absolute top-0 left-0 w-full h-1 bg-primary scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300"></div>
+              <div class="service-icon w-20 h-20 mx-auto mb-6 bg-primary/10 rounded-full flex items-center justify-center text-3xl text-primary transition-colors duration-300 group-hover:bg-primary group-hover:text-white">
                 <i class="fas fa-cut"></i>
               </div>
-              <h3>Raw Materials</h3>
-              <p>
+              <h3 class="text-2xl font-serif font-semibold mb-4 text-primary">Raw Materials</h3>
+              <p class="mb-6 text-text-muted leading-relaxed">
                 Providing high-quality leather, textiles, metals, and other raw
                 materials for manufacturers and workshops in the equestrian
                 industry.
               </p>
-              <a href="#products" class="service-link"
-                >View Materials <i class="fas fa-arrow-right"></i
-              ></a>
+              <a href="#products" class="service-link inline-flex items-center text-primary font-semibold hover:text-primary-dark transition-colors group-hover:gap-2">
+                View Materials <i class="fas fa-arrow-right ml-2 transition-transform group-hover:translate-x-1"></i>
+              </a>
             </div>
-            <div class="service-card">
-              <div class="service-icon">
+            <div class="service-card bg-surface rounded-2xl p-8 text-center shadow-premium-sm relative overflow-hidden group transition-all duration-300 hover:-translate-y-3 hover:shadow-premium-lg border border-transparent dark:border-gray-700">
+              <div class="absolute top-0 left-0 w-full h-1 bg-primary scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300"></div>
+              <div class="service-icon w-20 h-20 mx-auto mb-6 bg-primary/10 rounded-full flex items-center justify-center text-3xl text-primary transition-colors duration-300 group-hover:bg-primary group-hover:text-white">
                 <i class="fas fa-pen-fancy"></i>
               </div>
-              <h3>Custom Orders</h3>
-              <p>
+              <h3 class="text-2xl font-serif font-semibold mb-4 text-primary">Custom Orders</h3>
+              <p class="mb-6 text-text-muted leading-relaxed">
                 Offering tailored solutions and expert advice to help you find
                 the right products or materials for your specific requirements.
               </p>
-              <a href="#contact" class="service-link"
-                >Get Quote <i class="fas fa-arrow-right"></i
-              ></a>
+              <a href="#contact" class="service-link inline-flex items-center text-primary font-semibold hover:text-primary-dark transition-colors group-hover:gap-2">
+                Get Quote <i class="fas fa-arrow-right ml-2 transition-transform group-hover:translate-x-1"></i>
+              </a>
             </div>
           </div>
         </div>
       </section>
 
       <!-- Product Categories -->
-      <section id="products" class="section-light">
-        <div class="section-container">
-          <h2 class="section-title">Explore Our Categories</h2>
-          <p class="section-subtitle">Premium products for riders and horses</p>
+      <section id="products" class="section-light py-20 bg-background/50 text-text">
+        <div class="section-container max-w-7xl mx-auto px-6">
+          <h2 class="section-title text-3xl md:text-5xl lg:text-5xl font-serif font-bold text-center mb-6 relative pb-4 after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-20 after:h-1 after:bg-primary text-primary">
+            Explore Our Categories
+          </h2>
+          <p class="section-subtitle text-lg text-center mb-12 text-text-muted">Premium products for riders and horses</p>
 
-          <div class="categories-grid">
-            <a class="category-card" href="Category/equipment.html">
-              <div class="category-image">
-                <img src="images/Cagry1.jpeg" alt="Equipment" loading="lazy" />
+          <div class="categories-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
+            <a class="category-card group bg-surface rounded-2xl p-8 text-center shadow-premium-sm relative overflow-hidden transition-all duration-300 hover:shadow-premium-sm cursor-pointer border border-transparent dark:border-gray-700" href="Category/equipment.html">
+              <div class="category-image w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden border-4 border-primary/10 transition-all duration-300 group-hover:border-primary group-hover:scale-105">
+                <img src="images/Cagry1.jpeg" alt="Equipment" loading="lazy" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110" />
               </div>
-              <span>Equipment</span>
-              <div class="category-overlay">
-                <p>Saddles, bridles, and riding gear</p>
+              <span class="block text-xl font-semibold text-primary mt-2 transition-all duration-300 group-hover:text-primary-dark group-hover:-translate-y-0.5">Equipment</span>
+              <div class="category-overlay absolute inset-0 bg-gradient-to-b from-[#8b4513]/80 to-[#5d2906]/95 text-white flex flex-col justify-center items-center opacity-0 transition-opacity duration-300 p-6 backdrop-blur-[2px] group-hover:opacity-100">
+                <p class="text-sm font-medium">Saddles, bridles, and riding gear</p>
               </div>
             </a>
-            <a class="category-card" href="Category/raw-materials.html">
-              <div class="category-image">
+            <a class="category-card group bg-surface rounded-2xl p-8 text-center shadow-premium-sm relative overflow-hidden transition-all duration-300 hover:shadow-premium-sm cursor-pointer border border-transparent dark:border-gray-700" href="Category/raw-materials.html">
+              <div class="category-image w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden border-4 border-primary/10 transition-all duration-300 group-hover:border-primary group-hover:scale-105">
                 <img
                   src="images/Cagry2.jpeg"
                   alt="Raw Materials"
                   loading="lazy"
+                  class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
                 />
               </div>
-              <span>Raw Materials</span>
-              <div class="category-overlay">
-                <p>Premium leather and textiles</p>
+              <span class="block text-xl font-semibold text-primary mt-2 transition-all duration-300 group-hover:text-primary-dark group-hover:-translate-y-0.5">Raw Materials</span>
+              <div class="category-overlay absolute inset-0 bg-gradient-to-b from-[#8b4513]/80 to-[#5d2906]/95 text-white flex flex-col justify-center items-center opacity-0 transition-opacity duration-300 p-6 backdrop-blur-[2px] group-hover:opacity-100">
+                <p class="text-sm font-medium">Premium leather and textiles</p>
               </div>
             </a>
-            <a class="category-card" href="Category/apparel.html">
-              <div class="category-image">
-                <img src="images/Cagry3.jpeg" alt="Apparel" loading="lazy" />
+            <a class="category-card group bg-surface rounded-2xl p-8 text-center shadow-premium-sm relative overflow-hidden transition-all duration-300 hover:shadow-premium-sm cursor-pointer border border-transparent dark:border-gray-700" href="Category/apparel.html">
+              <div class="category-image w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden border-4 border-primary/10 transition-all duration-300 group-hover:border-primary group-hover:scale-105">
+                <img src="images/Cagry3.jpeg" alt="Apparel" loading="lazy" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110" />
               </div>
-              <span>Apparel</span>
-              <div class="category-overlay">
-                <p>Riding clothes and accessories</p>
+              <span class="block text-xl font-semibold text-primary mt-2 transition-all duration-300 group-hover:text-primary-dark group-hover:-translate-y-0.5">Apparel</span>
+              <div class="category-overlay absolute inset-0 bg-gradient-to-b from-[#8b4513]/80 to-[#5d2906]/95 text-white flex flex-col justify-center items-center opacity-0 transition-opacity duration-300 p-6 backdrop-blur-[2px] group-hover:opacity-100">
+                <p class="text-sm font-medium">Riding clothes and accessories</p>
               </div>
             </a>
-            <!-- <a class="category-card" href="Category/table-supplies.html">
-              <div class="category-image">
-                <img src="images/Cagry4.jpeg" alt="Stable Supplies" loading="lazy" />
-              </div>
-              <span>Stable Supplies</span>
-              <div class="category-overlay">
-                <p>Everything for your stable</p>
-              </div>
-            </a> -->
           </div>
         </div>
       </section>
 
       <!-- Featured Products -->
-      <section class="featured-products section-dark">
-        <div class="section-container">
-          <h2 class="section-title">Featured Products</h2>
-          <p class="section-subtitle">Our best selling items</p>
+      <section class="featured-products section-dark py-20 bg-background text-text">
+        <div class="section-container max-w-7xl mx-auto px-6">
+          <h2 class="section-title text-3xl md:text-5xl lg:text-5xl font-serif font-bold text-center mb-6 relative pb-4 after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-20 after:h-1 after:bg-accent text-primary">
+            Featured Products
+          </h2>
+          <p class="section-subtitle text-lg text-center mb-12 text-text-muted">Our best selling items</p>
 
-          <div class="featured-grid">
-            <div class="featured-card">
-              <div class="product-badge">Bestseller</div>
-              <div class="featured-image">
+          <div class="featured-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
+            <div class="featured-card bg-surface rounded-2xl overflow-hidden shadow-premium-sm relative transition-all duration-300 hover:-translate-y-2 hover:shadow-premium-lg group border border-transparent dark:border-gray-700" data-product-id="saddle">
+              <div class="product-badge absolute top-4 right-4 bg-primary text-white text-xs font-semibold px-3 py-1 rounded-full z-10">Bestseller</div>
+              <div class="featured-image relative h-[250px] overflow-hidden">
                 <img
                   src="images/img01.jpg"
                   alt="Premium Saddle"
                   loading="lazy"
+                  class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
-                <div class="product-actions">
-                  <a href="Category/equipment.html"
-                    ><button class="quick-view">
+                <div class="product-actions absolute bottom-0 left-0 w-full p-5 bg-gradient-to-t from-black/80 to-transparent flex justify-center opacity-0 translate-y-4 transition-all duration-300 z-10 group-hover:opacity-100 group-hover:translate-y-0">
+                  <a href="Category/equipment.html">
+                    <button class="quick-view bg-primary text-white border-none py-2 px-4 rounded text-sm cursor-pointer transition-colors hover:bg-primary-dark flex items-center gap-2">
                       <i class="far fa-eye"></i> Quick View
-                    </button></a
-                  >
+                    </button>
+                  </a>
                 </div>
               </div>
-              <div class="featured-content">
-                <h3>Premium Saddle</h3>
-                <div class="product-rating">
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star-half-alt"></i>
-                  <span>(24)</span>
+              <div class="featured-content p-6">
+                <h3 class="text-xl font-serif text-text mb-2 dark:text-gray-100">Premium Saddle</h3>
+                <div class="product-rating flex items-center gap-1 mb-2">
+                  <i class="fas fa-star text-gold text-sm"></i>
+                  <i class="fas fa-star text-gold text-sm"></i>
+                  <i class="fas fa-star text-gold text-sm"></i>
+                  <i class="fas fa-star text-gold text-sm"></i>
+                  <i class="fas fa-star-half-alt text-gold text-sm"></i>
+                  <span class="text-xs text-text-muted ml-1">(24)</span>
                 </div>
-                <!-- <p class="product-price">₹24,999</p> -->
               </div>
             </div>
-            <div class="featured-card">
-              <div class="product-badge">New</div>
-              <div class="featured-image">
+            
+            <div class="featured-card bg-surface rounded-2xl overflow-hidden shadow-premium-sm relative transition-all duration-300 hover:-translate-y-2 hover:shadow-premium-lg group border border-transparent dark:border-gray-700" data-product-id="reins">
+              <div class="product-badge absolute top-4 right-4 bg-primary text-white text-xs font-semibold px-3 py-1 rounded-full z-10">New</div>
+              <div class="featured-image relative h-[250px] overflow-hidden">
                 <img
                   src="images/img02.jpg"
                   alt="Leather Reins"
                   loading="lazy"
+                  class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
-                <div class="product-actions">
-                  <a href="Category/equipment.html"
-                    ><button class="quick-view">
+                <div class="product-actions absolute bottom-0 left-0 w-full p-5 bg-gradient-to-t from-black/80 to-transparent flex justify-center opacity-0 translate-y-4 transition-all duration-300 z-10 group-hover:opacity-100 group-hover:translate-y-0">
+                  <a href="Category/equipment.html">
+                    <button class="quick-view bg-primary text-white border-none py-2 px-4 rounded text-sm cursor-pointer transition-colors hover:bg-primary-dark flex items-center gap-2">
                       <i class="far fa-eye"></i> Quick View
-                    </button></a
-                  >
+                    </button>
+                  </a>
                 </div>
               </div>
-              <div class="featured-content">
-                <h3>Leather Reins</h3>
-                <div class="product-rating">
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="far fa-star"></i>
-                  <span>(18)</span>
+              <div class="featured-content p-6">
+                <h3 class="text-xl font-serif text-text mb-2 dark:text-gray-100">Leather Reins</h3>
+                <div class="product-rating flex items-center gap-1 mb-2">
+                  <i class="fas fa-star text-gold text-sm"></i>
+                  <i class="fas fa-star text-gold text-sm"></i>
+                  <i class="fas fa-star text-gold text-sm"></i>
+                  <i class="fas fa-star text-gold text-sm"></i>
+                  <i class="far fa-star text-gold text-sm"></i>
+                  <span class="text-xs text-text-muted ml-1">(18)</span>
                 </div>
-                <!-- <p class="product-price">₹3,499</p> -->
               </div>
             </div>
-            <div class="featured-card">
-              <div class="featured-image">
+            <div class="featured-card bg-surface rounded-2xl overflow-hidden shadow-premium-sm relative transition-all duration-300 hover:-translate-y-2 hover:shadow-premium-lg group border border-transparent dark:border-gray-700" data-product-id="blanket">
+              <div class="featured-image relative h-[250px] overflow-hidden">
                 <img
                   src="images/img03.jpg"
                   alt="Stable Blanket"
                   loading="lazy"
+                  class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
-                <div class="product-actions">
-                  <a href="Category/equipment.html"
-                    ><button class="quick-view">
+                <div class="product-actions absolute bottom-0 left-0 w-full p-5 bg-gradient-to-t from-black/80 to-transparent flex justify-center opacity-0 translate-y-4 transition-all duration-300 z-10 group-hover:opacity-100 group-hover:translate-y-0">
+                  <a href="Category/equipment.html">
+                    <button class="quick-view bg-primary text-white border-none py-2 px-4 rounded text-sm cursor-pointer transition-colors hover:bg-primary-dark flex items-center gap-2">
                       <i class="far fa-eye"></i> Quick View
-                    </button></a
-                  >
+                    </button>
+                  </a>
                 </div>
               </div>
-              <div class="featured-content">
-                <h3>Stable Blanket</h3>
-                <div class="product-rating">
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <span>(32)</span>
+              <div class="featured-content p-6">
+                <h3 class="text-xl font-serif text-text mb-2 dark:text-gray-100">Stable Blanket</h3>
+                <div class="product-rating flex items-center gap-1 mb-2">
+                  <i class="fas fa-star text-gold text-sm"></i>
+                  <i class="fas fa-star text-gold text-sm"></i>
+                  <i class="fas fa-star text-gold text-sm"></i>
+                  <i class="fas fa-star text-gold text-sm"></i>
+                  <i class="fas fa-star text-gold text-sm"></i>
+                  <span class="text-xs text-text-muted ml-1">(32)</span>
                 </div>
-                <!-- <p class="product-price">₹5,999</p> -->
               </div>
             </div>
           </div>
 
-          <div class="section-footer">
-            <a href="#products" class="cta-button outline">View All Products</a>
+          <div class="section-footer text-center mt-12">
+            <a href="#products" class="cta-button outline inline-flex items-center justify-center px-8 py-3 rounded-lg font-semibold uppercase tracking-wider bg-transparent border-2 border-primary text-primary hover:bg-primary hover:text-white hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300">View All Products</a>
           </div>
         </div>
       </section>
 
       <!-- About Us Section -->
-      <section id="about" class="about-section section-light">
-        <div class="section-container">
-          <div class="about-content">
-            <div class="about-text">
-              <h2 class="section-title">About Rahi Equestrian</h2>
-              <p class="about-story">
-                <strong>Our Story:</strong>
+      <section id="about" class="about-section section-light py-20 bg-background/50">
+        <div class="section-container max-w-7xl mx-auto px-6">
+          <div class="about-content flex flex-col lg:flex-row items-center gap-12">
+            <div class="about-text flex-1">
+              <h2 class="section-title text-3xl md:text-5xl lg:text-5xl font-serif font-bold text-left mb-6 relative pb-4 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-20 after:h-1 after:bg-primary text-primary">About Rahi Equestrian</h2>
+              <p class="about-story mb-6 text-text-muted leading-relaxed">
+                <strong class="text-text font-semibold">Our Story:</strong>
                 Founded by passionate equestrian enthusiasts, Rahi Equestrian is
                 driven by a love for horses and the timeless art of leather
                 craftsmanship. We believe in blending tradition with innovation
                 to deliver products that truly stand out in quality and design.
               </p>
-              <p class="about-history">
-                <strong>Our Heritage:</strong>
+              <p class="about-history mb-8 text-text-muted leading-relaxed">
+                <strong class="text-text font-semibold">Our Heritage:</strong>
                 With roots in India's rich tradition of leatherwork, our team
                 combines generations of expertise with a commitment to
                 sustainability. Every item is crafted with care, using
                 eco-friendly processes and responsibly sourced materials.
               </p>
-              <ul class="about-usp">
-                <li>
-                  <i class="fas fa-check-circle"></i> 100% Handmade Excellence
+              <ul class="about-usp grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8 list-none pl-0">
+                <li class="flex items-center gap-2 text-text font-medium">
+                  <i class="fas fa-check-circle text-primary"></i> 100% Handmade Excellence
                 </li>
-                <li>
-                  <i class="fas fa-check-circle"></i> Premium Indian Leather
+                <li class="flex items-center gap-2 text-text font-medium">
+                  <i class="fas fa-check-circle text-primary"></i> Premium Indian Leather
                 </li>
-                <li>
-                  <i class="fas fa-check-circle"></i> Eco-Friendly & Sustainable
+                <li class="flex items-center gap-2 text-text font-medium">
+                  <i class="fas fa-check-circle text-primary"></i> Eco-Friendly & Sustainable
                 </li>
-                <li>
-                  <i class="fas fa-check-circle"></i> Custom Designs for Every
-                  Rider
+                <li class="flex items-center gap-2 text-text font-medium">
+                  <i class="fas fa-check-circle text-primary"></i> Custom Designs for Every Rider
                 </li>
               </ul>
-              <div class="about-stats">
-                <div class="stat-item">
-                  <span class="stat-number">5+</span>
-                  <span class="stat-label">Years Experience</span>
+              <div class="about-stats flex gap-8">
+                <div class="stat-item text-center">
+                  <span class="stat-number block text-3xl font-bold text-primary mb-1">5+</span>
+                  <span class="stat-label text-sm text-text-muted uppercase tracking-wide">Years Experience</span>
                 </div>
-                <div class="stat-item">
-                  <span class="stat-number">50+</span>
-                  <span class="stat-label">Happy Clients</span>
+                <div class="stat-item text-center">
+                  <span class="stat-number block text-3xl font-bold text-primary mb-1">50+</span>
+                  <span class="stat-label text-sm text-text-muted uppercase tracking-wide">Happy Clients</span>
                 </div>
-                <div class="stat-item">
-                  <span class="stat-number">100%</span>
-                  <span class="stat-label">Satisfaction</span>
+                <div class="stat-item text-center">
+                  <span class="stat-number block text-3xl font-bold text-primary mb-1">100%</span>
+                  <span class="stat-label text-sm text-text-muted uppercase tracking-wide">Satisfaction</span>
                 </div>
               </div>
             </div>
-            <div class="about-image">
+            <div class="about-image flex-1 relative rounded-2xl overflow-hidden shadow-premium-lg">
               <img
                 src="images/img02.jpg"
                 alt="Our Workshop - Rahi Equestrian"
                 loading="lazy"
+                class="w-full h-full object-cover"
               />
-              <div class="experience-badge">
+              <div class="experience-badge absolute bottom-6 right-6 bg-primary text-white py-2 px-6 rounded-lg font-bold shadow-md">
                 <span>Since 2020</span>
               </div>
             </div>
@@ -410,182 +540,129 @@
       </section>
 
       <!-- Testimonials Section -->
-      <section class="testimonials section-dark">
-        <div class="section-container">
-          <h2 class="section-title">What Our Clients Say</h2>
-          <p class="section-subtitle">Trusted by equestrian professionals</p>
+      <section class="testimonials section-dark py-20 bg-[#1a1510] text-[#f9f7f2]">
+        <div class="section-container max-w-7xl mx-auto px-6">
+          <h2 class="section-title text-3xl md:text-5xl lg:text-5xl font-serif font-bold text-center mb-6 relative pb-4 after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-20 after:h-1 after:bg-accent text-white">
+            What Our Clients Say
+          </h2>
+          <p class="section-subtitle text-lg text-center mb-12 text-white/80">Trusted by equestrian professionals</p>
 
-          <div class="testimonials-grid">
-            <div class="testimonial-card">
-              <div class="testimonial-rating">
+          <div class="testimonials-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
+            <div class="testimonial-card bg-white/5 backdrop-blur-md p-8 rounded-2xl shadow-premium-sm relative transition-all duration-300 hover:-translate-y-2 hover:shadow-premium-lg">
+              <div class="testimonial-rating flex gap-1 mb-4 text-accent">
                 <i class="fas fa-star"></i>
                 <i class="fas fa-star"></i>
                 <i class="fas fa-star"></i>
                 <i class="fas fa-star"></i>
                 <i class="fas fa-star"></i>
               </div>
-              <p>
+              <p class="italic mb-6 text-white/90 leading-relaxed">
                 "Excellent quality and fast delivery. Highly recommended for all
                 equestrian needs! The saddles are incredibly comfortable."
               </p>
-              <div class="testimonial-author">
-                <!-- <img src="https://randomuser.me/api/portraits/women/45.jpg" alt="Sarah K."> -->
+              <div class="testimonial-author flex items-center gap-4">
                 <div>
-                  <span class="author-name">Sarah K.</span>
-                  <span class="author-title">Stable Owner</span>
+                  <span class="author-name block font-semibold text-white">Sarah K.</span>
+                  <span class="author-title block text-xs text-white/60 uppercase tracking-widest">Stable Owner</span>
                 </div>
               </div>
             </div>
-            <div class="testimonial-card">
-              <div class="testimonial-rating">
+            <div class="testimonial-card bg-white/5 backdrop-blur-md p-8 rounded-2xl shadow-premium-sm relative transition-all duration-300 hover:-translate-y-2 hover:shadow-premium-lg">
+              <div class="testimonial-rating flex gap-1 mb-4 text-accent">
                 <i class="fas fa-star"></i>
                 <i class="fas fa-star"></i>
                 <i class="fas fa-star"></i>
                 <i class="fas fa-star"></i>
                 <i class="fas fa-star-half-alt"></i>
               </div>
-              <p>
+              <p class="italic mb-6 text-white/90 leading-relaxed">
                 "The raw materials are top-notch. Our workshop relies on Rahi
                 Equestrian for all our leather supplies."
               </p>
-              <div class="testimonial-author">
-                <!-- <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Ahmed M."> -->
+              <div class="testimonial-author flex items-center gap-4">
                 <div>
-                  <span class="author-name">Ahmed M.</span>
-                  <span class="author-title">Manufacturer</span>
+                  <span class="author-name block font-semibold text-white">Ahmed M.</span>
+                  <span class="author-title block text-xs text-white/60 uppercase tracking-widest">Manufacturer</span>
                 </div>
               </div>
             </div>
-            <div class="testimonial-card">
-              <div class="testimonial-rating">
+            <div class="testimonial-card bg-white/5 backdrop-blur-md p-8 rounded-2xl shadow-premium-sm relative transition-all duration-300 hover:-translate-y-2 hover:shadow-premium-lg">
+              <div class="testimonial-rating flex gap-1 mb-4 text-accent">
                 <i class="fas fa-star"></i>
                 <i class="fas fa-star"></i>
                 <i class="fas fa-star"></i>
                 <i class="fas fa-star"></i>
                 <i class="fas fa-star"></i>
               </div>
-              <p>
+              <p class="italic mb-6 text-white/90 leading-relaxed">
                 "Professional service and great advice for custom orders. My
                 custom saddle fits perfectly and looks stunning."
               </p>
-              <div class="testimonial-author">
-                <!-- <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Emily R."> -->
+              <div class="testimonial-author flex items-center gap-4">
                 <div>
-                  <span class="author-name">Divya R.</span>
-                  <span class="author-title">Professional Rider</span>
+                  <span class="author-name block font-semibold text-white">Divya R.</span>
+                  <span class="author-title block text-xs text-white/60 uppercase tracking-widest">Professional Rider</span>
                 </div>
               </div>
-            </div>
-          </div>
-
-          <div class="trust-badges">
-            <div class="trust-badge">
-              <i class="fa-solid fa-handshake"></i>
-              <span>Trusted Supplier</span>
-            </div>
-            <div class="trust-badge">
-              <i class="fa-solid fa-certificate"></i>
-              <span>Quality Guarantee</span>
-            </div>
-            <div class="trust-badge">
-              <i class="fa-solid fa-lock"></i>
-              <span>Secure Payment</span>
-            </div>
-            <div class="trust-badge">
-              <i class="fa-solid fa-truck"></i>
-              <span>Fast Delivery</span>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- Newsletter Section -->
-      <!-- <section class="newsletter section-light">
-        <div class="section-container">
-          <div class="newsletter-content">
-            <div class="newsletter-text">
-              <h2>Join Our Equestrian Community</h2>
-              <p>Subscribe to get exclusive offers, product updates, and equestrian tips.</p>
-            </div>
-            <form class="newsletter-form">
-              <input type="email" placeholder="Your email address" required>
-              <button type="submit" class="cta-button primary">Subscribe</button>
-            </form>
-          </div>
-        </div>
-      </section> -->
-
       <!-- Contact Section -->
-      <section id="contact" class="section-dark">
-        <div class="section-container">
-          <h2 class="section-title">Contact Us</h2>
-          <p class="section-subtitle">We'd love to hear from you</p>
+      <section id="contact" class="section-dark py-20 bg-background text-text relative">
+        <div class="section-container max-w-7xl mx-auto px-6">
+          <h2 class="section-title text-3xl md:text-5xl lg:text-5xl font-serif font-bold text-center mb-6 relative pb-4 after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-20 after:h-1 after:bg-accent text-primary">Contact Us</h2>
+          <p class="section-subtitle text-lg text-center mb-12 text-text-muted">We'd love to hear from you</p>
 
-          <div class="contact-wrapper">
-            <div class="contact-info">
-              <div class="contact-info-item">
-                <i class="fa-solid fa-envelope"></i>
-                <a href="mailto:info@rahiequestrian.com"
-                  >rahiequestrian@gmail.com</a
-                >
+          <div class="contact-wrapper grid grid-cols-1 lg:grid-cols-2 gap-8 bg-surface p-8 rounded-2xl shadow-premium-md">
+            <div class="contact-info flex flex-col gap-6">
+              <h3 class="text-2xl font-semibold mb-2 text-primary">Get in Touch</h3>
+              <div class="contact-info-item flex items-center gap-4 text-lg text-text">
+                <i class="fa-solid fa-envelope w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center text-primary"></i>
+                <a href="mailto:info@rahiequestrian.com" class="hover:text-primary transition-colors">rahiequestrian@gmail.com</a>
               </div>
-              <div class="contact-info-item">
-                <i class="fa-brands fa-whatsapp"></i>
-                <a href="https://wa.me/917007786334" target="_blank"
-                  >+91 7007786334</a
-                >
+              <div class="contact-info-item flex items-center gap-4 text-lg text-text">
+                <i class="fa-brands fa-whatsapp w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center text-primary"></i>
+                <a href="https://wa.me/917007786334" target="_blank" class="hover:text-primary transition-colors">+91 7007786334</a>
               </div>
-              <div class="contact-info-item">
-                <i class="fa-brands fa-linkedin"></i>
-                <a
-                  href="https://www.linkedin.com/company/rahi-equestrian/services/"
-                  target="_blank"
-                  >LinkedIn</a
-                >
+              <div class="contact-info-item flex items-center gap-4 text-lg text-text">
+                <i class="fa-brands fa-linkedin w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center text-primary"></i>
+                <a href="https://www.linkedin.com/company/rahi-equestrian/services/" target="_blank" class="hover:text-primary transition-colors">LinkedIn</a>
               </div>
-              <div class="contact-info-item">
-                <i class="fa-brands fa-instagram"></i>
-                <a
-                  href="https://www.instagram.com/rahiequestrian/"
-                  target="_blank"
-                  >Instagram</a
-                >
+              <div class="contact-info-item flex items-center gap-4 text-lg text-text">
+                <i class="fa-brands fa-instagram w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center text-primary"></i>
+                <a href="https://www.instagram.com/rahiequestrian/" target="_blank" class="hover:text-primary transition-colors">Instagram</a>
               </div>
-              <div class="contact-info-item">
-                <i class="fa-solid fa-location-dot"></i>
-                <span
-                  >Safed Colony Juhi Kanpur Nagar , Uttar Pradesh, India</span
-                >
+              <div class="contact-info-item flex items-center gap-4 text-lg text-text">
+                <i class="fa-solid fa-location-dot w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center text-primary"></i>
+                <span>Safed Colony Juhi Kanpur Nagar , Uttar Pradesh, India</span>
               </div>
 
-              <div class="social-links">
-                <a href="https://x.com/?lang=en" aria-label="Facebook"
-                  ><i class="fab fa-facebook-f"></i
-                ></a>
-                <a
-                  href="https://www.instagram.com/rahiequestrian/"
-                  aria-label="Instagram"
-                  ><i class="fab fa-instagram"></i
-                ></a>
-                <a href="https://www.facebook.com/" aria-label="Twitter"
-                  ><i class="fab fa-twitter"></i
-                ></a>
-                <a
-                  href="https://www.linkedin.com/company/rahi-equestrian/services/"
-                  aria-label="Linkedin"
-                  ><i class="fab fa-linkedin"></i
-                ></a>
+              <div class="social-links flex gap-4 mt-8">
+                <a href="https://x.com/?lang=en" aria-label="Facebook" class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center hover:bg-primary hover:scale-110 transition-all duration-300">
+                  <i class="fab fa-facebook-f text-primary hover:text-white"></i>
+                </a>
+                <a href="https://www.instagram.com/rahiequestrian/" aria-label="Instagram" class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center hover:bg-primary hover:scale-110 transition-all duration-300">
+                  <i class="fab fa-instagram text-primary hover:text-white"></i>
+                </a>
+                <a href="https://www.facebook.com/" aria-label="Twitter" class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center hover:bg-primary hover:scale-110 transition-all duration-300">
+                  <i class="fab fa-twitter text-primary hover:text-white"></i>
+                </a>
+                <a href="https://www.linkedin.com/company/rahi-equestrian/services/" aria-label="Linkedin" class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center hover:bg-primary hover:scale-110 transition-all duration-300">
+                  <i class="fab fa-linkedin text-primary hover:text-white"></i>
+                </a>
               </div>
             </div>
 
-            <!-- Replace the contact form with the map -->
-            <div class="contact-map">
+            <div class="contact-map rounded-xl overflow-hidden h-[300px] lg:h-auto shadow-inner">
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3602.494497147703!2d80.33492767634749!3d26.44425477662226!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x399c47a94b98a7ef%3A0xca33599c55c7c21c!2sJuhi%20Safed%20Colony%2C%20Kanpur%2C%20Uttar%20Pradesh%20208014!5e0!3m2!1sen!2sin!4v1722288901434!5m2!1sen!2sin"
                 style="border: 0"
                 allowfullscreen=""
                 loading="lazy"
                 referrerpolicy="no-referrer-when-downgrade"
+                class="w-full h-full"
               ></iframe>
             </div>
           </div>
@@ -594,65 +671,69 @@
     </main>
 
     <!-- Footer -->
-    <footer>
-      <div class="footer-container">
-        <div class="footer-content">
+    <footer class="bg-[#15100c] text-white/80 py-16 border-t border-white/5">
+      <div class="footer-container max-w-7xl mx-auto px-6">
+        <div class="footer-content grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
           <div class="footer-about">
-            <a href="#" class="footer-logo">
-              <img src="images/Logo.png" alt="Rahi Equestrian Logo" />
+            <a href="#" class="footer-logo flex items-center gap-3 text-2xl font-bold text-white mb-4 no-underline">
+              <img src="images/Logo.png" alt="Rahi Equestrian Logo" class="h-10 w-auto" />
               <span>Rahi Equestrian</span>
             </a>
-            <p>
+            <p class="text-sm leading-relaxed text-white/60">
               Premium Raw Materials & Equipment for Equestrian Excellence.
               Handcrafted with passion in India.
             </p>
           </div>
           <div class="footer-links">
-            <h3>Quick Links</h3>
-            <ul>
-              <li><a href="#home">Home</a></li>
-              <li><a href="#about">About Us</a></li>
-              <li><a href="#services">Services</a></li>
-              <li><a href="#products">Products</a></li>
-              <li><a href="#contact">Contact</a></li>
+            <h3 class="text-white font-serif font-semibold text-lg mb-6 relative pb-2 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-8 after:h-0.5 after:bg-primary">Quick Links</h3>
+            <ul class="space-y-3">
+              <li><a href="#home" class="hover:text-primary transition-colors">Home</a></li>
+              <li><a href="#about" class="hover:text-primary transition-colors">About Us</a></li>
+              <li><a href="#services" class="hover:text-primary transition-colors">Services</a></li>
+              <li><a href="#products" class="hover:text-primary transition-colors">Products</a></li>
+              <li><a href="#contact" class="hover:text-primary transition-colors">Contact</a></li>
             </ul>
           </div>
           <div class="footer-links">
-            <h3>Products</h3>
-            <ul>
-              <li><a href="Category/equipment.html">Saddles</a></li>
-              <li><a href="Category/equipment.html">Bridles</a></li>
-              <li><a href="Category/apparel.html">Riding Apparel</a></li>
+            <h3 class="text-white font-serif font-semibold text-lg mb-6 relative pb-2 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-8 after:h-0.5 after:bg-primary">Products</h3>
+            <ul class="space-y-3">
+              <li><a href="Category/equipment.html" class="hover:text-primary transition-colors">Saddles</a></li>
+              <li><a href="Category/equipment.html" class="hover:text-primary transition-colors">Bridles</a></li>
+              <li><a href="Category/apparel.html" class="hover:text-primary transition-colors">Riding Apparel</a></li>
               <li>
-                <a href="Category/table-supplies.html">Stable Equipment</a>
+                <a href="Category/table-supplies.html" class="hover:text-primary transition-colors">Stable Equipment</a>
               </li>
-              <li><a href="Category/raw-materials.html">Raw Materials</a></li>
+              <li><a href="Category/raw-materials.html" class="hover:text-primary transition-colors">Raw Materials</a></li>
             </ul>
           </div>
           <div class="footer-contact">
-            <h3>Contact Info</h3>
-            <address>
-              <p>
-                <i class="fas fa-map-marker-alt"></i> Safed Colony Juhi Kanpur
-                Nagar, Uttar Pradesh, India
+            <h3 class="text-white font-serif font-semibold text-lg mb-6 relative pb-2 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-8 after:h-0.5 after:bg-primary">Contact Info</h3>
+            <address class="not-italic space-y-4">
+              <p class="flex items-start gap-3">
+                <i class="fas fa-map-marker-alt mt-1 text-primary"></i> 
+                <span>Safed Colony Juhi Kanpur Nagar, Uttar Pradesh, India</span>
               </p>
-              <p><i class="fas fa-phone-alt"></i> +91 7007786334</p>
-              <p><i class="fas fa-envelope"></i> rahiequestrian@gmail.com</p>
+              <p class="flex items-center gap-3">
+                <i class="fas fa-phone-alt text-primary"></i> +91 7007786334
+              </p>
+              <p class="flex items-center gap-3">
+                <i class="fas fa-envelope text-primary"></i> rahiequestrian@gmail.com
+              </p>
             </address>
           </div>
         </div>
-        <div class="footer-bottom">
+        <div class="footer-bottom pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center text-sm text-white/40">
           <p>&copy; 2023 Rahi Equestrian. All rights reserved.</p>
-          <div class="footer-legal">
-            <a href="#">Privacy Policy</a>
-            <a href="#">Terms of Service</a>
+          <div class="footer-legal flex gap-6 mt-4 md:mt-0">
+            <a href="#" class="hover:text-primary transition-colors">Privacy Policy</a>
+            <a href="#" class="hover:text-primary transition-colors">Terms of Service</a>
           </div>
         </div>
       </div>
     </footer>
 
     <!-- Back to Top Button -->
-    <a href="#home" class="back-to-top" aria-label="Back to top">
+    <a href="#home" class="back-to-top fixed bottom-8 right-8 w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center shadow-lg cursor-pointer transition-all duration-300 opacity-0 invisible translate-y-5 z-[900] hover:bg-primary-dark [&.visible]:opacity-100 [&.visible]:visible [&.visible]:translate-y-0" aria-label="Back to top">
       <i class="fas fa-chevron-up"></i>
     </a>
 

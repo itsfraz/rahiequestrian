@@ -1,258 +1,487 @@
 <!DOCTYPE html>
-<html lang="en">
- <head>
+<html lang="en" class="scroll-smooth">
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Equipment | Rahi Equestrian</title>
-    <link rel="stylesheet" href="Style.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+    <title>Stable Supplies | Rahi Equestrian</title>
+    <!-- Icons -->
+    <link rel="shortcut icon" href="../images/Logo.png" type="image/x-icon" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      // Immediately Check for Saved Theme to Prevent Flicker
+      (function() {
+        const savedTheme = localStorage.getItem('theme');
+        const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        if (savedTheme === 'dark' || (!savedTheme && systemTheme)) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      })();
+
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              background: 'var(--color-background)',
+              surface: 'var(--color-surface)',
+              text: {
+                DEFAULT: 'var(--color-text)',
+                muted: 'var(--color-text-muted)',
+              },
+              primary: {
+                DEFAULT: '#8b4513',
+                dark: '#5d2906',
+                light: '#a5672f',
+              },
+              secondary: '#556b2f',
+              accent: '#d2b48c',
+              gold: '#c5a059',
+              bg: {
+                light: '#fdfbf7',
+                dark: '#1a1510',
+              },
+            },
+            fontFamily: {
+              sans: ['Montserrat', 'sans-serif'],
+              serif: ['Playfair Display', 'serif'],
+            },
+            boxShadow: {
+              'premium-sm': 'var(--shadow-sm)',
+              'premium-md': 'var(--shadow-md)',
+              'premium-lg': 'var(--shadow-lg)',
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+       /* CSS Variables for Theming */
+       :root {
+        /* Light Mode (Default) */
+        --color-background: #fdfbf7;
+        --color-surface: #ffffff;
+        --color-text: #2c241b;
+        --color-text-muted: #5a4a3a;
+        --shadow-sm: 0 2px 8px rgba(44, 36, 27, 0.05);
+        --shadow-md: 0 8px 24px rgba(44, 36, 27, 0.08);
+        --shadow-lg: 0 16px 48px rgba(44, 36, 27, 0.12);
+      }
+
+      .dark {
+        /* Dark Mode */
+        --color-background: #121212;
+        --color-surface: #1e1e1e;
+        --color-text: #e0e0e0;
+        --color-text-muted: #a0a0a0;
+        /* Adjusted Shadows */
+        --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+        --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.4);
+        --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.6);
+      }
+
+       /* Custom Animations/Styles */
+       @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+      .animate-fadeIn {
+        animation: fadeIn 0.5s ease forwards;
+      }
+      /* Loading Animation */
+       .image-loading {
+        position: relative;
+        background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+        background-size: 200% 100%;
+        animation: loading 1.5s infinite;
+      }
+      @keyframes loading {
+        0% { background-position: 200% 0; }
+        100% { background-position: -200% 0; }
+      }
+
+      /* Transitions */
+      body, .bg-surface, .text-text, .text-text-muted, .bg-background {
+        transition-property: background-color, color, border-color, box-shadow;
+        transition-duration: 300ms;
+        transition-timing-function: ease-in-out;
+      }
+
+      /* Mobile Overlay Active State */
+      .mobile-menu-overlay.active {
+        opacity: 1 !important;
+        pointer-events: auto !important;
+        visibility: visible !important;
+      }
+    </style>
   </head>
-  <body>
-   <header>
-    <nav>
-  <div class="nav-brand">
-    <a href="../index.html" class="nav-home-link" style="display: flex; align-items: center; gap: 1rem;">
-      <img src="../images/Logo.png" alt="Rahi Equestrian Logo" class="nav-logo" />
-      <span class="company-name">Rahi Equestrian</span>
-    </a>
-    <button class="nav-toggle" aria-label="Menu" aria-expanded="false">
-      <span class="bar"></span>
-      <span class="bar"></span>
-      <span class="bar"></span>
-    </button>
-  </div>
-  <ul class="desktop-menu">
-    <li><a href="../index.html#home">Home</a></li>
-    <li><a href="../index.html#about">About</a></li>
-    <li><a href="../index.html#services">Services</a></li>
-    <li><a href="../index.html#products">Products</a></li>
-    <li><a href="../index.html#contact">Contact</a></li>
-  </ul>
-  <!-- Mobile menu overlay (visible on mobile) -->
-  <div class="mobile-menu-overlay">
-    <div class="mobile-menu-container">
-      <ul class="nav-menu">
-        <li><a href="../index.html#home">Home</a></li>
-        <li><a href="../index.html#about">About</a></li>
-        <li><a href="../index.html#services">Services</a></li>
-        <li><a href="../index.html#products">Products</a></li>
-        <li><a href="../index.html#contact">Contact</a></li>
-      </ul>
-    </div>
-  </div>
-</nav>
-</header>
-    <main>
-      <div class="page-title">
-        <h1>Stable Supplies Collection</h1>
-        <p>
-          Premium stable equipment designed for durability and functionality
-        </p>
+  <body class="font-sans bg-background text-text antialiased overflow-x-hidden w-full">
+    
+     <!-- Header & Navigation (Consistent with Index) -->
+     <header class="fixed top-0 w-full z-50 bg-surface/95 dark:bg-surface/95 backdrop-blur-md shadow-premium-sm border-b border-primary/10 transition-all duration-300">
+      <nav class="max-w-7xl mx-auto px-6 py-3 flex justify-between items-center">
+        <a href="../index.html" class="logo flex items-center gap-3 text-2xl font-bold text-primary no-underline">
+          <img
+            src="../images/Logo.png"
+            alt="Rahi Equestrian Logo"
+            class="nav-logo h-10 w-auto"
+          />
+          <span>Rahi Equestrian</span>
+        </a>
+        
+        <!-- Desktop Menu -->
+        <div class="hidden md:flex items-center gap-8">
+            <ul class="flex items-center gap-6">
+                <li><a href="../index.html#home" class="text-text font-medium hover:text-primary transition-colors">Home</a></li>
+                <li><a href="../index.html#about" class="text-text font-medium hover:text-primary transition-colors">About</a></li>
+                <li><a href="../index.html#services" class="text-text font-medium hover:text-primary transition-colors">Services</a></li>
+                <li><a href="../index.html#products" class="text-text font-medium hover:text-primary transition-colors">Products</a></li>
+                <li><a href="../index.html#contact" class="text-text font-medium hover:text-primary transition-colors">Contact</a></li>
+            </ul>
+
+             <!-- Theme Toggle Button (Desktop) -->
+             <button id="theme-toggle" class="w-10 h-10 rounded-full border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-yellow-400 flex items-center justify-center transition-all hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none" aria-label="Toggle Dark Mode">
+                <i class="fas fa-moon dark:hidden"></i>
+                <i class="fas fa-sun hidden dark:block"></i>
+            </button>
+        </div>
+
+        <div class="flex items-center gap-4 md:hidden">
+             <!-- Theme Toggle Button (Mobile) -->
+             <button id="theme-toggle-mobile" class="w-9 h-9 rounded-full border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-yellow-400 flex items-center justify-center transition-all focus:outline-none" aria-label="Toggle Dark Mode">
+                <i class="fas fa-moon dark:hidden"></i>
+                <i class="fas fa-sun hidden dark:block"></i>
+            </button>
+
+             <!-- Mobile Toggle -->
+            <button
+            class="nav-toggle md:hidden flex flex-col justify-center items-center w-8 h-8 cursor-pointer relative z-[2001] gap-1.5 focus:outline-none"
+            aria-label="Open navigation"
+            aria-expanded="false"
+            >
+            <span class="bar block w-7 h-[3px] bg-primary rounded-sm transition-all duration-300 origin-center"></span>
+            <span class="bar block w-7 h-[3px] bg-primary rounded-sm transition-all duration-300 origin-center"></span>
+            <span class="bar block w-7 h-[3px] bg-primary rounded-sm transition-all duration-300 origin-center"></span>
+            </button>
+        </div>
+      </nav>
+      
+      <!-- Mobile Menu Overlay -->
+      <div class="mobile-menu-overlay fixed inset-0 bg-black/95 z-[2000] flex items-center justify-center opacity-0 pointer-events-none transition-all duration-300 md:hidden">
+         <div class="mobile-menu-container w-full text-center">
+            <ul class="nav-menu flex flex-col gap-8">
+              <li><a href="../index.html#home" class="text-white text-2xl font-semibold hover:text-accent transition-colors block py-2">Home</a></li>
+              <li><a href="../index.html#about" class="text-white text-2xl font-semibold hover:text-accent transition-colors block py-2">About</a></li>
+              <li><a href="../index.html#services" class="text-white text-2xl font-semibold hover:text-accent transition-colors block py-2">Services</a></li>
+              <li><a href="../index.html#products" class="text-white text-2xl font-semibold hover:text-accent transition-colors block py-2">Products</a></li>
+              <li><a href="../index.html#contact" class="text-white text-2xl font-semibold hover:text-accent transition-colors block py-2">Contact</a></li>
+            </ul>
+         </div>
       </div>
-      <div class="product-detail-row">
-        <section class="product-detail">
-          <!-- Product 1: Feed Bucket -->
-          <div class="product-gallery">
-            <div class="fade-gallery">
-              <img src="../images/img02.jpg" alt="Feed Bucket in stable" />
-              <img src="../images/img01.jpg" alt="Feed Bucket close-up" />
-              <img src="../images/img03.jpg" alt="Feed Bucket with grain" />
+    </header>
+
+    <main class="max-w-7xl mx-auto px-6 py-24 md:py-32">
+      <div class="page-title text-center mb-12 relative pb-4">
+        <h1 class="text-4xl md:text-5xl font-serif font-bold text-primary mb-2">Stable Supplies Collection</h1>
+        <p class="text-text-muted text-lg">Premium stable equipment designed for durability and functionality</p>
+        <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-primary to-accent rounded-full"></div>
+      </div>
+
+      <div class="product-detail-row flex flex-col gap-16 mb-16">
+        
+        <!-- Product 1 -->
+        <section class="product-detail flex flex-col lg:flex-row gap-8 bg-surface rounded-2xl p-6 md:p-8 shadow-premium-sm hover:shadow-premium-md transition-shadow duration-300 border border-transparent dark:border-gray-700">
+          <!-- Gallery -->
+          <div class="product-gallery w-full lg:w-1/2 max-w-2xl mx-auto">
+            <div class="gallery-main relative aspect-[4/3] rounded-xl overflow-hidden bg-gray-50 dark:bg-gray-800 mb-4 group">
+              <div class="fade-gallery relative w-full h-full">
+                <img src="../images/img02.jpg" alt="Bucket" class="absolute inset-0 w-full h-full object-contain opacity-0 transition-opacity duration-300 [&.active]:opacity-100 [&.active]:z-10 bg-white active">
+                <img src="../images/img01.jpg" alt="Bucket" class="absolute inset-0 w-full h-full object-contain opacity-0 transition-opacity duration-300 [&.active]:opacity-100 [&.active]:z-10 bg-white">
+                <img src="../images/img03.jpg" alt="Bucket" class="absolute inset-0 w-full h-full object-contain opacity-0 transition-opacity duration-300 [&.active]:opacity-100 [&.active]:z-10 bg-white">
+              </div>
+              
+              <!-- Navigation -->
+              <div class="gallery-nav absolute inset-0 flex items-center justify-between px-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                <button class="prev-slide w-10 h-10 rounded-full bg-white/90 shadow-md flex items-center justify-center text-primary hover:scale-110 transition-transform pointer-events-auto" aria-label="Previous">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="next-slide w-10 h-10 rounded-full bg-white/90 shadow-md flex items-center justify-center text-primary hover:scale-110 transition-transform pointer-events-auto" aria-label="Next">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+              </div>
             </div>
-            <div class="thumbnail-container">
-              <img
-                src="../images/img02.jpg"
-                class="thumbnail"
-                alt="Feed Bucket thumbnail 1"
-              />
-              <img
-                src="../images/img01.jpg"
-                class="thumbnail"
-                alt="Feed Bucket thumbnail 2"
-              />
-              <img
-                src="../images/img03.jpg"
-                class="thumbnail"
-                alt="Feed Bucket thumbnail 3"
-              />
-            </div>
+
+             <!-- Thumbnails -->
+             <div class="thumbnail-container grid grid-cols-6 gap-2 overflow-x-auto pb-2 scrollbar-thin">
+                <img src="../images/img02.jpg" class="thumbnail w-full aspect-square object-cover rounded-md cursor-pointer border-2 border-transparent transition-all duration-300 hover:border-accent [&.active]:border-primary" alt="Thumb">
+                <img src="../images/img01.jpg" class="thumbnail w-full aspect-square object-cover rounded-md cursor-pointer border-2 border-transparent transition-all duration-300 hover:border-accent [&.active]:border-primary" alt="Thumb">
+                <img src="../images/img03.jpg" class="thumbnail w-full aspect-square object-cover rounded-md cursor-pointer border-2 border-transparent transition-all duration-300 hover:border-accent [&.active]:border-primary" alt="Thumb">
+             </div>
           </div>
-          <div class="product-info">
-            <h2>Premium Feed Bucket</h2>
-            <span class="product-price">₹2400</span>
-            <p>
-              Heavy-duty feed bucket designed for stable use.
-              <a
-                href="#"
-                class="read-more"
-                data-description="Our premium feed bucket is crafted from high-density polyethylene that withstands daily use and extreme temperatures (-30°C to 80°C). The reinforced rim prevents cracking, while the smooth interior surface prevents food buildup. Designed with a comfortable handle grip and stackable for convenient storage. Each bucket undergoes rigorous stress testing to ensure longevity."
-              >
-                Read more
-              </a>
-            </p>
-            <div class="product-spec-links">
-              <a href="#" class="spec-link" data-spec="colors" data-description="Available Colors: Black, Brown, Tan">
-                <i class="fas fa-palette"></i> Colors
-              </a>
-              <a href="#" class="spec-link" data-spec="sizes" data-description="Available Sizes: 16.5, 17, 17.5, 18 inches">
-                <i class="fas fa-ruler-combined"></i> Sizes
-              </a>
-              <a href="#" class="spec-link" data-spec="specification" data-description="Material: Premium Indian Leather; Tree: Lightweight Carbon Fiber; Seat: Deep, Padded; Billets: Reinforced Nylon">
-                <i class="fas fa-list-ul"></i> Specification
-              </a>
+
+          <!-- Info -->
+          <div class="product-info w-full lg:w-1/2 flex flex-col justify-center">
+            <div class="product-header flex justify-between items-start mb-6">
+                <h2 class="text-3xl font-serif font-bold text-primary">Premium Feed Bucket</h2>
+                <div class="product-badges flex gap-2">
+                    <span class="badge premium bg-yellow-400 text-black px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wide">Premium</span>
+                </div>
             </div>
-            <div class="product-types">
-              <h4>Available Options:</h4>
-              <ul>
-                <li>
-                  <a
-                    href="#"
-                    class="type-link"
-                    data-type="Standard (10L)"
-                    data-description="10 liter capacity with measurement markings. Weight: 850g. Made from FDA-approved food-grade plastic. Features anti-tip design with wide base. Available in blue, green, and black colors."
-                  >
-                    Standard (10L)
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    class="type-link"
-                    data-type="Jumbo (15L)"
-                    data-description="15 liter capacity for larger horses. Weight: 1.2kg. Extra-thick walls (4mm) for added durability. Includes pour spout and reinforced handle attachment points. Ideal for grain mixes and supplements."
-                  >
-                    Jumbo (15L)
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    class="type-link"
-                    data-type="Travel (5L)"
-                    data-description="Compact 5 liter version with locking lid. Weight: 600g. Leak-proof design perfect for shows and travel. Features carrying handle and fits standard trailer tie rings. Dishwasher safe."
-                  >
-                    Travel (5L)
-                  </a>
-                </li>
-              </ul>
+
+            <div class="quick-overview flex gap-6 py-4 border-b border-gray-100 dark:border-gray-700 mb-6 text-sm text-text-muted">
+                <div class="overview-item flex items-center gap-2"><i class="fas fa-star text-gold"></i> Premium Quality</div>
+                <div class="overview-item flex items-center gap-2"><i class="fas fa-certificate text-gold"></i> Durable</div>
             </div>
-            <ul class="product-features">
-              <li>
-                <i class="fa-solid fa-check"></i> Durable plastic construction
-              </li>
-              <li><i class="fa-solid fa-check"></i> Easy to clean</li>
-              <li><i class="fa-solid fa-check"></i> Large capacity</li>
-              <li><i class="fa-solid fa-check"></i> Weather resistant</li>
-            </ul>
-            <a href="../index.html#contact" class="cta-button">Enquire Now</a>
-          </div>
-        </section>
-        <section class="product-detail">
-          <!-- Product 2: Feed Storage Bin -->
-          <div class="product-gallery">
-            <div class="fade-gallery">
-              <img src="../images/img02.jpg" alt="Feed Storage Bin closed" />
-              <img src="../images/img01.jpg" alt="Feed Storage Bin interior" />
-              <img src="../images/img03.jpg" alt="Feed Storage Bin in stable" />
+
+            <div class="product-description mb-6">
+                <p class="main-description text-text leading-relaxed">
+                    Heavy-duty feed bucket designed for stable use.
+                    <span class="hidden-description hidden">
+                         Our premium feed bucket is crafted from high-density polyethylene that withstands daily use and extreme temperatures (-30°C to 80°C). The reinforced rim prevents cracking, while the smooth interior surface prevents food buildup. Designed with a comfortable handle grip and stackable for convenient storage. Each bucket undergoes rigorous stress testing to ensure longevity.
+                    </span>
+                    <button class="read-more-btn text-primary font-medium hover:underline ml-1 focus:outline-none">Read more</button>
+                </p>
             </div>
-            <div class="thumbnail-container">
-              <img
-                src="../images/img02.jpg"
-                class="thumbnail"
-                alt="Feed Storage Bin thumbnail 1"
-              />
-              <img
-                src="../images/img01.jpg"
-                class="thumbnail"
-                alt="Feed Storage Bin thumbnail 2"
-              />
-              <img
-                src="../images/img03.jpg"
-                class="thumbnail"
-                alt="Feed Storage Bin thumbnail 3"
-              />
+
+            <div class="key-features mb-6">
+                <h3 class="font-bold text-lg mb-3 text-text">Key Features</h3>
+                <ul class="feature-grid grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm text-text-muted">
+                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-primary"></i> Durable plastic construction</li>
+                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-primary"></i> Easy to clean</li>
+                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-primary"></i> Large capacity</li>
+                    <li class="flex items-center gap-2"><i class="fas fa-check-circle text-primary"></i> Weather resistant</li>
+                </ul>
             </div>
-          </div>
-          <div class="product-info">
-            <h2>Feed Storage Bin</h2>
-            <span class="product-price">₹1800</span>
-            <p>
-              Secure storage solution for horse feed.
-              <a
-                href="#"
-                class="read-more"
-                data-description="Our airtight feed storage bin protects your horse's nutrition from moisture, pests, and spoilage. Made from UV-resistant polypropylene with thick walls that maintain consistent temperature. Features a locking lid with silicone seal, ergonomic handles, and built-in wheels for easy movement when full. The interior stays clean and odor-free with smooth, non-porous surfaces."
-              >
-                Read more
-              </a>
-            </p>
-            <div class="product-spec-links">
-              <a href="#" class="spec-link" data-spec="colors" data-description="Available Colors: Black, Brown, Tan">
-                <i class="fas fa-palette"></i> Colors
-              </a>
-              <a href="#" class="spec-link" data-spec="sizes" data-description="Available Sizes: 16.5, 17, 17.5, 18 inches">
-                <i class="fas fa-ruler-combined"></i> Sizes
-              </a>
-              <a href="#" class="spec-link" data-spec="specification" data-description="Material: Premium Indian Leather; Tree: Lightweight Carbon Fiber; Seat: Deep, Padded; Billets: Reinforced Nylon">
-                <i class="fas fa-list-ul"></i> Specification
-              </a>
+
+            <div class="product-spec-links flex gap-3 overflow-x-auto pb-2 mb-6 scrollbar-thin">
+                <a href="#" class="spec-link flex items-center gap-2 px-3 py-1.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded text-sm hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors whitespace-nowrap text-text" data-spec="colors" data-description="Black, Brown, Tan">
+                    <i class="fas fa-palette text-text-muted"></i> Colors <small class="text-text-muted ml-1">3 options</small>
+                </a>
+                <a href="#" class="spec-link flex items-center gap-2 px-3 py-1.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded text-sm hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors whitespace-nowrap text-text" data-spec="sizes" data-description="16.5, 17, 17.5, 18 inches">
+                    <i class="fas fa-ruler-combined text-text-muted"></i> Sizes <small class="text-text-muted ml-1">4 options</small>
+                </a>
+                <a href="#" class="spec-link flex items-center gap-2 px-3 py-1.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded text-sm hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors whitespace-nowrap text-text" data-spec="specification" data-description="Material: HDPE; Capacity: 20L; Handle: Reinforced Steel">
+                    <i class="fas fa-list-ul text-text-muted"></i> Specifications <small class="text-text-muted ml-1">View details</small>
+                </a>
             </div>
-            <div class="product-types">
-              <h4>Available Sizes:</h4>
-              <ul>
-                <li>
-                  <a
-                    href="#"
-                    class="type-link"
-                    data-type="Compact (20kg)"
-                    data-description="Holds 20kg of feed. Dimensions: 40x30x35cm. Ideal for small stables or supplemental feed. Includes measuring scoop and interior divider for mixing different feeds. Fits under most work tables."
-                  >
-                    Compact (20kg)
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    class="type-link"
-                    data-type="Standard (50kg)"
-                    data-description="Holds 50kg of feed. Dimensions: 60x40x50cm. Most popular size for daily use. Features see-through window to monitor feed levels, plus integrated scoop holder. Wheel kit available separately."
-                  >
-                    Standard (50kg)
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    class="type-link"
-                    data-type="Commercial (100kg)"
-                    data-description="Holds 100kg of feed. Dimensions: 80x50x70cm. Heavy-duty construction for large operations. Includes heavy-duty wheels, dual locking lids, and four interior compartments. Can be used with optional stand."
-                  >
-                    Commercial (100kg)
-                  </a>
-                </li>
-              </ul>
+
+             <!-- Product Variants/Types (kept from original) -->
+             <div class="product-types mb-6 text-sm">
+                <h4 class="font-bold mb-2 text-text">Available Options:</h4>
+                <ul class="space-y-2">
+                  <li>
+                    <a href="#" class="type-link text-primary hover:underline hover:text-primary-dark transition-colors" data-type="Standard (10L)" data-description="10 liter capacity with measurement markings. Weight: 850g. Made from FDA-approved food-grade plastic. Features anti-tip design with wide base. Available in blue, green, and black colors.">
+                      Standard (10L)
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" class="type-link text-primary hover:underline hover:text-primary-dark transition-colors" data-type="Jumbo (15L)" data-description="15 liter capacity for larger horses. Weight: 1.2kg. Extra-thick walls (4mm) for added durability. Includes pour spout and reinforced handle attachment points. Ideal for grain mixes and supplements.">
+                      Jumbo (15L)
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" class="type-link text-primary hover:underline hover:text-primary-dark transition-colors" data-type="Travel (5L)" data-description="Compact 5 liter version with locking lid. Weight: 600g. Leak-proof design perfect for shows and travel. Features carrying handle and fits standard trailer tie rings. Dishwasher safe.">
+                      Travel (5L)
+                    </a>
+                  </li>
+                </ul>
+              </div>
+
+            <div class="product-cta flex flex-wrap gap-4">
+                <a href="../index.html#contact" class="cta-button primary px-8 py-3 bg-primary text-white font-semibold rounded-lg hover:bg-primary-dark transition-all duration-300 shadow-md flex items-center gap-2 hover:-translate-y-0.5">
+                    <i class="fas fa-shopping-cart"></i> Enquire Now
+                </a>
+                <button class="cta-button secondary wishlist-btn px-8 py-3 border-2 border-primary text-primary font-semibold rounded-lg hover:bg-primary hover:text-white transition-all duration-300 flex items-center gap-2 [&.active]:bg-primary [&.active]:text-white">
+                    <i class="far fa-heart"></i> Add to Wishlist
+                </button>
             </div>
-            <ul class="product-features">
-              <li><i class="fa-solid fa-check"></i> Airtight design</li>
-              <li><i class="fa-solid fa-check"></i> Pest-resistant</li>
-              <li><i class="fa-solid fa-check"></i> Easy-access lid</li>
-              <li><i class="fa-solid fa-check"></i> Durable construction</li>
-            </ul>
-            <a href="../index.html#contact" class="cta-button">Enquire Now</a>
           </div>
         </section>
+
+        <!-- Product 2 -->
+        <section class="product-detail flex flex-col lg:flex-row gap-8 bg-surface rounded-2xl p-6 md:p-8 shadow-premium-sm hover:shadow-premium-md transition-shadow duration-300 border border-transparent dark:border-gray-700">
+             <!-- Gallery -->
+             <div class="product-gallery w-full lg:w-1/2 max-w-2xl mx-auto">
+                <div class="gallery-main relative aspect-[4/3] rounded-xl overflow-hidden bg-gray-50 dark:bg-gray-800 mb-4 group">
+                  <div class="fade-gallery relative w-full h-full">
+                    <img src="../images/img02.jpg" alt="Bin" class="absolute inset-0 w-full h-full object-contain opacity-0 transition-opacity duration-300 [&.active]:opacity-100 [&.active]:z-10 bg-white active">
+                    <img src="../images/img01.jpg" alt="Bin" class="absolute inset-0 w-full h-full object-contain opacity-0 transition-opacity duration-300 [&.active]:opacity-100 [&.active]:z-10 bg-white">
+                    <img src="../images/img03.jpg" alt="Bin" class="absolute inset-0 w-full h-full object-contain opacity-0 transition-opacity duration-300 [&.active]:opacity-100 [&.active]:z-10 bg-white">
+                  </div>
+                  
+                  <!-- Navigation -->
+                  <div class="gallery-nav absolute inset-0 flex items-center justify-between px-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                    <button class="prev-slide w-10 h-10 rounded-full bg-white/90 shadow-md flex items-center justify-center text-primary hover:scale-110 transition-transform pointer-events-auto" aria-label="Previous">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="next-slide w-10 h-10 rounded-full bg-white/90 shadow-md flex items-center justify-center text-primary hover:scale-110 transition-transform pointer-events-auto" aria-label="Next">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                  </div>
+                </div>
+    
+                 <!-- Thumbnails -->
+                 <div class="thumbnail-container grid grid-cols-6 gap-2 overflow-x-auto pb-2 scrollbar-thin">
+                    <img src="../images/img02.jpg" class="thumbnail w-full aspect-square object-cover rounded-md cursor-pointer border-2 border-transparent transition-all duration-300 hover:border-accent [&.active]:border-primary" alt="Thumb">
+                    <img src="../images/img01.jpg" class="thumbnail w-full aspect-square object-cover rounded-md cursor-pointer border-2 border-transparent transition-all duration-300 hover:border-accent [&.active]:border-primary" alt="Thumb">
+                    <img src="../images/img03.jpg" class="thumbnail w-full aspect-square object-cover rounded-md cursor-pointer border-2 border-transparent transition-all duration-300 hover:border-accent [&.active]:border-primary" alt="Thumb">
+                 </div>
+              </div>
+    
+              <!-- Info -->
+              <div class="product-info w-full lg:w-1/2 flex flex-col justify-center">
+                <div class="product-header flex justify-between items-start mb-6">
+                    <h2 class="text-3xl font-serif font-bold text-primary">Feed Storage Bin</h2>
+                    <div class="product-badges flex gap-2">
+                        <span class="badge premium bg-yellow-400 text-black px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wide">Premium</span>
+                    </div>
+                </div>
+    
+                <div class="quick-overview flex gap-6 py-4 border-b border-gray-100 dark:border-gray-700 mb-6 text-sm text-text-muted">
+                    <div class="overview-item flex items-center gap-2"><i class="fas fa-star text-gold"></i> Premium Quality</div>
+                    <div class="overview-item flex items-center gap-2"><i class="fas fa-certificate text-gold"></i> Secure Storage</div>
+                </div>
+    
+                <div class="product-description mb-6">
+                    <p class="main-description text-text leading-relaxed">
+                        Secure storage solution for horse feed.
+                        <span class="hidden-description hidden">
+                             Our airtight feed storage bin protects your horse's nutrition from moisture, pests, and spoilage. Made from UV-resistant polypropylene with thick walls that maintain consistent temperature. Features a locking lid with silicone seal, ergonomic handles, and built-in wheels for easy movement when full. The interior stays clean and odor-free with smooth, non-porous surfaces.
+                        </span>
+                        <button class="read-more-btn text-primary font-medium hover:underline ml-1 focus:outline-none">Read more</button>
+                    </p>
+                </div>
+    
+                <div class="key-features mb-6">
+                    <h3 class="font-bold text-lg mb-3 text-text">Key Features</h3>
+                    <ul class="feature-grid grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm text-text-muted">
+                        <li class="flex items-center gap-2"><i class="fas fa-check-circle text-primary"></i> Airtight design</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check-circle text-primary"></i> Pest-resistant</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check-circle text-primary"></i> Easy-access lid</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check-circle text-primary"></i> Durable construction</li>
+                    </ul>
+                </div>
+    
+                <div class="product-spec-links flex gap-3 overflow-x-auto pb-2 mb-6 scrollbar-thin">
+                    <a href="#" class="spec-link flex items-center gap-2 px-3 py-1.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded text-sm hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors whitespace-nowrap text-text" data-spec="colors" data-description="Black, Brown, Tan">
+                        <i class="fas fa-palette text-text-muted"></i> Colors <small class="text-text-muted ml-1">3 options</small>
+                    </a>
+                    <a href="#" class="spec-link flex items-center gap-2 px-3 py-1.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded text-sm hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors whitespace-nowrap text-text" data-spec="sizes" data-description="16.5, 17, 17.5, 18 inches">
+                        <i class="fas fa-ruler-combined text-text-muted"></i> Sizes <small class="text-text-muted ml-1">4 options</small>
+                    </a>
+                    <a href="#" class="spec-link flex items-center gap-2 px-3 py-1.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded text-sm hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors whitespace-nowrap text-text" data-spec="specification" data-description="Material: UV-resistant PP; Seal: Silicone; Wheels: Heavy-duty">
+                        <i class="fas fa-list-ul text-text-muted"></i> Specifications <small class="text-text-muted ml-1">View details</small>
+                    </a>
+                </div>
+
+                <!-- Product Variants/Types (kept from original) -->
+                <div class="product-types mb-6 text-sm">
+                    <h4 class="font-bold mb-2 text-text">Available Sizes:</h4>
+                    <ul class="space-y-2">
+                        <li>
+                        <a href="#" class="type-link text-primary hover:underline hover:text-primary-dark transition-colors" data-type="Compact (20kg)" data-description="Holds 20kg of feed. Dimensions: 40x30x35cm. Ideal for small stables or supplemental feed. Includes measuring scoop and interior divider for mixing different feeds. Fits under most work tables.">
+                            Compact (20kg)
+                        </a>
+                        </li>
+                        <li>
+                        <a href="#" class="type-link text-primary hover:underline hover:text-primary-dark transition-colors" data-type="Standard (50kg)" data-description="Holds 50kg of feed. Dimensions: 60x40x50cm. Most popular size for daily use. Features see-through window to monitor feed levels, plus integrated scoop holder. Wheel kit available separately.">
+                            Standard (50kg)
+                        </a>
+                        </li>
+                        <li>
+                        <a href="#" class="type-link text-primary hover:underline hover:text-primary-dark transition-colors" data-type="Commercial (100kg)" data-description="Holds 100kg of feed. Dimensions: 80x50x70cm. Heavy-duty construction for large operations. Includes heavy-duty wheels, dual locking lids, and four interior compartments. Can be used with optional stand.">
+                            Commercial (100kg)
+                        </a>
+                        </li>
+                    </ul>
+                </div>
+    
+                <div class="product-cta flex flex-wrap gap-4">
+                    <a href="../index.html#contact" class="cta-button primary px-8 py-3 bg-primary text-white font-semibold rounded-lg hover:bg-primary-dark transition-all duration-300 shadow-md flex items-center gap-2 hover:-translate-y-0.5">
+                        <i class="fas fa-shopping-cart"></i> Enquire Now
+                    </a>
+                    <button class="cta-button secondary wishlist-btn px-8 py-3 border-2 border-primary text-primary font-semibold rounded-lg hover:bg-primary hover:text-white transition-all duration-300 flex items-center gap-2 [&.active]:bg-primary [&.active]:text-white">
+                        <i class="far fa-heart"></i> Add to Wishlist
+                    </button>
+                </div>
+              </div>
+        </section>
+
       </div>
     </main>
-    <footer>
-      <div class="social-links">
-        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-        <a href="https://www.instagram.com/rahiequestrian/" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-        <a href="https://www.linkedin.com/company/rahi-equestrian/services/" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-        <a href="#" aria-label="Pinterest"
-          ><i class="fab fa-pinterest-p"></i
-        ></a>
-      </div>
-      <p>© 2025 Rahi Equestrian. All rights reserved.</p>
-    </footer>
-    <script src="Scripts.js"></script>
+    
+    <!-- Footer (Consistent with Index) -->
+    <footer class="bg-[#15100c] text-white/80 py-16 border-t border-white/5">
+        <div class="footer-container max-w-7xl mx-auto px-6">
+          <div class="footer-content grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+            <div class="footer-about">
+              <a href="#" class="footer-logo flex items-center gap-3 text-2xl font-bold text-white mb-4 no-underline">
+                <img src="../images/Logo.png" alt="Rahi Equestrian Logo" class="h-10 w-auto" />
+                <span>Rahi Equestrian</span>
+              </a>
+              <p class="text-sm leading-relaxed text-white/60">
+                Premium Raw Materials & Equipment for Equestrian Excellence.
+                Handcrafted with passion in India.
+              </p>
+            </div>
+            <div class="footer-links">
+              <h3 class="text-white font-serif font-semibold text-lg mb-6 relative pb-2 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-8 after:h-0.5 after:bg-primary">Quick Links</h3>
+              <ul class="space-y-3">
+                <li><a href="../index.html#home" class="hover:text-primary transition-colors">Home</a></li>
+                <li><a href="../index.html#about" class="hover:text-primary transition-colors">About Us</a></li>
+                <li><a href="../index.html#services" class="hover:text-primary transition-colors">Services</a></li>
+                <li><a href="../index.html#products" class="hover:text-primary transition-colors">Products</a></li>
+                <li><a href="../index.html#contact" class="hover:text-primary transition-colors">Contact</a></li>
+              </ul>
+            </div>
+            <div class="footer-links">
+              <h3 class="text-white font-serif font-semibold text-lg mb-6 relative pb-2 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-8 after:h-0.5 after:bg-primary">Products</h3>
+              <ul class="space-y-3">
+                <li><a href="equipment.html" class="hover:text-primary transition-colors">Saddles</a></li>
+                <li><a href="equipment.html" class="hover:text-primary transition-colors">Bridles</a></li>
+                <li><a href="apparel.html" class="hover:text-primary transition-colors">Riding Apparel</a></li>
+                <li>
+                  <a href="table-supplies.html" class="hover:text-primary transition-colors">Stable Equipment</a>
+                </li>
+                <li><a href="raw-materials.html" class="hover:text-primary transition-colors">Raw Materials</a></li>
+              </ul>
+            </div>
+            <div class="footer-contact">
+              <h3 class="text-white font-serif font-semibold text-lg mb-6 relative pb-2 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-8 after:h-0.5 after:bg-primary">Contact Info</h3>
+              <address class="not-italic space-y-4">
+                <p class="flex items-start gap-3">
+                  <i class="fas fa-map-marker-alt mt-1 text-primary"></i> 
+                  <span>Safed Colony Juhi Kanpur Nagar, Uttar Pradesh, India</span>
+                </p>
+                <p class="flex items-center gap-3">
+                  <i class="fas fa-phone-alt text-primary"></i> +91 7007786334
+                </p>
+                <p class="flex items-center gap-3">
+                  <i class="fas fa-envelope text-primary"></i> rahiequestrian@gmail.com
+                </p>
+              </address>
+            </div>
+          </div>
+          <div class="footer-bottom pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center text-sm text-white/40">
+            <p>&copy; 2023 Rahi Equestrian. All rights reserved.</p>
+            <div class="footer-legal flex gap-6 mt-4 md:mt-0">
+                <div class="social-links flex gap-4">
+                    <a href="https://www.instagram.com/rahiequestrian/" aria-label="Instagram" class="hover:text-primary transition-colors"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.facebook.com/" aria-label="Facebook" class="hover:text-primary transition-colors"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.linkedin.com/company/rahi-equestrian/services/" aria-label="LinkedIn" class="hover:text-primary transition-colors"><i class="fab fa-linkedin"></i></a>
+                  </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+      <script src="Scripts.js"></script>
   </body>
 </html>

@@ -1,440 +1,548 @@
-document.addEventListener('DOMContentLoaded', function() {
-  // --- Theme Toggling ---
-  const themeToggle = document.getElementById('theme-toggle');
-  const themeToggleMobile = document.getElementById('theme-toggle-mobile');
+/**
+ * Rahi Equestrian - Main Homepage Script
+ * Refactored for Stability, Performance, and Production Standards
+ */
 
-  function toggleTheme() {
-    const isDark = document.documentElement.classList.toggle('dark');
-    localStorage.setItem('theme', isDark ? 'dark' : 'light');
-  }
+const RahiApp = (() => {
+  'use strict';
 
-  if (themeToggle) themeToggle.addEventListener('click', toggleTheme);
-  if (themeToggleMobile) themeToggleMobile.addEventListener('click', toggleTheme);
-
-  // --- Smooth Page Transition ---
-  document.body.classList.add('opacity-0', 'transition-opacity', 'duration-500');
-  setTimeout(() => {
-    document.body.classList.replace('opacity-0', 'opacity-100');
-  }, 50);
-
-  // --- Resource Preloading ---
-  const preloadResources = () => {
-    const resources = [
-      'images/hero.png', // Preload hero image
-      'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css'
-    ];
-    
-    resources.forEach(resource => {
-      const link = document.createElement('link');
-      link.rel = 'preload';
-      link.as = resource.includes('.css') ? 'style' : 'image';
-      link.href = resource;
-      document.head.appendChild(link);
-    });
+  // --- Constants & State ---
+  const STATE = {
+    isDarkMode: false,
+    scrollTimer: null,
+    heroInterval: null,
   };
 
-  if (window.requestIdleCallback) {
-    window.requestIdleCallback(preloadResources);
-  } else {
-    window.addEventListener('load', preloadResources);
-  }
+  const SELECTORS = {
+    themeToggle: '#theme-toggle',
+    themeToggleMobile: '#theme-toggle-mobile',
+    navToggle: '.nav-toggle',
+    navMenu: '#mobile-menu',
+    navOverlay: '.nav-overlay',
+    header: 'header',
+    heroSlides: '.hero-slider .slide',
+    heroPrev: '.hero-slider .slider-btn.prev',
+    heroNext: '.hero-slider .slider-btn.next',
+    heroDots: '.slider-dots',
+    backToTop: '.back-to-top',
+    forms: 'form',
+    quickViewBtns: '.quick-view',
+    animatedElements: '.service-card, .category-card, .featured-card, .testimonial-card, .section-title, .hero-content > *'
+  };
 
-  // --- Smooth Scrolling for Navigation Links ---
-  document.querySelectorAll('nav a').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-      const targetId = this.getAttribute('href');
-      if (targetId && targetId.startsWith('#')) {
-        e.preventDefault();
-        const targetSection = document.querySelector(targetId);
-        if (targetSection) {
-          targetSection.scrollIntoView({
-            behavior: 'smooth'
-          });
-          
-          // Close mobile menu if open
-          const navMenu = document.getElementById('mobile-menu');
-          if (navMenu && navMenu.classList.contains('open')) {
-            navMenu.classList.remove('open');
-            const toggle = document.querySelector('.nav-toggle');
-            if (toggle) {
-                toggle.setAttribute('aria-expanded', 'false');
-                const bars = toggle.querySelectorAll('.bar');
-                bars[0].classList.remove('rotate-45', 'translate-y-[9px]');
-                bars[1].classList.remove('opacity-0');
-                bars[2].classList.remove('-rotate-45', '-translate-y-[9px]');
-            }
-            const navOverlay = document.querySelector('.nav-overlay');
-            if(navOverlay) navOverlay.classList.remove('active');
-            document.body.style.overflow = '';
-          }
-        }
-      }
-    });
-  });
+  // --- Utils ---
+  const Utils = {
+    debounce: (func, wait) => {
+      let timeout;
+      return function executedFunction(...args) {
+        const later = () => {
+          clearTimeout(timeout);
+          func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+      };
+    },
+    
+    // Safely query element
+    get: (selector, context = document) => context.querySelector(selector),
+    getAll: (selector, context = document) => context.querySelectorAll(selector),
+  };
 
-  // --- Enhanced Form Handling ---
-  const forms = document.querySelectorAll('form');
-  forms.forEach(form => {
-    // Real-time validation styling using Tailwind
-    const inputs = form.querySelectorAll('input, textarea');
-    inputs.forEach(input => {
-      input.addEventListener('input', () => {
-        if (input.checkValidity()) {
-          input.classList.remove('border-red-500', 'focus:ring-red-500');
-          input.classList.add('border-green-500', 'focus:ring-green-500');
+  // --- Theme Module ---
+  const Theme = {
+    init() {
+      // Sync state with DOM
+      STATE.isDarkMode = document.documentElement.classList.contains('dark');
+      
+      const toggles = [
+        Utils.get(SELECTORS.themeToggle), 
+        Utils.get(SELECTORS.themeToggleMobile)
+      ];
+
+      toggles.forEach(btn => {
+        if (!btn) return;
+        
+        // Ensure icon state matches
+        this.updateIcons(btn, STATE.isDarkMode);
+        
+        // Remove old listeners to prevent duplication
+        const newBtn = btn.cloneNode(true);
+        btn.parentNode.replaceChild(newBtn, btn);
+        
+        newBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            this.toggle();
+        });
+      });
+    },
+
+    toggle() {
+      STATE.isDarkMode = !STATE.isDarkMode;
+      document.documentElement.classList.toggle('dark', STATE.isDarkMode);
+      localStorage.setItem('theme', STATE.isDarkMode ? 'dark' : 'light');
+      
+      // Update all toggle buttons
+      const toggles = [
+        Utils.get(SELECTORS.themeToggle), 
+        Utils.get(SELECTORS.themeToggleMobile)
+      ];
+      toggles.forEach(btn => { 
+          if(btn) this.updateIcons(btn, STATE.isDarkMode); 
+      });
+    },
+
+    updateIcons(btn, isDark) {
+      const moon = btn.querySelector('.fa-moon');
+      const sun = btn.querySelector('.fa-sun');
+      if (moon && sun) {
+        if (isDark) {
+          moon.classList.add('hidden');
+          sun.classList.remove('hidden');
         } else {
-          input.classList.remove('border-green-500', 'focus:ring-green-500');
-          input.classList.add('border-red-500', 'focus:ring-red-500');
+          moon.classList.remove('hidden');
+          sun.classList.add('hidden');
+        }
+      }
+    }
+  };
+
+  // --- Navigation Module ---
+  const Navigation = {
+    init() {
+      this.setupMobileMenu();
+      this.setupSmoothScroll();
+      this.setupBackToTop();
+    },
+
+    setupMobileMenu() {
+      const toggle = Utils.get(SELECTORS.navToggle);
+      const menu = Utils.get(SELECTORS.navMenu);
+      const overlay = Utils.get(SELECTORS.navOverlay);
+
+      if (!toggle || !menu) return;
+
+      const closeMenu = () => {
+        menu.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+        if (overlay) overlay.classList.remove('active');
+        document.body.style.overflow = '';
+        
+        // Reset Hamburger Icon
+        const bars = toggle.querySelectorAll('.bar');
+        if(bars.length === 3) {
+            bars[0].classList.remove('rotate-45', 'translate-y-[9px]');
+            bars[1].classList.remove('opacity-0');
+            bars[2].classList.remove('-rotate-45', '-translate-y-[9px]');
+        }
+      };
+
+      const toggleMenu = () => {
+        const isOpen = menu.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', isOpen);
+        if (overlay) overlay.classList.toggle('active', isOpen);
+        document.body.style.overflow = isOpen ? 'hidden' : '';
+
+        // Animate Hamburger
+        const bars = toggle.querySelectorAll('.bar');
+        if(bars.length === 3) {
+            if (isOpen) {
+                bars[0].classList.add('rotate-45', 'translate-y-[9px]');
+                bars[1].classList.add('opacity-0');
+                bars[2].classList.add('-rotate-45', '-translate-y-[9px]');
+            } else {
+                 bars[0].classList.remove('rotate-45', 'translate-y-[9px]');
+                 bars[1].classList.remove('opacity-0');
+                 bars[2].classList.remove('-rotate-45', '-translate-y-[9px]');
+            }
+        }
+      };
+
+      // Ensure fresh listener
+      const newToggle = toggle.cloneNode(true);
+      toggle.parentNode.replaceChild(newToggle, toggle);
+      newToggle.addEventListener('click', toggleMenu);
+
+      // Links close menu
+      menu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', closeMenu);
+      });
+
+      // Overlay closes menu
+      if (overlay) {
+        overlay.addEventListener('click', closeMenu);
+      }
+      
+      // Close on resize to desktop
+      window.addEventListener('resize', Utils.debounce(() => {
+          if(window.innerWidth >= 768 && menu.classList.contains('open')) {
+              closeMenu();
+          }
+      }, 200));
+    },
+
+    setupSmoothScroll() {
+      Utils.getAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          const href = this.getAttribute('href');
+          if (href === '#' || !href.startsWith('#')) return;
+          
+          const target = Utils.get(href);
+          if (target) {
+            e.preventDefault();
+            target.scrollIntoView({ behavior: 'smooth' });
+          }
+        });
+      });
+    },
+    
+    setupBackToTop() {
+        const btn = Utils.get(SELECTORS.backToTop);
+        if (!btn) return;
+        
+        window.addEventListener('scroll', Utils.debounce(() => {
+            if (window.scrollY > 400) {
+                btn.classList.add('visible');
+            } else {
+                btn.classList.remove('visible');
+            }
+        }, 100));
+        
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+  };
+
+  // --- Hero Slider Module ---
+  const HeroSlider = {
+    init() {
+      const slides = Utils.getAll(SELECTORS.heroSlides);
+      if (slides.length === 0) return;
+
+      this.slides = slides;
+      this.currentIdx = 0;
+      this.total = slides.length;
+      this.interval = null;
+      
+      // Elements
+      this.dotsContainer = Utils.get(SELECTORS.heroDots);
+      this.prevBtn = Utils.get(SELECTORS.heroPrev);
+      this.nextBtn = Utils.get(SELECTORS.heroNext);
+
+      this.createDots();
+      this.showSlide(0);
+      this.startAutoPlay();
+      this.addListeners();
+    },
+
+    createDots() {
+      if (!this.dotsContainer) return;
+      this.dotsContainer.innerHTML = '';
+      
+      this.slides.forEach((_, idx) => {
+        const dot = document.createElement('button');
+        dot.className = `dot w-3 h-3 rounded-full cursor-pointer transition-all duration-300 ${idx === 0 ? 'bg-white scale-125' : 'bg-white/50 hover:bg-white/80'}`;
+        dot.ariaLabel = `Go to slide ${idx + 1}`;
+        dot.addEventListener('click', () => {
+          this.currentIdx = idx;
+          this.update();
+          this.resetTimer();
+        });
+        this.dotsContainer.appendChild(dot);
+      });
+    },
+
+    showSlide(idx) {
+      this.slides.forEach((slide, i) => {
+        if (i === idx) {
+            slide.classList.add('active', 'opacity-100', 'z-10');
+            slide.classList.remove('opacity-0');
+        } else {
+            slide.classList.remove('active', 'opacity-100', 'z-10');
+            slide.classList.add('opacity-0');
         }
       });
-    });
 
-    // Form submission
-    form.addEventListener('submit', function(e) {
-      e.preventDefault(); // Prevent actual submission for demo
-      
-      // Only proceed if it's the contact form (dummy check as class might differ)
-      // Assuming contact section form
-      
-        const submitButton = this.querySelector('button[type="submit"]');
-        if (!submitButton) return;
-        
-        const originalText = submitButton.innerHTML;
-        submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-        submitButton.disabled = true;
-        submitButton.classList.add('opacity-75', 'cursor-not-allowed');
+      // Update dots
+      if (this.dotsContainer) {
+          const dots = Array.from(this.dotsContainer.children);
+          dots.forEach((dot, i) => {
+              if (i === idx) {
+                  dot.classList.remove('bg-white/50');
+                  dot.classList.add('bg-white', 'scale-125');
+              } else {
+                  dot.classList.add('bg-white/50');
+                  dot.classList.remove('bg-white', 'scale-125');
+              }
+          });
+      }
+    },
 
-        // Simulate API call
-        setTimeout(() => {
-          // Success handling
-          const successMsg = document.createElement('div');
-          successMsg.className = 'bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4 flex items-center gap-2';
-          successMsg.innerHTML = `
-            <i class="fas fa-check-circle"></i>
-            <p>Thank you! Your message has been sent.</p>
-          `;
-          form.parentNode.insertBefore(successMsg, form);
-          form.style.display = 'none';
+    update() {
+      this.showSlide(this.currentIdx);
+    },
+
+    next() {
+      this.currentIdx = (this.currentIdx + 1) % this.total;
+      this.update();
+    },
+
+    prev() {
+      this.currentIdx = (this.currentIdx === 0) ? this.total - 1 : this.currentIdx - 1;
+      this.update();
+    },
+
+    startAutoPlay() {
+      this.interval = setInterval(() => this.next(), 5000);
+    },
+
+    stopAutoPlay() {
+      clearInterval(this.interval);
+    },
+
+    resetTimer() {
+      this.stopAutoPlay();
+      this.startAutoPlay();
+    },
+
+    addListeners() {
+      if (this.prevBtn) {
+          this.prevBtn.addEventListener('click', () => {
+              this.prev();
+              this.resetTimer();
+          });
+      }
+      if (this.nextBtn) {
+          this.nextBtn.addEventListener('click', () => {
+              this.next();
+              this.resetTimer();
+          });
+      }
+    }
+  };
+
+  // --- Animations Module ---
+  const Animations = {
+    init() {
+      // Intersection Observer for scroll animations
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.remove('opacity-0', 'translate-y-8');
+            entry.target.classList.add('opacity-100', 'translate-y-0');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+      Utils.getAll(SELECTORS.animatedElements).forEach(el => {
+        el.classList.add('opacity-0', 'translate-y-8', 'transition-all', 'duration-700', 'ease-out');
+        observer.observe(el);
+      });
+      
+      // Ripple Effect
+      document.addEventListener('click', (e) => {
+          const target = e.target.closest('button:not(.no-ripple), .cta-button, .service-card, .category-card');
+          if (!target) return;
           
-          setTimeout(() => {
-            form.reset();
-            form.style.display = 'block';
-            successMsg.remove();
-            submitButton.innerHTML = originalText;
-            submitButton.disabled = false;
-            submitButton.classList.remove('opacity-75', 'cursor-not-allowed');
-          }, 3000);
-        }, 1500);
-    });
-  });
-
-  // --- Enhanced Hero Image Slider ---
-  const heroSlides = document.querySelectorAll('.hero-slider .slide');
-  const heroPrevBtn = document.querySelector('.hero-slider .slider-btn.prev');
-  const heroNextBtn = document.querySelector('.hero-slider .slider-btn.next');
-  const sliderDots = document.querySelector('.slider-dots');
-  let heroCurrentSlide = 0;
-  let heroSlideInterval;
-
-  // Create dots
-  if (heroSlides.length > 0 && sliderDots) {
-    heroSlides.forEach((_, index) => {
-      const dot = document.createElement('div');
-      dot.className = `dot w-3 h-3 rounded-full cursor-pointer transition-all duration-300 ${index === 0 ? 'bg-white scale-125' : 'bg-white/50 hover:bg-white/80'}`;
-      dot.addEventListener('click', () => {
-        heroCurrentSlide = index;
-        showHeroSlide(heroCurrentSlide);
-        resetHeroInterval();
-      });
-      sliderDots.appendChild(dot);
-    });
-  }
-
-  function showHeroSlide(index) {
-    heroSlides.forEach((slide, i) => {
-      if (i === index) {
-        slide.classList.add('active');
-        slide.classList.remove('opacity-0');
-        slide.classList.add('opacity-100', 'z-10');
-      } else {
-        slide.classList.remove('active');
-        slide.classList.remove('opacity-100', 'z-10');
-        slide.classList.add('opacity-0');
-      }
-    });
-    
-    // Update dots
-    const dots = document.querySelectorAll('.slider-dots .dot');
-    dots.forEach((dot, i) => {
-      if (i === index) {
-        dot.classList.remove('bg-white/50');
-        dot.classList.add('bg-white', 'scale-125');
-      } else {
-        dot.classList.add('bg-white/50');
-        dot.classList.remove('bg-white', 'scale-125');
-      }
-    });
-  }
-
-  function nextHeroSlide() {
-    heroCurrentSlide = (heroCurrentSlide === heroSlides.length - 1) ? 0 : heroCurrentSlide + 1;
-    showHeroSlide(heroCurrentSlide);
-  }
-
-  function prevHeroSlide() {
-    heroCurrentSlide = (heroCurrentSlide === 0) ? heroSlides.length - 1 : heroCurrentSlide - 1;
-    showHeroSlide(heroCurrentSlide);
-  }
-
-  function startHeroInterval() {
-    heroSlideInterval = setInterval(nextHeroSlide, 5000);
-  }
-
-  function resetHeroInterval() {
-    clearInterval(heroSlideInterval);
-    startHeroInterval();
-  }
-
-  if (heroSlides.length > 0) {
-    if (heroPrevBtn && heroNextBtn) {
-      heroPrevBtn.addEventListener('click', () => {
-        prevHeroSlide();
-        resetHeroInterval();
-      });
-
-      heroNextBtn.addEventListener('click', () => {
-        nextHeroSlide();
-        resetHeroInterval();
+          const rect = target.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          
+          const ripple = document.createElement('span');
+          ripple.className = 'ripple-effect absolute rounded-full bg-white/30 pointer-events-none transform scale-0';
+          ripple.style.left = `${x}px`;
+          ripple.style.top = `${y}px`;
+          
+          target.appendChild(ripple);
+          setTimeout(() => ripple.remove(), 600);
       });
     }
-    
-    startHeroInterval();
-    // Initialize first slide state explicitly
-    showHeroSlide(0);
-  }
+  };
 
-  // --- Responsive Hamburger Navigation ---
-  const navToggle = document.querySelector('.nav-toggle');
-  const navMenu = document.getElementById('mobile-menu');
-  const navOverlay = document.querySelector('.nav-overlay');
-  
-  if (navToggle && navMenu) {
-    navToggle.addEventListener('click', function() {
-      // Toggle 'open' class for menu visibility/translation
-      const isOpen = navMenu.classList.toggle('open');
-      this.setAttribute('aria-expanded', isOpen);
-      
-      // Toggle 'active' for overlay opacity/pointer-events
-      if (navOverlay) navOverlay.classList.toggle('active', isOpen);
-      
-      // Animate hamburger bars
-      const bars = this.querySelectorAll('.bar');
-      if (isOpen) {
-        // Transform to X
-        bars[0].classList.add('rotate-45', 'translate-y-[9px]');
-        bars[1].classList.add('opacity-0');
-        bars[2].classList.add('-rotate-45', '-translate-y-[9px]');
-        document.body.style.overflow = 'hidden';
-      } else {
-        // Reset
-        bars[0].classList.remove('rotate-45', 'translate-y-[9px]');
-        bars[1].classList.remove('opacity-0');
-        bars[2].classList.remove('-rotate-45', '-translate-y-[9px]');
-        document.body.style.overflow = '';
-      }
-    });
-    
-    // Close menu on link click (mobile)
-    navMenu.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        navMenu.classList.remove('open');
-        navToggle.setAttribute('aria-expanded', 'false');
-        if (navOverlay) navOverlay.classList.remove('active');
-        document.body.style.overflow = '';
-        
-        // Reset hamburger
-        const bars = navToggle.querySelectorAll('.bar');
-        bars[0].classList.remove('rotate-45', 'translate-y-[9px]');
-        bars[1].classList.remove('opacity-0');
-        bars[2].classList.remove('-rotate-45', '-translate-y-[9px]');
-      });
-    });
-    
-    // Close on overlay click
-    if (navOverlay) {
-      navOverlay.addEventListener('click', () => {
-        navMenu.classList.remove('open');
-        navToggle.setAttribute('aria-expanded', 'false');
-        navOverlay.classList.remove('active');
-        document.body.style.overflow = '';
-        
-        // Reset hamburger
-        const bars = navToggle.querySelectorAll('.bar');
-        bars[0].classList.remove('rotate-45', 'translate-y-[9px]');
-        bars[1].classList.remove('opacity-0');
-        bars[2].classList.remove('-rotate-45', '-translate-y-[9px]');
-      });
-    }
-  }
+  // --- QuickView Module ---
+  const QuickView = {
+    init() {
+      const btns = Utils.getAll(SELECTORS.quickViewBtns);
+      if (btns.length === 0) return;
 
-  // --- Back to Top Button ---
-  const backToTopBtn = document.querySelector('.back-to-top');
-  
-  if (backToTopBtn) {
-    window.addEventListener('scroll', () => {
-      if (window.pageYOffset > 300) {
-        backToTopBtn.classList.add('visible');
-      } else {
-        backToTopBtn.classList.remove('visible');
-      }
-    });
-    
-    backToTopBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
+      btns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          this.openModal(btn.closest('.featured-card'));
+        });
       });
-    });
-  }
+    },
 
-  // --- Enhanced Product Quick View ---
-  document.querySelectorAll('.quick-view').forEach(btn => {
-    btn.addEventListener('click', function(e) {
-      e.preventDefault(); // Prevent navigation
-      e.stopPropagation();
-      const productCard = this.closest('.featured-card');
-      const productName = productCard.querySelector('h3').textContent;
-      // Handle missing product-rating in some cards
-      const productRatingEl = productCard.querySelector('.product-rating');
-      const productRating = productRatingEl ? productRatingEl.outerHTML : '';
-      const productImg = productCard.querySelector('img').src;
-      const productId = productCard.dataset.productId;
+    openModal(card) {
+      if (!card) return;
       
-      // Create modal with Tailwind classes
+      const data = {
+        name: card.querySelector('h3')?.textContent || 'Product Value',
+        img: card.querySelector('img')?.src || '',
+        rating: card.querySelector('.product-rating')?.outerHTML || '',
+      };
+      
       const modal = document.createElement('div');
       modal.className = 'fixed inset-0 z-[2000] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm opacity-0 transition-opacity duration-300';
       
-      // Trigger reflow to enable transition
-      requestAnimationFrame(() => {
-        modal.classList.remove('opacity-0');
-      });
-
       modal.innerHTML = `
-        <div class="bg-surface dark:bg-[#1e1e1e] rounded-xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto md:overflow-hidden flex flex-col md:flex-row relative transform scale-95 transition-transform duration-300">
-          <button class="modal-close absolute top-4 right-4 z-10 w-8 h-8 flex items-center justify-center rounded-full bg-white/20 hover:bg-black/10 dark:hover:bg-white/10 text-text transition-colors text-xl font-bold">&times;</button>
-          <div class="w-full md:w-1/2 h-64 md:h-auto overflow-hidden flex-shrink-0">
-            <img src="${productImg}" alt="${productName}" class="w-full h-full object-cover">
+        <div class="bg-surface dark:bg-[#1e1e1e] rounded-xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto md:overflow-hidden flex flex-col md:flex-row relative transform scale-95 transition-transform duration-300" role="dialog" aria-modal="true">
+          <button class="modal-close absolute top-4 right-4 z-10 w-8 h-8 flex items-center justify-center rounded-full bg-white/20 hover:bg-black/10 dark:hover:bg-white/10 text-text transition-colors text-xl font-bold" aria-label="Close">&times;</button>
+          
+          <div class="w-full md:w-1/2 h-64 md:h-auto overflow-hidden flex-shrink-0 bg-white">
+            <img src="${data.img}" alt="${data.name}" class="w-full h-full object-contain p-4">
           </div>
-          <div class="w-full md:w-1/2 p-8 flex flex-col justify-center">
-            <h3 class="text-3xl font-serif text-primary mb-2">${productName}</h3>
-            <div class="mb-4">${productRating}</div>
+          
+          <div class="w-full md:w-1/2 p-8 flex flex-col justify-center text-left">
+            <h3 class="text-3xl font-serif text-primary mb-2">${data.name}</h3>
+            <div class="mb-4">${data.rating}</div>
             <p class="text-text-muted mb-6 leading-relaxed">
-              Experience the premium quality of our ${productName}. Handcrafted with attention to detail and designed for both performance and elegance. Perfect for professional and recreational use.
+              Experience the premium quality of our ${data.name}. Handcrafted with attention to detail and designed for both performance and elegance.
             </p>
             <div class="flex flex-col gap-3">
               <div class="flex items-center gap-2 mb-4">
                 <span class="inline-block w-3 h-3 rounded-full bg-green-500"></span>
-                <span class="text-sm font-medium text-gray-700">In Stock - Ready to ship</span>
+                <span class="text-sm font-medium text-gray-700 dark:text-gray-300">In Stock - Ready to ship</span>
               </div>
-              <button class="cta-button primary w-full py-3 bg-primary text-white font-semibold rounded-lg hover:bg-primary-dark transition-colors shadow-md">Add to Quote</button>
+              <button class="add-quote-btn cta-button primary w-full py-3 bg-primary text-white font-semibold rounded-lg hover:bg-primary-dark transition-colors shadow-md">Add to Quote</button>
               <a href="Category/equipment.html" class="w-full py-3 border border-primary text-primary font-semibold rounded-lg hover:bg-primary/5 transition-colors text-center">View Full Details</a>
             </div>
           </div>
         </div>
       `;
-      
+
       document.body.appendChild(modal);
       document.body.style.overflow = 'hidden';
       
-      const modalContent = modal.firstElementChild;
+      // Animation in
       requestAnimationFrame(() => {
-        modalContent.classList.remove('scale-95');
-        modalContent.classList.add('scale-100');
-      });
-      
-      // Add to enquiry functionality (mock)
-      const enquiryBtn = modal.querySelector('.cta-button');
-      enquiryBtn.addEventListener('click', () => {
-        const originalText = enquiryBtn.textContent;
-        enquiryBtn.textContent = 'Added!';
-        enquiryBtn.classList.add('bg-green-600', 'hover:bg-green-700');
+        modal.classList.remove('opacity-0');
+        const content = modal.firstElementChild;
+        content.classList.remove('scale-95');
+        content.classList.add('scale-100');
         
-        // Show notification
-        const notification = document.createElement('div');
-        notification.className = 'fixed bottom-8 left-1/2 -translate-x-1/2 bg-gray-900 text-white px-6 py-3 rounded-full shadow-lg z-[2100] flex items-center gap-3 animate-bounce';
-        notification.innerHTML = `
-          <i class="fas fa-check-circle text-green-400"></i>
-          <span>Added to enquiry list</span>
-        `;
-        document.body.appendChild(notification);
-        setTimeout(() => notification.remove(), 3000);
-        
-        setTimeout(() => {
-          enquiryBtn.textContent = originalText;
-          enquiryBtn.classList.remove('bg-green-600', 'hover:bg-green-700');
-        }, 2000);
+        // Focus trap or just focus close
+        const closeBtn = modal.querySelector('.modal-close');
+        if(closeBtn) closeBtn.focus();
       });
 
-      // Close modal logic
-      const closeModal = () => {
+      // Events
+      const close = () => {
         modal.classList.add('opacity-0');
-        modalContent.classList.remove('scale-100');
-        modalContent.classList.add('scale-95');
+        modal.firstElementChild.classList.remove('scale-100');
+        modal.firstElementChild.classList.add('scale-95');
         setTimeout(() => {
-          modal.remove();
-          document.body.style.overflow = '';
+            modal.remove();
+            document.body.style.overflow = '';
         }, 300);
       };
 
-      modal.querySelector('.modal-close').addEventListener('click', closeModal);
+      modal.querySelector('.modal-close').addEventListener('click', close);
       modal.addEventListener('click', (e) => {
-        if (e.target === modal) closeModal();
+          if(e.target === modal) close();
       });
-    });
-  });
-
-  // --- Scroll-triggered Animations ---
-  const animateElements = document.querySelectorAll('.service-card, .category-card, .featured-card, .testimonial-card, .section-title');
-  
-  // Set initial state
-  animateElements.forEach(el => {
-    el.classList.add('opacity-0', 'translate-y-8', 'transition-all', 'duration-700', 'ease-out');
-  });
-
-  const scrollObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.remove('opacity-0', 'translate-y-8');
-        entry.target.classList.add('opacity-100', 'translate-y-0');
-        scrollObserver.unobserve(entry.target);
+      document.addEventListener('keydown', function escapeHandler(e) {
+          if (e.key === 'Escape') {
+              close();
+              document.removeEventListener('keydown', escapeHandler);
+          }
+      });
+      
+      // Add to Quote Logic
+      const quoteBtn = modal.querySelector('.add-quote-btn');
+      if(quoteBtn) {
+          quoteBtn.addEventListener('click', () => {
+              quoteBtn.textContent = 'Added!';
+              quoteBtn.classList.replace('bg-primary', 'bg-green-600');
+              setTimeout(() => {
+                  quoteBtn.textContent = 'Add to Quote';
+                  quoteBtn.classList.replace('bg-green-600', 'bg-primary');
+              }, 2000);
+          });
       }
-    });
-  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    }
+  };
+  
+  // --- Forms Module ---
+  const Forms = {
+      init() {
+          const forms = Utils.getAll(SELECTORS.forms);
+          forms.forEach(form => {
+             // Validation
+             const inputs = form.querySelectorAll('input, textarea');
+             inputs.forEach(input => {
+                 input.addEventListener('input', () => {
+                     if(input.checkValidity()) {
+                         input.classList.remove('border-red-500');
+                         input.classList.add('border-green-500');
+                     } else {
+                         input.classList.remove('border-green-500');
+                         input.classList.add('border-red-500');
+                     }
+                 });
+             });
+             
+             // Submit
+             form.addEventListener('submit', (e) => {
+                 e.preventDefault();
+                 const btn = form.querySelector('button[type="submit"]');
+                 if(!btn) return;
+                 
+                 const originalText = btn.innerHTML;
+                 btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+                 btn.disabled = true;
+                 
+                 setTimeout(() => {
+                     // Success
+                     const msg = document.createElement('div');
+                     msg.className = 'bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4 flex items-center gap-2';
+                     msg.innerHTML = '<i class="fas fa-check-circle"></i><p>Message sent successfully!</p>';
+                     
+                     form.parentNode.insertBefore(msg, form);
+                     form.reset();
+                     
+                     btn.innerHTML = originalText;
+                     btn.disabled = false;
+                     
+                     setTimeout(() => msg.remove(), 4000);
+                 }, 1500);
+             });
+          });
+      }
+  };
 
-  animateElements.forEach(el => scrollObserver.observe(el));
+  // --- Initializer ---
+  const init = () => {
+    // Fade in body
+    document.body.classList.add('opacity-0', 'transition-opacity', 'duration-500');
+    setTimeout(() => document.body.classList.replace('opacity-0', 'opacity-100'), 50);
 
-  // --- Micro-interactions (Ripple) ---
-  document.querySelectorAll('button:not(.no-ripple), a.cta-button, .service-card, .category-card').forEach(el => {
-    el.addEventListener('click', (e) => {
-      // Don't trigger on simple links unless they are buttons
-      if (el.tagName === 'A' && !el.classList.contains('cta-button') && !el.closest('.category-card')) return;
+    Theme.init();
+    Navigation.init();
+    HeroSlider.init();
+    Animations.init();
+    QuickView.init();
+    Forms.init();
+    
+    // Preload
+    if (window.requestIdleCallback) {
+        window.requestIdleCallback(() => {
+            const link = document.createElement('link');
+            link.rel = 'preload';
+            link.as = 'style';
+            link.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css';
+            document.head.appendChild(link);
+        });
+    }
+  };
 
-      const rect = el.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      
-      const ripple = document.createElement('span');
-      // Added animate-[ripple_0.6s_linear] and updated class
-      ripple.className = 'ripple-effect absolute rounded-full bg-white/30 pointer-events-none transform scale-0';
-      ripple.style.left = `${x}px`;
-      ripple.style.top = `${y}px`;
-      
-      // Check if custom styles exist for ripple, if not use standard Tailwind animation class if valid
-      // But we have custom CSS for it in index.html head.
-      
-      el.appendChild(ripple);
-      setTimeout(() => ripple.remove(), 600);
-    });
-  });
-});
+  return { init };
+
+})();
+
+// Start App
+document.addEventListener('DOMContentLoaded', RahiApp.init);

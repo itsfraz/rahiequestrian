@@ -175,17 +175,15 @@
       </nav>
       
       <!-- Mobile Menu Overlay -->
-      <div class="mobile-menu-overlay fixed inset-0 bg-black/95 z-[2000] flex items-center justify-center opacity-0 pointer-events-none transition-all duration-300 md:hidden">
-         <div class="mobile-menu-container w-full text-center">
-            <ul class="nav-menu flex flex-col gap-8">
-              <li><a href="../index.html#home" class="text-white text-2xl font-semibold hover:text-accent transition-colors block py-2">Home</a></li>
-              <li><a href="../index.html#about" class="text-white text-2xl font-semibold hover:text-accent transition-colors block py-2">About</a></li>
-              <li><a href="../index.html#services" class="text-white text-2xl font-semibold hover:text-accent transition-colors block py-2">Services</a></li>
-              <li><a href="../index.html#products" class="text-white text-2xl font-semibold hover:text-accent transition-colors block py-2">Products</a></li>
-              <li><a href="../index.html#contact" class="text-white text-2xl font-semibold hover:text-accent transition-colors block py-2">Contact</a></li>
-            </ul>
-         </div>
-      </div>
+      <!-- Mobile Menu (Standardized) -->
+      <ul id="mobile-menu" class="fixed inset-0 bg-surface flex flex-col justify-center items-center gap-8 transform translate-x-full transition-transform duration-300 ease-in-out z-[1000] h-screen w-full top-0 left-0 md:hidden border-l border-primary/10 [&.open]:translate-x-0">
+          <li><a href="../index.html#home" class="text-text text-xl font-medium px-4 py-2 hover:text-primary transition-colors">Home</a></li>
+          <li><a href="../index.html#about" class="text-text text-xl font-medium px-4 py-2 hover:text-primary transition-colors">About</a></li>
+          <li><a href="../index.html#services" class="text-text text-xl font-medium px-4 py-2 hover:text-primary transition-colors">Services</a></li>
+          <li><a href="../index.html#products" class="text-text text-xl font-medium px-4 py-2 hover:text-primary transition-colors">Products</a></li>
+          <li><a href="../index.html#contact" class="text-text text-xl font-medium px-4 py-2 hover:text-primary transition-colors">Contact</a></li>
+      </ul>
+      <div class="nav-overlay fixed inset-0 bg-black/50 z-[999] opacity-0 pointer-events-none transition-opacity duration-300 md:hidden"></div>
     </header>
 
     <main class="max-w-7xl mx-auto px-6 py-24 md:py-32">

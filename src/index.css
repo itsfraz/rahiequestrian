@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Light Mode */
+    --color-background: #fdfbf7;
+    --color-surface: #ffffff;
+    --color-text-primary: #2c241b;
+    --color-text-muted: #5a4a3a;
+    --color-border: #e5e7eb;
+  }
+
+  .dark {
+    /* Dark Mode - Professional, deep dark theme */
+    --color-background: #0f1115; /* Very dark blue-grey, better than pure black */
+    --color-surface: #181b21;    /* Slightly lighter for cards */
+    --color-text-primary: #ecedee;
+    --color-text-muted: #9ca3af;
+    --color-border: #2d3748;
+  }
+
+  html {
+    @apply scroll-smooth;
+  }
+  
+  body {
+    @apply bg-background text-text antialiased transition-colors duration-300;
+  }
+}
+
+/* Scrollbar Styles */
+@layer utilities {
+  .scrollbar-none {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+}

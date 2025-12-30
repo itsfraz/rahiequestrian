@@ -37,7 +37,7 @@ const Navbar = () => {
   return (
     <header className={`fixed top-0 w-full z-50 transition-all duration-300 ${
       scrolled 
-        ? 'bg-surface/95 dark:bg-surface/95 backdrop-blur-md shadow-premium-sm border-b border-primary/10' 
+        ? 'bg-surface/95 backdrop-blur-md shadow-premium-sm border-b border-primary/10' 
         : 'bg-transparent'
     }`}>
       <nav className="max-w-7xl mx-auto px-6 py-3 flex justify-between items-center">
@@ -75,7 +75,7 @@ const Navbar = () => {
         </div>
 
         {/* Mobile Menu */}
-        <div className={`fixed inset-0 bg-surface dark:bg-[#0f1115] flex flex-col justify-center items-center gap-10 transition-transform duration-500 cubic-bezier(0.4, 0, 0.2, 1) z-[1000] h-[100dvh] w-full top-0 left-0 md:hidden ${
+        <div className={`fixed inset-0 bg-surface flex flex-col justify-center items-center gap-10 transition-transform duration-500 cubic-bezier(0.4, 0, 0.2, 1) z-[1000] h-[100dvh] w-full top-0 left-0 md:hidden ${
           isMenuOpen ? 'translate-x-0' : 'translate-x-full'
         }`}>
           {navLinks.map((link, idx) => (

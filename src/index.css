@@ -14,14 +14,7 @@
     --color-border: #e5e7eb;
   }
 
-  .dark {
-    /* Dark Mode - Professional, deep dark theme */
-    --color-background: #0f1115; /* Very dark blue-grey, better than pure black */
-    --color-surface: #181b21;    /* Slightly lighter for cards */
-    --color-text-primary: #ecedee;
-    --color-text-muted: #9ca3af;
-    --color-border: #2d3748;
-  }
+
 
   html {
     @apply scroll-smooth;

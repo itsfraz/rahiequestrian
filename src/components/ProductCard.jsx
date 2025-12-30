@@ -48,18 +48,18 @@ const ProductCard = ({ product }) => {
       
       {/* Share Button Absolute */}
       <div className="absolute top-4 right-4 z-20">
-        <button className="w-10 h-10 rounded-full bg-white/80 dark:bg-black/50 backdrop-blur text-text-muted hover:text-primary border border-transparent hover:border-primary/20 shadow-sm flex items-center justify-center transition-all hover:scale-110">
+        <button className="w-10 h-10 rounded-full bg-white/80 backdrop-blur text-text-muted hover:text-primary border border-transparent hover:border-primary/20 shadow-sm flex items-center justify-center transition-all hover:scale-110">
             <FaShareAlt />
         </button>
       </div>
 
       {/* Gallery Section */}
-      <div className="w-full lg:w-[45%] p-4 lg:p-6 bg-gray-50/50 dark:bg-black/20">
+      <div className="w-full lg:w-[45%] p-4 lg:p-6 bg-gray-50/50">
          <div className="flex flex-col-reverse lg:flex-row gap-4 h-full items-center">
             
             {/* Thumbnails */}
             {product.images.length > 0 && (
-              <div className="flex lg:flex-col gap-2 overflow-x-auto lg:overflow-y-auto lg:max-h-[500px] scrollbar-thin scrollbar-thumb-gray-200 dark:scrollbar-thumb-gray-700 pb-2 lg:pb-0 min-w-[60px] lg:w-[70px] lg:justify-center">
+              <div className="flex lg:flex-col gap-2 overflow-x-auto lg:overflow-y-auto lg:max-h-[500px] scrollbar-thin scrollbar-thumb-gray-200 pb-2 lg:pb-0 min-w-[60px] lg:w-[70px] lg:justify-center">
                 {product.images.map((img, idx) => (
                   <button
                     key={idx}
@@ -68,7 +68,7 @@ const ProductCard = ({ product }) => {
                     className={`relative w-[60px] h-[60px] lg:w-[60px] lg:h-[60px] rounded-md overflow-hidden border transition-all duration-200 flex-shrink-0 ${
                       activeImageIndex === idx 
                         ? 'border-primary ring-2 ring-primary/30 shadow-sm' 
-                        : 'border-border dark:border-white/10 hover:border-primary/50'
+                        : 'border-border hover:border-primary/50'
                     }`}
                   >
                     <img src={img} alt={`Thumbnail ${idx + 1}`} className="w-full h-full object-cover bg-white" />
@@ -160,7 +160,7 @@ const ProductCard = ({ product }) => {
                             className={`w-10 h-10 rounded-full border-2 shadow-sm flex items-center justify-center transition-all ${
                                 selectedColor === color 
                                 ? 'border-primary ring-2 ring-offset-2 ring-primary/30 scale-110' 
-                                : 'border-border dark:border-white/10 hover:border-primary/50'
+                                : 'border-border hover:border-primary/50'
                             }`}
                             title={color}
                         >
@@ -253,7 +253,7 @@ const ProductCard = ({ product }) => {
             className={`flex-1 px-8 py-3 rounded-full font-medium transition-all duration-200 flex items-center justify-center gap-2 border text-sm md:text-base ${
               isWishlistActive 
                 ? 'bg-red-50 border-red-200 text-red-600' 
-                : 'bg-surface hover:bg-gray-50 dark:hover:bg-white/5 border-border text-text'
+                : 'bg-surface hover:bg-gray-50 border-border text-text'
             }`}
           >
              <FaHeart className={isWishlistActive ? 'fill-current' : ''} />
